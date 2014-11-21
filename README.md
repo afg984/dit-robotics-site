@@ -33,5 +33,6 @@ nginx setup:
 ```
 #!text
 sudo systemctl enable nginx
+sudo mkdir /etc/nginx/sites-enabled
 sudo ln -s /home/afg/drs/drs_nginx.conf /etc/nginx/sites-enabled/
 ```
