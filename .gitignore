@@ -55,3 +55,4 @@ target/
 
 # django web server
 static/
+*.sqlite3
