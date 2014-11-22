@@ -22,6 +22,8 @@ git pull origin master
 ```
 
 uwsgi setup:
+
+change pid to afg in /etc/uwsgi/emperor.ini
 ```
 #!text
 sudo systemctl enable emperor.uwsgi
@@ -30,6 +32,8 @@ sudo ln -s /home/afg/drs/drs_uwsgi.ini /etc/uwsgi/vassals/
 ```
 
 nginx setup:
+
+remove "location /" block in /etc/nginx/nginx.conf
 ```
 #!text
 sudo systemctl enable nginx
