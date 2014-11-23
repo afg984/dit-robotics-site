@@ -4,6 +4,8 @@ from pygments import highlight
 from pygments.lexers import CppLexer
 from pygments.formatters import HtmlFormatter
 
+from .forms import CodeForm
+
 # Create your views here.
 
 def chinesc(request):
