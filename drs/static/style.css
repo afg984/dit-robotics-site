@@ -32,4 +32,13 @@ html, body {height:100%;}
 #footer {
 	background: #eee;
 	height: 50px;
+	line-height: 50px;
+	font-size: 90%;
+	color: #222;
+}
+#footer a {
+	color: #333;
+}
+#footer a:hover {
+	color: #555;
 }
