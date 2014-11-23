@@ -19,4 +19,4 @@ def chinesc(request):
         )
         return render(request, 'chinesc_submitted.html', context)
     else:
-        return render(request, 'chinesc.html', {'form': form})
+        return render(request, 'chinesc.html', {'form': CodeForm()})
