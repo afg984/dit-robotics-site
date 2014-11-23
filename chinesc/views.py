@@ -17,6 +17,6 @@ def chinesc(request):
             style=formatter.get_style_defs('.highlight'),
             form=form
         )
-        return render(request, 'chinesc.html', context)
+        return render(request, 'chinesc_submitted.html', context)
     else:
         return render(request, 'chinesc.html', {'form': form})
