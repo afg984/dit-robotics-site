@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-{{ style }}
+<style>
+{{ style|safe }}
+</style>
 {% endblock %}
 {% block content %}
-{{ code }}
+{{ code|safe }}
 <a href="{% url 'chinesc' %">Submit New One!</a>
 {% endblock %}
