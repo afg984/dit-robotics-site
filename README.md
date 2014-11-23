@@ -1,7 +1,7 @@
 # Setup on Arch Linux
 
 
-packages to install:
+###Packages Required
 ```
 #!text
 python-django
@@ -10,7 +10,7 @@ uwsgi-plugin-python
 nginx
 ```
 
-repo setup:
+###Repository Setup
 ```
 #!text
 cd
@@ -21,7 +21,7 @@ git remote add origin git@bitbucket.org:afg984/dit-robotics-site.git
 git pull origin master
 ```
 
-uwsgi setup:
+###uWSGI Setup
 
 change pid to afg in /etc/uwsgi/emperor.ini
 ```
@@ -31,7 +31,7 @@ sudo mkdir /etc/uwsgi/vassals
 sudo ln -s /home/afg/drs/drs_uwsgi.ini /etc/uwsgi/vassals/
 ```
 
-nginx setup:
+###Nginx Setup
 
 remove "location /" block in /etc/nginx/nginx.conf
 ```
