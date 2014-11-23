@@ -4,7 +4,7 @@
 
 * {margin: 0;}
 body, #wrapper {padding: 0;}
-#wrapper>*, #footer {padding: 0px 5px;}
+#wrapper>*, #footer {padding: 0px 10px;}
 
 body, input, select {font-family: "Lato", sans-serif;}
 h1, h2, h3, nav {font-family: "Roboto Slab", sans-serif;}
@@ -22,7 +22,7 @@ nav>ul>li>a {
 }
 nav>ul>li>a:hover {background:#333;}
 
-#content {padding: 10px;}
+#content {padding: 15px;}
 
 html, body {height:100%;}
 #wrapper {
