@@ -11,6 +11,10 @@ nginx
 ```
 
 ###Repository Setup
+
+The user "http" must have access to the project directory.
+
+This is currently achieved by adding "http" to "afg" group.
 ```
 #!text
 cd
@@ -22,8 +26,6 @@ git pull origin master
 ```
 
 ###uWSGI Setup
-
-change pid to afg in /etc/uwsgi/emperor.ini
 ```
 #!text
 sudo systemctl enable emperor.uwsgi
@@ -33,7 +35,11 @@ sudo ln -s /home/afg/drs/drs_uwsgi.ini /etc/uwsgi/vassals/
 
 ###Nginx Setup
 
-remove "location /" block in /etc/nginx/nginx.conf
+in /etc/nginx/nginx.conf:
+
+add "user http http;"
+
+remove "location /" block
 ```
 #!text
 sudo systemctl enable nginx
