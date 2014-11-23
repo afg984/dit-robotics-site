@@ -13,7 +13,7 @@ def chinesc(request):
     if form.is_valid():
         formatter = HtmlFormatter(style='default')
         context = dict(
-            code=highlight(form.user_code, CppLexer(), formatter),
+            code=highlight(form.cleaned_data.['user_code'], CppLexer(), formatter),
             style=formatter.get_style_defs('.highlight'),
             form=form
         )
