@@ -1,3 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Mono);
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
+
+body, input, select {font-family: "Roboto", sans-serif;}
+h1, h2, h3 {font-family: "Roboto Slab", sans-serif;}
+code, pre, textarea {font-family: "PT Mono", monospace;}
