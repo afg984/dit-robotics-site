@@ -2,6 +2,21 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
 
+body {padding: 0; margin: 0;}
+body>* {padding: 0px 5px;}
+
 body, input, select {font-family: "Roboto", sans-serif;}
 h1, h2, h3 {font-family: "Roboto Slab", sans-serif;}
 code, pre, textarea {font-family: "PT Mono", monospace;}
+
+nav, nav>ul>li>a {background:#111;}
+nav, nav>ul {padding 0; margin 0;}
+nav>ul {list-style-type:none; margin: 0; padding:0; overflow:hidden;}
+nav>ul>li {float:left;}
+nav>ul>li>a {
+	color:#fff;
+	display:block;
+	padding:10px; 
+	text-decoration:none;
+}
+nav>ul>li>a:hover {background:#333;}
