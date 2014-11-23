@@ -22,7 +22,10 @@ nav>ul>li>a {
 }
 nav>ul>li>a:hover {background:#333;}
 
-#content {padding: 15px;}
+#content {
+	color: #272727;
+	padding: 15px;
+}
 
 html, body {height:100%;}
 #wrapper {
