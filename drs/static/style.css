@@ -2,8 +2,9 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
 
-body {padding: 0; margin: 0;}
-body>* {padding: 0px 5px;}
+* {margin: 0;}
+body, #wrapper {padding: 0;}
+#wrapper>*, #footer {padding: 0px 5px;}
 
 body, input, select {font-family: "Roboto", sans-serif;}
 h1, h2, h3 {font-family: "Roboto Slab", sans-serif;}
@@ -20,3 +21,15 @@ nav>ul>li>a {
 	text-decoration:none;
 }
 nav>ul>li>a:hover {background:#333;}
+
+#content {padding: 10px;}
+
+html, body {height:100%;}
+#wrapper {
+	min-height: 100%;
+	margin-bottom: -50px;
+}
+#footer {
+	background: #eee;
+	height: 50px;
+}
