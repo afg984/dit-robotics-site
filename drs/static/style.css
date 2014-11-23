@@ -1,12 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Mono);
-@import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(http://fonts.googleapis.com/css?family=Lato);
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
 
 * {margin: 0;}
 body, #wrapper {padding: 0;}
 #wrapper>*, #footer {padding: 0px 5px;}
 
-body, input, select {font-family: "Roboto", sans-serif;}
+body, input, select {font-family: "Lato", sans-serif;}
 h1, h2, h3, nav {font-family: "Roboto Slab", sans-serif;}
 code, pre, textarea {font-family: "PT Mono", monospace;}
 
