@@ -14,7 +14,9 @@ def chinesc(request):
         formatter = HtmlFormatter(style='default')
         context = dict(
             code=highlight(form.user_code, CppLexer(), formatter),
-            style=formatter.get_style_defs('.highlight')
+            style=formatter.get_style_defs('.highlight'),
+            form=form
         )
+        return render(request, 'chinesc.html', context)
     else:
-        return form     
+        return render(request, 'chinesc.html', {'form': form})
