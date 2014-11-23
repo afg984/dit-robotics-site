@@ -3,7 +3,12 @@
 {% block title %}{{ title }} | Dit Robotics{% endblock %}
 
 {% block body %}
-<nav></nav>
+<nav>
+	<ul>
+		<li><a href="{% url 'home' %}">Dit Robotics</a></li>
+		<li><a href="{% url 'drive' %}">Drive</a></li>
+	</ul>
+</nav>
 <div>
 	<h1>{% block htitle %}{{ title }}{% endblock %}</h1>
 	{% block content %}{% endblock %}
