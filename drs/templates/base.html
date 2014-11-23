@@ -9,10 +9,10 @@
 		<li><a href="{% url 'drive' %}">Drive</a></li>
 	</ul>
 </nav>
-<div>
+<div id="content">
 <h1>{% block htitle %}{{ title }}{% endblock %}</h1>
 {% block content %}{% endblock %}
 </div>
-<div>
+<div id="footer">
 </div>
 {% endblock %}
