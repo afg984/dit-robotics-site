@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'drs',
     'drive',
+    'chinesc',
 )
 
 MIDDLEWARE_CLASSES = (
