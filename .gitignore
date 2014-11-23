@@ -54,5 +54,5 @@ docs/_build/
 target/
 
 # django web server
-static/
+#static/
 *.sqlite3
