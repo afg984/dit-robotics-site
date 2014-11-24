@@ -15,8 +15,9 @@ def chinesc(request):
         context = dict(
             code=highlight(form.cleaned_data['user_code'], CppLexer(), formatter),
             style=formatter.get_style_defs('.highlight'),
-            form=form
+            form=form,
+            title='ChinesC'
         )
         return render(request, 'chinesc_submitted.html', context)
     else:
-        return render(request, 'chinesc.html', {'form': CodeForm()})
+        return render(request, 'chinesc.html', {'form': CodeForm(), 'title': 'ChinesC'})
