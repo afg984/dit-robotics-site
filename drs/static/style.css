@@ -43,6 +43,9 @@ footer {
 	font-size: 90%;
 	color: #222;
 }
+footer>p {
+	margin: 0;
+}
 footer a {
 	color: #333;
 }
