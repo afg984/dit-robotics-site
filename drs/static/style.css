@@ -4,7 +4,7 @@
 
 * {margin: 0;}
 body, #wrapper {padding: 0;}
-#wrapper>*, #footer {padding: 0px 10px;}
+#wrapper>*, footer {padding: 0px 10px;}
 
 body, input, select {font-family: "Lato", sans-serif;}
 h1, h2, h3, nav {font-family: "Roboto Slab", sans-serif;}
@@ -37,16 +37,16 @@ html, body {height:100%;}
 	display: block;
 	height: 50px;
 }
-#footer {
+footer {
 	background: #eee;
 	height: 50px;
 	line-height: 50px;
 	font-size: 90%;
 	color: #222;
 }
-#footer a {
+footer a {
 	color: #333;
 }
-#footer a:hover {
+footer a:hover {
 	color: #555;
 }
