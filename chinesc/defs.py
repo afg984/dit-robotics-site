@@ -2,5 +2,5 @@ defs = {'std': '標準', 'string': '繩子', 'namespace': '名字洞', 'main': '
 
 def htmlConvert(s):
     for key, value in defs.items():
-        s.replace('>{}<'.format(key), '>{}<'.format(value))
+        s = s.replace('>{}<'.format(key), '>{}<'.format(value))
     return s
