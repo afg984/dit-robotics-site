@@ -2,7 +2,6 @@
 @import url(http://fonts.googleapis.com/css?family=Lato);
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
 
-* {margin: 0;}
 body, #wrapper {padding: 0;}
 #wrapper>*, footer {padding: 0px 10px;}
 
