@@ -6,3 +6,4 @@ __pycache__/
 unique_settings.py
 /static/
 *.sqlite3
+migrations/
