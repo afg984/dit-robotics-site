@@ -16,4 +16,5 @@ def message_board(request):
     else:
         context = dict()
         context['form'] = MessageForm()
+        context['messages'] = Message.objects.order_by('-id')
     return render(request, 'message_board.html', context)
