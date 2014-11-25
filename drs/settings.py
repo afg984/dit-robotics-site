@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'drs',
     'drive',
     'chinesc',
+    'message_board',
 )
 
 MIDDLEWARE_CLASSES = (
