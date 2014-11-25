@@ -9,10 +9,12 @@
 	</table>
 </form>
 
+<h2>Messages</h2>
 <table class="messages">
+	<tr><th>Nickname</th><th class="message">Message</th><th>Submission Time</th>
 	{% for message in messages %}
 	<tr>
-		<th>{{ message.nickname }}</th>
+		<td>{{ message.nickname }}</td>
 		<td class="message">{{ message.message }}</td>
 		<td>{{ message.created_at|date:"Y-m-d H:i" }}</td>
 	</tr>
