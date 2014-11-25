@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^drive/', include('drive.urls')),
     url(r'^chinesc/', include('chinesc.urls')),
+    url(r'^message_board/', include('message_board.urls')),
 )
 
 if settings.DEBUG:
