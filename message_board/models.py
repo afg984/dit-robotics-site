@@ -4,3 +4,4 @@ from django.db import models
 class Message(models.Model):
     nickname = models.CharField(max_length=31)
     message = models.TextField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
