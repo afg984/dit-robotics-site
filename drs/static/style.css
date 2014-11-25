@@ -52,3 +52,11 @@ footer a {
 footer a:hover {
 	color: #555;
 }
+
+.messages td, .messages th {
+	padding: 5px;
+	border-bottom: 1px #ccc solid
+}
+.messages .message {
+	width: 480px;
+}
