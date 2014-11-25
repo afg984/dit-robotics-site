@@ -14,6 +14,7 @@
 	<tr>
 		<th>{{ message.nickname }}</th>
 		<td>{{ message.message }}</td>
+		<td>{{ message.created_at|date:"Y-m-d H:i" }}</td>
 	</tr>
 	{% endfor %}
 </table>
