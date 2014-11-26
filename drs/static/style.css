@@ -54,6 +54,7 @@ footer a:hover {
 }
 
 .messages td, .messages th {
+	text-align: left;
 	padding: 5px;
 	border-bottom: 1px #ccc solid
 }
@@ -63,4 +64,11 @@ footer a:hover {
 
 form table td, form table th {
 	padding: 2px;
+}
+
+.error {
+	color: red;
+}
+.warning {
+	color: orange;
 }
