@@ -1,12 +1,9 @@
-from django.forms import Textarea
-from bootstrap_plugin.forms import BSModelForm
+from django.forms import Textarea, ModelForm
+from bootstrap_plugin.forms import simpleFactory
 
 from .models import Message
 
-class MessageForm(BSModelForm):
+class MessageForm(simpleFactory(ModelForm)):
     class Meta:
         model = Message
         fields = ['nickname', 'message']
-        widgets = {
-            'message': Textarea(attrs={'rows': 4})
-        }

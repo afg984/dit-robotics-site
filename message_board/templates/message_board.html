@@ -7,8 +7,8 @@
 <p class="text-warning">This message board is for testing only, and will be removed in the future</p>
 <form method="post" action="." role="form">
 	{% csrf_token %}
-	{{ form.as_div }}
-	<input type="submit">
+	{{ form.as_bs }}
+	<input type="submit" class="btn btn-default">
 </form>
 
 <h2>Messages</h2>
