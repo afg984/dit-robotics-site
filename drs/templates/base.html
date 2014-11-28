@@ -29,7 +29,7 @@
 </div>
 <footer class="footer">
 	<div class="container">
-		<p class="text-muted">{% now "Y-m-d H:i" %} <a href="{% url 'home' %}">ditrobotics.tw</a> | Contact Us: <a href="mailto:dit.nthu@gmail.com">dit.nthu@gmail.com</a></p>
+		<p class="text-muted"><a href="{% url 'home' %}">ditrobotics.tw</a> | {% now "Y-m-d H:i" %}</p>
 	</div>
 </footer>
 {% endblock %}
