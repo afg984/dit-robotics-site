@@ -19,8 +19,7 @@ def chinesc(request):
             code=code,
             style=formatter.get_style_defs('.highlight'),
             form=form,
-            title='ChinesC'
         )
         return render(request, 'chinesc_submitted.html', context)
     else:
-        return render(request, 'chinesc.html', {'form': CodeForm(), 'title': 'ChinesC'})
+        return render(request, 'chinesc.html', {'form': CodeForm()})
