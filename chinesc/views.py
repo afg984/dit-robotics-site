@@ -12,7 +12,7 @@ from .forms import CodeForm
 def chinesc(request):
     form = CodeForm(request.GET)
     if form.is_valid():
-        formatter = HtmlFormatter(style='default')
+        formatter = HtmlFormatter(style='xcode')
         code = highlight(form.cleaned_data['user_code'], CppLexer(), formatter)
         code = htmlConvert(code)
         context = dict(
