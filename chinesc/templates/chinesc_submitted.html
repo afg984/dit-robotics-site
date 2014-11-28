@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block mtitle %}ChinesC{% endblock %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static "highlight-style.css" %}" type="text/css">
 <style>
@@ -8,6 +10,7 @@
 </style>
 {% endblock %}
 {% block content %}
+<div class="page-header"><h1>ChinesC</h1></div>
 {{ code|safe }}
 <a class="btn btn-default" href="{% url 'chinesc' %}">Submit New One!</a>
 {% endblock %}
