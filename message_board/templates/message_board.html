@@ -5,12 +5,10 @@
 {% block content %}
 <div class="page-header"><h1>Message Board</h1></div>
 <p class="text-warning">This message board is for testing only, and will be removed in the future</p>
-<form method="post" action=".">
-	<table>
-		{% csrf_token %}
-		{{ form }}
-		<tr><td></td><td><input type="submit"></td></td></tr>
-	</table>
+<form method="post" action="." role="form">
+	{% csrf_token %}
+	{{ form.as_div }}
+	<input type="submit">
 </form>
 
 <h2>Messages</h2>

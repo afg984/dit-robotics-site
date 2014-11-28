@@ -1,8 +1,9 @@
-from django.forms import ModelForm, Textarea
+from django.forms import Textarea
+from bootstrap_plugin.forms import BSModelForm
 
 from .models import Message
 
-class MessageForm(ModelForm):
+class MessageForm(BSModelForm):
     class Meta:
         model = Message
         fields = ['nickname', 'message']
