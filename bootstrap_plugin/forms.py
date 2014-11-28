@@ -9,7 +9,6 @@ class BSModelForm(ModelForm):
         super(ModelForm, self).__init__(*args, **kw)
         for name, field in self.fields.items():
             self[name].css_classes = bsCssClasses
-            print(self[name].css_classes())
             field.widget.attrs['class'] = 'form-control'
 
     def as_div(self):
