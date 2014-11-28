@@ -11,8 +11,8 @@
 </form>
 
 <h2>Messages</h2>
-<table class="messages">
-	<tr><th>Nickname</th><th class="message">Message</th><th>Submission Time</th>
+<table class="table table-striped">
+	<tr><th>Nickname</th><th>Message</th><th>Submission Time</th>
 	{% for message in messages %}
 	<tr>
 		<td>{{ message.nickname }}</td>
