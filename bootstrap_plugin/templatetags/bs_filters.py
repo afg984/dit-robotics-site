@@ -17,7 +17,7 @@ def bs_form_control(value):
     childrens = list(soup.html.body.children)
     if len(childrens) != 1:
         raise IncorrectTagsSupported(len(childrens), value)
-    tag = childrens[1]
+    tag = childrens[0]
     try:
         tag.attrs['class'].append('form-control')
     except:
