@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'drive',
     'chinesc',
     'message_board',
+    'bootstrap_plugin',
 )
 
 MIDDLEWARE_CLASSES = (
