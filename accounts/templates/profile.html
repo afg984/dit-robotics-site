@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <th>Date Joined</th>
-    <td class="text-warning">This field is not ready yet...</td>
+    <td>{{ profileuser.date_joined|date:"Y/m/d" }}</td>
   </tr>
   {% if profileuser.username == user.username %}<tr>
     <th>Password</th>
