@@ -28,7 +28,7 @@ def registration_view(request):
 def profile(request, username=None):
     context = RequestContext(request)
     if username is None:
-        if request.user.is_authenticated:
+        if request.user.is_authenticated():
             context['profileuser'] = request.user
         else:
             return redirect('login')
