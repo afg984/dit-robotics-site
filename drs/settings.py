@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drs',
+    'accounts',
     'drive',
     'chinesc',
     'message_board',
