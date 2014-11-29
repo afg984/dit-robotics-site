@@ -14,7 +14,7 @@ class IncorrectTagsSupported(Exception):
 def bs_form_control(value):
     svalue = str(value)
     soup = BeautifulSoup(svalue, "html.parser")
-    childrens = list(soup.html.body.children)
+    childrens = list(soup.children)
     if len(childrens) != 1:
         raise IncorrectTagsSupported(len(childrens), value)
     tag = childrens[0]
