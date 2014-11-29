@@ -6,7 +6,7 @@ from .forms import MessageForm
 
 # Create your views here.
 def message_board(request):
-    context = dict()
+    context = RequestContext(request)
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -17,4 +17,4 @@ def message_board(request):
     else:
         context['form'] = MessageForm()
     context['messages'] = Message.objects.order_by('-id')
-    return render_to_response('message_board.html', RequestContext(request, context))
+    return render_to_response('message_board.html', context)
