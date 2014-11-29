@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bs_filters %}
 
 {% block mtitle %}Login{% endblock %}
 
@@ -9,11 +10,11 @@
   <input type="hidden" name="next" value="{{ next }}">
   <div class="form-group">
     {{ form.username.label_tag }}
-    {{ form.username }}
+    {{ form.username|bs_form_control }}
   </div>
   <div class="form-group">
     {{ form.password.label_tag }}
-    {{ form.password }}
+    {{ form.password|bs_form_control }}
   </div>
   <input type="submit" value="login">
 </form>
