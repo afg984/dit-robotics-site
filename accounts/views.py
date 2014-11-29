@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
-def registeration_view(request):
+def registration_view(request):
     context = RequestContext(request)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -16,7 +16,7 @@ def registeration_view(request):
     else:
         form = UserCreationForm()
     context['form'] = form
-    return render_to_response('registeration.html', context)
+    return render_to_response('registration.html', context)
 
 def profile(request, username=None):
     context = RequestContext(request)
