@@ -13,5 +13,6 @@ def registeration_view(request):
             return redirect('home')
     else:
         form = UserCreationForm()
-    return render_to_response('registeration.html')
+    context['form'] = form
+    return render_to_response('registeration.html', context)
 
