@@ -17,7 +17,7 @@
     <th>Registeration Date</th>
     <td class="text-warning">This field is not ready yet...</td>
   </tr>
-  {% if profileuser is user %}<tr>
+  {% if profileuser.username == user.username %}<tr>
     <th>Password</th>
     <td class="text-warning">This field is not ready yet...</td>
   </tr>{% endif %}
