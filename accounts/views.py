@@ -2,10 +2,18 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import login as django_login_view
 from django.contrib.auth import login, authenticate
 from django.http import Http404
 
 # Create your views here.
+
+def login_view(request):
+    if request.user.is_authenticated():
+        return redirect('profile')
+    else:
+        return django_login_view(request, template_name='login.html')
+
 
 def registration_view(request):
     context = RequestContext(request)
