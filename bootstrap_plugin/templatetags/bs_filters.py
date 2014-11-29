@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 from django import template
-from django.utils.html import mark_safe, conditional_escape
+from django.utils.html import mark_safe #, conditional_escape
 
 register = template.Library()
 
@@ -12,7 +12,7 @@ class IncorrectTagsSupported(Exception):
 
 @register.filter
 def bs_form_control(value):
-    svalue = str(conditional_escape(value))
+    svalue = str(value)
     soup = BeautifulSoup(svalue)
     childrens = list(soup.html.body.children)
     if len(childrens) != 1:
