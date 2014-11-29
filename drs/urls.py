@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^drive/', include('drive.urls')),
     url(r'^chinesc/', include('chinesc.urls')),
     url(r'^message_board/', include('message_board.urls')),
+    url(r'^accounts/', include('accounts.urls')),
 )
 
 if settings.DEBUG:
