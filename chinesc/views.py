@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from pygments import highlight
 from pygments.lexers import CppLexer
@@ -15,11 +16,13 @@ def chinesc(request):
         formatter = HtmlFormatter(style='xcode')
         code = highlight(form.cleaned_data['user_code'], CppLexer(), formatter)
         code = htmlConvert(code)
-        context = dict(
-            code=code,
-            style=formatter.get_style_defs('.highlight'),
-            form=form,
+        context = RequestContext(
+            request,
+            dict(code=code,
+                 style=formatter.get_style_defs('.highlight'),
+                 form=form,)
         )
-        return render(request, 'chinesc_submitted.html', context)
+        return render_to_response('chinesc_submitted.html', context)
     else:
-        return render(request, 'chinesc.html', {'form': CodeForm()})
+        return render_to_response('chinesc.html',
+                RequestContext(request, {'form': CodeForm()}))
