@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from django.templates import RequestContext
+from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
