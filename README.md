@@ -8,6 +8,7 @@ python-django
 uwsgi
 uwsgi-plugin-python
 nginx
+python-beautifulsoup4
 ```
 
 ###Repository Setup
