@@ -12,7 +12,7 @@ class IncorrectTagsSupported(Exception):
 
 @register.filter
 def bs_form_control(value):
-    soup = BeautifulSoup(soup)
+    soup = BeautifulSoup(value)
     childrens = list(soup.html.body.children)
     if len(childrens) != 1:
         raise IncorrectTagsSupported(len(childrens))
