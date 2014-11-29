@@ -26,6 +26,6 @@ def profile(request, username=None):
         else:
             return redirect('login')
     else:
-         context['profileuser'] = get_object_or_404(Users, username=username)
+         context['profileuser'] = get_object_or_404(User, username=username)
     return render_to_response('profile.html', context)
 
