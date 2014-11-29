@@ -56,6 +56,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+# allow templates to access the request object
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
+
 ROOT_URLCONF = 'drs.urls'
 
 WSGI_APPLICATION = 'drs.wsgi.application'
