@@ -12,7 +12,7 @@
 
 <h2>Messages</h2>
 <table class="table table-striped">
-  <tr><th>Nickname</th><th>Message</th><th>Submission Time</th>
+  <tr><th>Author</th><th>Message</th><th>Time</th>
   {% for message in messages %}
   <tr>
     <td>{{ message.user.username|default:message.nickname }}</td>
