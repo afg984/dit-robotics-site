@@ -10,7 +10,7 @@
     <td>{{ profileuser.username }}</td>
   <tr>
     <th>Email</th>
-    <td>{{ profileuser.email }}</td>
+    <td>{% if profile.email %}{{ profile.email }}{% if profile.email_verified %}; NOT VERIFIED{% endif %}{% else %}NOT SET{% endif %}</td>
   </tr>
   <tr>
     <th>Group</th>
