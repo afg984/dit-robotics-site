@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 
 # Django
-unique_settings.py
+secret_settings.py
 /static/
 *.sqlite3
 */migrations/*.py

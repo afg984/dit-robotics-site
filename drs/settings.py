@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # TEMPLATE_DEBUG = DEBUG
 
 # import security stuff from another untracked file
-from .unique_settings import SECRET_KEY, DEBUG, TEMPLATE_DEBUG
+from .secret_settings import SECRET_KEY, DEBUG, TEMPLATE_DEBUG
 
 ALLOWED_HOSTS = ['*']
 
