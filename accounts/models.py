@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.html import format_html
 
+def get_profile(user):
+    try:
+        return user.profile
+    except Profile.DoesNotExist:
+        return Profile.objects.create(user.profile)
+
 # Create your models here.
 class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
