@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 
 from .models import Profile
-from bootstrap_plugin import simpleFactory
+from bootstrap_plugin.forms import simpleFactory
 
 class ProfileEmailForm(simpleFactory(ModelForm)):
     class Meta:
