@@ -15,7 +15,10 @@ def message_board(request):
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
-            form.save()
+            message = form.save(commit=False)
+            if request.user.is_authenticated():
+                message.user = request.user
+            message.save()
             return redirect('message_board')
         else:
             context['form'] = form
