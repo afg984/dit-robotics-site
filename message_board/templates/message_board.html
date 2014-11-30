@@ -15,7 +15,7 @@
   <tr><th>Author</th><th>Message</th><th>Time</th>
   {% for message in messages %}
   <tr>
-    <td>{{ message.user.username|default:message.nickname }}</td>
+    <td>{{ message.user.profile.html_link|default:message.nickname }}</td>
     <td class="message">{{ message.message }}</td>
     <td>{{ message.created_at|date:"Y-m-d H:i" }}</td>
   </tr>
