@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.http import Http404
 
 from .models import get_profile
+from .forms import ProfileEmailForm
 
 # Create your views here.
 
@@ -21,18 +22,24 @@ def registration_view(request):
     context = RequestContext(request)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        email_form = ProfileEmailForm(request.POST)
+        if form.is_valid() and email_form.is_valid():
+            user = form.save()
             login(request,
                 authenticate(
                     username=form.cleaned_data['username'],
                     password=form.cleaned_data['password1'],
                 )
             )
+            profile = email_form.save(commit=False)
+            profile.user = user
+            profile.save()
             return redirect('profile')
     else:
         form = UserCreationForm()
+        email_form = ProfileEmailForm()
     context['form'] = form
+    context['email_form'] = email_form
     return render_to_response('registration.html', context)
 
 def profile(request, username=None):

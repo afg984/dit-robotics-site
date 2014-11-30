@@ -22,6 +22,7 @@
     {{ form.password2.errors }}
     {{ form.password2|bs_form_control }}
   </div>
+  {{ email_form.as_bs }}
   <input type="submit" class="btn btn-default">
 </form>
 {% endblock %}
