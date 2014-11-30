@@ -63,7 +63,7 @@ class KnownMemberEmail(models.Model):
             index = first.index('電子郵件')
 
             for row in reader:
-                email = row[index]
+                email = row[index].strip()
                 obj, created = cls.objects.get_or_create(email=email)
                 if created:
                     print('Added', email, 'to', cls.__name__)
