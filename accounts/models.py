@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.html import format_html
+from django.core.urlresolvers import reverse
 
 def get_profile(user):
     try:
@@ -46,7 +47,7 @@ class Profile(models.Model):
         return format_html(
             '<a class="{class_}" href="{href}">{username}</a>',
             class_='' if self.level_css is None else "text-" + self.level_css,
-            href='', # should be link to profile
+            href=reverse('profile', args=[self.user.username]),
             username = self.user.get_username(),
         )
 
