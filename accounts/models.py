@@ -17,13 +17,17 @@ class Profile(models.Model):
     email_verified = models.BooleanField(default=False)
 
     @property
+    def is_member(self):
+        return KnownMemberEmail.objects.filter(email=self.email).exists()
+
+    @property
     def access_level(self):
         if self.user.is_superuser:
             return 4
         elif False: # group moderator not implemented yet
             return 3
         elif self.email_verified:
-            if KnownMemberEmail.objects.exists(self.email):
+            if self.is_member:
                 return 2
             else:
                 return 1
