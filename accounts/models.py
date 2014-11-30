@@ -6,7 +6,7 @@ def get_profile(user):
     try:
         return user.profile
     except Profile.DoesNotExist:
-        return Profile.objects.create(user.profile)
+        return Profile.objects.create(user=user)
 
 # Create your models here.
 class Profile(models.Model):
