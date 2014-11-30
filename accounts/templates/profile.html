@@ -9,12 +9,12 @@
     <th>Username</th>
     <td>{{ profileuser.username }}</td>
   <tr>
-    <th>Email</th>
-    <td>{% if profile.email %}{{ profile.email }}{% if profile.email_verified %}; NOT VERIFIED{% endif %}{% else %}NOT SET{% endif %}</td>
+    <th>Email</th>{% with ev=profileuser.profile.email_verified %}
+    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.profile.email }}{% if not ev %} [NOT VERIFIED]{% endif %}</td>{% endwith %}
   </tr>
   <tr>
     <th>Group</th>
-    <td class="text-{{ profile.level_css }}">{{ profile.level_name }}</td>
+    <td class="text-{{ profileuser.profile.level_css }}">{{ profileuser.profile.level_name }}</td>
   </tr>
   <tr>
     <th>Date Joined</th>

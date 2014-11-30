@@ -6,7 +6,6 @@ from django.contrib.auth.views import login as django_login_view
 from django.contrib.auth import login, authenticate
 from django.http import Http404
 
-from .models import get_profile
 from .forms import ProfileEmailForm
 
 # Create your views here.
@@ -51,6 +50,5 @@ def profile(request, username=None):
             return redirect('login')
     else:
          context['profileuser'] = get_object_or_404(User, username=username)
-    context['profile'] = get_profile(context['profileuser'])
     return render_to_response('profile.html', context)
 
