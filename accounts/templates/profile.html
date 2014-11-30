@@ -10,7 +10,7 @@
     <td>{{ profileuser.username }}</td>
   <tr>
     <th>Email</th>{% with ev=profileuser.profile.email_verified %}
-    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.profile.email }}{% if not ev %} [NOT VERIFIED]{% endif %}</td>{% endwith %}
+    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% endif %}</td>{% endwith %}
   </tr>
   <tr>
     <th>Group</th>

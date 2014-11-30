@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.html import format_html
+from django.core.urlresolvers import reverse
 
 def get_profile(user):
     try:
@@ -11,14 +12,13 @@ def get_profile(user):
 # Create your models here.
 class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
-    LEVEL_CSS = ('muted', None, 'primary', 'warning', 'danger')
+    LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
     user = models.OneToOneField(User)
-    email = models.EmailField(unique=True)
     email_verified = models.BooleanField(default=False)
 
     @property
     def is_member(self):
-        return KnownMemberEmail.objects.filter(email=self.email).exists()
+        return KnownMemberEmail.objects.filter(email=self.user.email).exists()
 
     @property
     def access_level(self):
@@ -46,8 +46,8 @@ class Profile(models.Model):
     def html_link(self):
         return format_html(
             '<a class="{class_}" href="{href}">{username}</a>',
-            class_='' if self.level_css is None else "text-" + self.level_css,
-            href='', # should be link to profile
+            class_="text-" + self.level_css,
+            href=reverse('profile', args=[self.user.username]),
             username = self.user.get_username(),
         )
 
@@ -64,7 +64,7 @@ class KnownMemberEmail(models.Model):
             index = first.index('電子郵件')
 
             for row in reader:
-                email = row[index]
+                email = row[index].strip()
                 obj, created = cls.objects.get_or_create(email=email)
                 if created:
                     print('Added', email, 'to', cls.__name__)

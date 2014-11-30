@@ -1,9 +1,7 @@
-from django.forms import ModelForm
+from django import forms
+from django.contrib.auth.models import User
 
-from .models import Profile
 from bootstrap_plugin.forms import simpleFactory
 
-class ProfileEmailForm(simpleFactory(ModelForm)):
-    class Meta:
-        model = Profile
-        fields = ('email',)
+class EmailForm(simpleFactory(forms.Form)):
+    email = forms.EmailField()

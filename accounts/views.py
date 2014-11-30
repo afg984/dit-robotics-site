@@ -4,9 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login as django_login_view
 from django.contrib.auth import login, authenticate
-from django.http import Http404
 
-from .forms import ProfileEmailForm
+from .models import Profile
+from .forms import EmailForm
 
 # Create your views here.
 
@@ -21,7 +21,7 @@ def registration_view(request):
     context = RequestContext(request)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        email_form = ProfileEmailForm(request.POST)
+        email_form = EmailForm(request.POST)
         if form.is_valid() and email_form.is_valid():
             user = form.save()
             login(request,
@@ -30,13 +30,13 @@ def registration_view(request):
                     password=form.cleaned_data['password1'],
                 )
             )
-            profile = email_form.save(commit=False)
-            profile.user = user
-            profile.save()
+            user.email = email_form.cleaned_data['email']
+            user.save()
+            Profile.objects.create(user=user)
             return redirect('profile')
     else:
         form = UserCreationForm()
-        email_form = ProfileEmailForm()
+        email_form = EmailForm()
     context['form'] = form
     context['email_form'] = email_form
     return render_to_response('registration.html', context)
