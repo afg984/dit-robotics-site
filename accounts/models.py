@@ -13,12 +13,11 @@ class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
     LEVEL_CSS = ('muted', None, 'primary', 'warning', 'danger')
     user = models.OneToOneField(User)
-    email = models.EmailField(unique=True)
     email_verified = models.BooleanField(default=False)
 
     @property
     def is_member(self):
-        return KnownMemberEmail.objects.filter(email=self.email).exists()
+        return KnownMemberEmail.objects.filter(email=self.user.email).exists()
 
     @property
     def access_level(self):
