@@ -47,7 +47,7 @@ class Profile(models.Model):
             username = self.user.get_username(),
         )
 
-class KnownMemberEmail:
+class KnownMemberEmail(models.Model):
     email = models.EmailField(unique=True)
 
     @classmethod
