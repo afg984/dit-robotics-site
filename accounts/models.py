@@ -13,7 +13,7 @@ class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
     LEVEL_CSS = ('muted', None, 'primary', 'warning', 'danger')
     user = models.OneToOneField(User)
-    email = models.EmailField(blank=True, unique=True)
+    email = models.EmailField(unique=True)
     email_verified = models.BooleanField(default=False)
 
     @property
