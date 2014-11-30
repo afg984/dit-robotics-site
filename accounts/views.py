@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login as django_login_view
 from django.contrib.auth import login, authenticate
-from django.http import Http404
 
 from .models import Profile
 from .forms import EmailForm
