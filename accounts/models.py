@@ -12,7 +12,7 @@ def get_profile(user):
 # Create your models here.
 class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
-    LEVEL_CSS = ('muted', None, 'primary', 'warning', 'danger')
+    LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
     user = models.OneToOneField(User)
     email_verified = models.BooleanField(default=False)
 
@@ -46,7 +46,7 @@ class Profile(models.Model):
     def html_link(self):
         return format_html(
             '<a class="{class_}" href="{href}">{username}</a>',
-            class_='' if self.level_css is None else "text-" + self.level_css,
+            class_="text-" + self.level_css,
             href=reverse('profile', args=[self.user.username]),
             username = self.user.get_username(),
         )
