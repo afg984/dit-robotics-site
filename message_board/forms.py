@@ -1,4 +1,4 @@
-from django.forms import Textarea, ModelForm
+from django.forms import ModelForm
 from bootstrap_plugin.forms import simpleFactory
 
 from .models import Message
