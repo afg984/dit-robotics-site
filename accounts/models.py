@@ -23,7 +23,7 @@ class Profile(models.Model):
         elif False: # group moderator not implemented yet
             return 3
         elif self.email_verified:
-            if self.email in member_emails:
+            if KnownMemberEmail.objects.exists(self.email):
                 return 2
             else:
                 return 1
@@ -46,3 +46,21 @@ class Profile(models.Model):
             href='', # should be link to profile
             username = self.user.get_username(),
         )
+
+class KnownMemberEmail:
+    email = models.EmailField(unique=True)
+
+    @classmethod
+    def load_csv(cls, path):
+        import csv
+        with open(path, newline='') as file:
+            reader = csv.reader(file)
+
+            first = next(reader)
+            index = first.index('電子郵件')
+
+            for row in reader:
+                email = row[index]
+                obj, created = cls.objects.get_or_create(email=email)
+                if created:
+                    print('Added', email, 'to', cls.__name__)
