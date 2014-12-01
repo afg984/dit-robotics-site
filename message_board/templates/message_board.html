@@ -12,12 +12,12 @@
 
 <h2>Messages</h2>
 <table class="table table-striped">
-  <tr><th>Nickname</th><th>Message</th><th>Submission Time</th>
+  <tr><th>Nickname</th><th>Message</th><th class="hidden-xs">Submission Time</th>
   {% for message in messages %}
   <tr>
     <td>{{ message.nickname }}</td>
     <td class="message">{{ message.message }}</td>
-    <td>{{ message.created_at|date:"Y-m-d H:i" }}</td>
+    <td class="hidden-xs">{{ message.created_at|date:"Y-m-d H:i" }}</td>
   </tr>
   {% endfor %}
 </table>
