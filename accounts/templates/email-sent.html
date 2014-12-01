@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block mtitle %}Email Verification{% endblock %}
+
+{% block content %}
+<div class="page-header"><h1>Email Verification</h1></div>
+{% if not error %}
+<p>An email verification link has been sent to <address>{{ user.email }}</address>, the link will expire in 30 minutes ({{ user.profile.email_token_expire|date:"Y-m-d H:i" }}).</p>
+{% else %}
+<p class="text-danger">{{ error }}</p>
+{% endif %}
+{% endblock %}
