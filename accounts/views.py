@@ -80,7 +80,7 @@ def get_email_token(request):
                 context['error'] = 'The server failed to send an email to {}'.format(request.user.email)
         else:
             context['error'] = 'You have not set your email yet!'
-    return render_to_response('sent-email.html', context)
+    return render_to_response('email-sent.html', context)
 
 def verify_email(request):
     context = RequestContext(request)
