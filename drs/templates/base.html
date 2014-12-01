@@ -20,7 +20,7 @@
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
 	<li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
-	<li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+	<li><a href="{% url 'logout' %}?next={{ request.path }}">Log out</a></li>
         {% else %}
 	<li><a href="{% url 'registration' %}">Sign Up</a></li>
 	<li><a href="{% url 'login' %}?next={{ request.path }}">Log in</a></li>
