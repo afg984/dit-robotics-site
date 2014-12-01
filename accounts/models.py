@@ -51,6 +51,12 @@ class Profile(models.Model):
             username = self.user.get_username(),
         )
 
+    def set_email(self, email):
+        self.user.email = email
+        self.email_verified = False
+        self.user.save()
+        self.save()
+
 class KnownMemberEmail(models.Model):
     email = models.EmailField(unique=True)
 
