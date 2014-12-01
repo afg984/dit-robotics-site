@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.html import format_html
 from django.core.urlresolvers import reverse
+from django.utils import timezone
+
+from .tokens import gen_token
 
 def get_profile(user):
     try:
@@ -13,8 +16,11 @@ def get_profile(user):
 class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
     LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
+    TOKEN_LENGTH = 64
     user = models.OneToOneField(User)
     email_verified = models.BooleanField(default=False)
+    email_token = models.CharField(max_length=TOKEN_LENGTH, default="")
+    email_token_expire = models.DateTimeField(null=True)
 
     @property
     def is_member(self):
@@ -56,6 +62,14 @@ class Profile(models.Model):
         self.email_verified = False
         self.user.save()
         self.save()
+
+    def gen_email_token(self):
+        token = gen_token(self.TOKEN_LENGTH)
+        self.email_token = token
+        self.email_token_expire = timezone.now() + timezone.timedelta(minutes=30)
+        self.save()
+        return token
+
 
 class KnownMemberEmail(models.Model):
     email = models.EmailField(unique=True)
