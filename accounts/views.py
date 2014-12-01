@@ -60,6 +60,13 @@ def profile(request, username=None):
 @login_required
 def get_email_token(request):
     context = RequestContext(request)
+    body_template = '''\
+Dear {username},
+Please visit the link below to veerify your email address:
+http://{link}
+
+Dit Robotics Site'''
+
     if request.user.profile.email_verified:
         context['error'] = 'Your email is already verified.'
     else:
@@ -67,9 +74,7 @@ def get_email_token(request):
             token = request.user.profile.gen_email_token()
             success = send_mail(
                 'ditrobotics.tw email verification',
-                'Dear {username},\n'
-                'Please visit the link below to verifiy your email:\n'
-                '{link}'.format(
+                body_template.format(
                     username=request.user.username,
                     link=request.get_host() + reverse('verify_email', args=[token]),
                 ),
