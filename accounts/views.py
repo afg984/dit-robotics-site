@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.http import Http404
 
 from .models import Profile
 from .forms import EmailForm
@@ -79,3 +80,15 @@ def get_email_token(request):
         else:
             context['error'] = 'You have not set your email yet!'
     return render_to_response('sent-email.html', context)
+
+def verify_email(request):
+    context = RequestContext(request)
+    token = request.GET.get('token', None)
+    if token is None:
+        raise Http404
+    vuser = get_object_or_404(Profile, email_token=token).user
+    context['vuser'] = vuser
+    if vuser.profile.email_token_expire > timezone.now():
+        return render_to_response('email-verified.html', context)
+    else:
+        return render_to_response('email-link-expired.html', context)
