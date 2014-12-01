@@ -71,7 +71,7 @@ def get_email_token(request):
                 'Please visit the link below to verifiy your email:\n'
                 '{link}'.format(
                     username=request.user.username,
-                    link=request.META.get('SERVER_NAME', 'SERVER_NAME') + reverse('verify_email', args=[token]),
+                    link=request.get_host() + reverse('verify_email', args=[token]),
                 ),
                 'noreply.ditrobotics@gmail.com',
                 [request.user.email],
