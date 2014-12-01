@@ -60,29 +60,39 @@ def profile(request, username=None):
 @login_required
 def get_email_token(request):
     context = RequestContext(request)
-    body_template = '''\
+    if request.user.profile.email_verified:
+        context['error'] = 'Your email is already verified.'
+    else:
+        if request.method == 'GET':
+            return render_to_response('email-sent.html', context)
+
+        body_template = '''\
 Dear {username},
 Please visit the link below to veerify your email address:
 http://{link}
 
 Dit Robotics Site'''
 
-    if request.user.profile.email_verified:
-        context['error'] = 'Your email is already verified.'
-    else:
         if request.user.email:
             token = request.user.profile.gen_email_token()
-            success = send_mail(
-                'ditrobotics.tw email verification',
-                body_template.format(
-                    username=request.user.username,
-                    link=request.get_host() + reverse('verify_email', args=[token]),
-                ),
-                'noreply.ditrobotics@gmail.com',
-                [request.user.email],
-            )
-            if not success:
-                context['error'] = 'The server failed to send an email to {}'.format(request.user.email)
+            try:
+                success = send_mail(
+                    'ditrobotics.tw email verification',
+                    body_template.format(
+                        username=request.user.username,
+                        link=request.get_host() + reverse('verify_email', args=[token]),
+                    ),
+                    'noreply.ditrobotics@gmail.com',
+                    [request.user.email],
+                )
+            except Exception:
+                import traceback
+                context['error'] = traceback.format_exc().splitlines()[-1]
+            else:
+                if success:
+                    return redirect('get_email_token')
+                else:
+                    context['error'] = 'The server failed to send an email to {}'.format(request.user.email)
         else:
             context['error'] = 'You have not set your email yet!'
     return render_to_response('email-sent.html', context)
