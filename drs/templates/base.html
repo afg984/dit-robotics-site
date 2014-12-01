@@ -34,7 +34,7 @@
 </div>
 <footer class="footer">
   <div class="container">
-    <p class="text-muted"><a href="{% url 'home' %}">ditrobotics.tw</a> | {% now "Y-m-d H:i" %}</p>
+  <p class="text-muted"><a href="{% url 'home' %}">{{ request.get_host }}</a> | {% now "Y-m-d H:i" %}</p>
   </div>
 </footer>
 {% endblock %}
