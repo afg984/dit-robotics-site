@@ -16,7 +16,7 @@
   {% for message in messages %}
   <tr>
     <td>{{ message.nickname }}</td>
-    <td class="message">{{ message.message }}</td>
+    <td>{{ message.message }}</td>
     <td class="hidden-xs">{{ message.created_at|date:"Y-m-d H:i" }}</td>
   </tr>
   {% endfor %}
