@@ -63,9 +63,8 @@ def get_email_token(request):
         context['error'] = 'Your email is already verified.'
     else:
         if request.method == 'GET':
-            expire = request.user.profile.email_token_expire
-            if expire is None or expire < timezone.now():
-                context['error'] = 'The email verification link has expired.'
+            if not request.user.profile.email_token_alive:
+                context['error'] = 'The email verification link does not exist.'
             return render_to_response('email-sent.html', context)
 
         body_template = '''\
@@ -76,7 +75,7 @@ http://{link}
 Dit Robotics Site'''
 
         if request.user.email:
-            token = request.user.profile.gen_email_token()
+            token = request.user.profile.get_email_token()
             try:
                 success = send_mail(
                     'ditrobotics.tw email verification',
@@ -92,6 +91,7 @@ Dit Robotics Site'''
                 context['error'] = traceback.format_exc().splitlines()[-1]
             else:
                 if success:
+                    request.user.profile.email_token_refresh()
                     return redirect('get_email_token')
                 else:
                     context['error'] = 'The server failed to send an email to {}'.format(request.user.email)

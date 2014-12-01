@@ -69,14 +69,20 @@ class Profile(models.Model):
         self.email_token_expire = None
         self.save()
 
-    def gen_email_token(self):
-        if len(self.email_token) == self.TOKEN_LENGTH and self.email_token_expire > timezone.now():
-            pass
-        else:
+    def get_email_token(self):
+        if not self.email_token_alive:
             self.email_token = gen_token(self.TOKEN_LENGTH)
-        self.email_token_expire = timezone.now() + timezone.timedelta(minutes=30)
-        self.save()
+            self.save()
         return self.email_token
+
+    @property
+    def email_token_alive(self):
+        if self.email_token_expire is None:
+            return False
+        return len(self.email_token) == self.TOKEN_LENGTH and self.email_token_expire > timezone.now()
+
+    def email_token_refresh(self, delay=timezone.timedelta(minutes=30)):
+        self.email_token_expire = timezone.now() + delay
 
 
 class KnownMemberEmail(models.Model):
