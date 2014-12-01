@@ -71,7 +71,7 @@ def get_email_token(request):
                 'Please visit the link below to verifiy your email:\n'
                 '{link}'.format(
                     username=request.user.username,
-                    link=request.META.get('SERVER_NAME', 'SERVER_NAME') + reverse('verify_email') + '?token=' + token
+                    link=request.META.get('SERVER_NAME', 'SERVER_NAME') + reverse('verify_email', args=[token]),
                 ),
                 'noreply.ditrobotics@gmail.com',
                 [request.user.email],
@@ -82,11 +82,8 @@ def get_email_token(request):
             context['error'] = 'You have not set your email yet!'
     return render_to_response('email-sent.html', context)
 
-def verify_email(request):
+def verify_email(request, token):
     context = RequestContext(request)
-    token = request.GET.get('token', None)
-    if token is None:
-        raise Http404
     vuser = get_object_or_404(Profile, email_token=token).user
     context['vuser'] = vuser
     if vuser.profile.email_token_expire > timezone.now():

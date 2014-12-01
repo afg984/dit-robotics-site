@@ -16,7 +16,7 @@ def get_profile(user):
 class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
     LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
-    TOKEN_LENGTH = 64
+    TOKEN_LENGTH = 32
     user = models.OneToOneField(User)
     email_verified = models.BooleanField(default=False)
     email_token = models.CharField(max_length=TOKEN_LENGTH, default="")
