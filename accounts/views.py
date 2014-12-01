@@ -64,6 +64,9 @@ def get_email_token(request):
         context['error'] = 'Your email is already verified.'
     else:
         if request.method == 'GET':
+            expire = request.user.profile.email_token_expire
+            if expire is None or expire < timezone.now():
+                context['error'] = 'The email verification link has expired.'
             return render_to_response('email-sent.html', context)
 
         body_template = '''\
