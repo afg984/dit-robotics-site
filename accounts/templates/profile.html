@@ -10,7 +10,7 @@
     <td>{{ profileuser.username }}</td>
   <tr>
     <th>Email</th>{% with ev=profileuser.profile.email_verified %}
-    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% if profileuser == user %}<a href="{% url "get_email_token" %}" class="btn btn-default">VERIFY</a>{% endif %}{% endif %}</td>{% endwith %}
+    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% if profileuser == user %} | <a href="{% url "get_email_token" %}">VERIFY</a>{% endif %}{% endif %}</td>{% endwith %}
   </tr>
   <tr>
     <th>Group</th>
