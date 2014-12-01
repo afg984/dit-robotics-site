@@ -8,10 +8,10 @@
   <tr>
     <th>Username</th>
     <td>{{ profileuser.username }}</td>
-  <tr>{% with ev=profileuser.profile.email_verified %}
+  {% if profileuser == user or user.profile.access_level > 1 %}<tr>{% with ev=profileuser.profile.email_verified %}
     <th>Email{% if not ev and user == profileuser %}<form method="post" action="{% url 'get_email_token' %}">{% csrf_token %%}<input type="submit" value="VERIFY" class="btn-link"></form>{% endif %}</th>
     <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% endif %}</td>{% endwith %}
-  </tr>
+  </tr>{% endif %}
   <tr>
     <th>Group</th>
     <td class="text-{{ profileuser.profile.level_css }}">{{ profileuser.profile.level_name }}</td>
