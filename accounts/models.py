@@ -63,6 +63,12 @@ class Profile(models.Model):
         self.user.save()
         self.save()
 
+    def set_email_verified(self):
+        self.email_verified = True
+        self.email_token = ''
+        self.email_token_expire = None
+        self.save()
+
     def gen_email_token(self):
         if len(self.email_token) == self.TOKEN_LENGTH and self.email_token_expire > timezone.now():
             pass
