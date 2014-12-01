@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import Http404
-from django.util import timezone
+from django.utils import timezone
 
 from .models import Profile
 from .forms import EmailForm
