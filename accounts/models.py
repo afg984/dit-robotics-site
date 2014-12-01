@@ -64,11 +64,13 @@ class Profile(models.Model):
         self.save()
 
     def gen_email_token(self):
-        token = gen_token(self.TOKEN_LENGTH)
-        self.email_token = token
+        if len(self.email_token) == self.TOKEN_LENGTH and self.email_token_expire > timezone.now():
+            pass
+        else:
+            self.email_token = gen_token(self.TOKEN_LENGTH)
         self.email_token_expire = timezone.now() + timezone.timedelta(minutes=30)
         self.save()
-        return token
+        return self.email_token
 
 
 class KnownMemberEmail(models.Model):
