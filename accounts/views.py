@@ -4,6 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login as django_login_view
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 
 from .models import Profile
 from .forms import EmailForm
@@ -52,3 +55,27 @@ def profile(request, username=None):
          context['profileuser'] = get_object_or_404(User, username=username)
     return render_to_response('profile.html', context)
 
+@login_required
+def get_email_token(request):
+    context = RequestContext(request)
+    if request.user.profile.email_verified:
+        context['error'] = 'Your email is already verified.'
+    else:
+        if request.user.email:
+            token = request.user.profile.gen_email_token()
+            success = send_mail(
+                'ditrobotics.tw email verification',
+                'Dear {username},\n'
+                'Please visit the link below to verifiy your email:\n'
+                '{link}'.format(
+                    username=request.user.username,
+                    link=request.META.get('SERVER_NAME', 'SERVER_NAME') + reverse('verify_email') + '?token=' + token
+                ),
+                'noreply.ditrobotics@gmail.com',
+                [request.user.email],
+            )
+            if not success:
+                context['error'] = 'The server failed to send an email to {}'.format(request.user.email)
+        else:
+            context['error'] = 'You have not set your email yet!'
+    return render_to_response('sent-email.html', context)
