@@ -90,6 +90,8 @@ def verify_email(request):
     vuser = get_object_or_404(Profile, email_token=token).user
     context['vuser'] = vuser
     if vuser.profile.email_token_expire > timezone.now():
+        vuser.profile.email_verified = True
+        vuser.profile.save()
         return render_to_response('email-verified.html', context)
     else:
         return render_to_response('email-link-expired.html', context)
