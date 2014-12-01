@@ -64,6 +64,12 @@ ROOT_URLCONF = 'drs.urls'
 
 WSGI_APPLICATION = 'drs.wsgi.application'
 
+# Email
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply.ditrobotics@gmail.com'
+from .secret_settings import EMAIL_HOST_PASSWORD
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
