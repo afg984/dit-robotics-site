@@ -55,6 +55,7 @@ def profile(request, username=None):
             return redirect('login')
     else:
          context['profileuser'] = get_object_or_404(User, username=username)
+    context['isself'] = (request.user == context['profileuser'])
     return render_to_response('profile.html', context)
 
 @login_required
