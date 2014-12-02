@@ -70,7 +70,10 @@ class Profile(models.Model):
 
     def get_email_token(self):
         if not self.email_token_alive:
-            self.email_token = gen_token(self.TOKEN_LENGTH)
+            token = gen_token(self.TOKEN_LENGTH)
+            if not Profile.objects.filter(email_token=token).exists():
+                token = gen_token(self.TOKEN_LENGTH)
+            self.email_token = token
             self.save()
         return self.email_token
 
