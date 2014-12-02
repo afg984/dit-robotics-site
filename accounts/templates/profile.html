@@ -11,7 +11,7 @@
   {% if profileuser == user or user.profile.access_level > 1 %}
   <tr>{% with ev=profileuser.profile.email_verified %}
     <th>Email</th>
-    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% if user == profileuser %} <form method="post" class="inline" action="{% url 'get_email_token' %}">{% csrf_token %%}<button type="submit" class="btn-link nodec">VERIFY</button></form>{% endif %}{% endif %}</td>{% endwith %}
+    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% if user == profileuser %} <form method="post" class="inline" action="{% url 'get_email_token' %}">{% csrf_token %%}<input type="submit" class="btn-link nodec" value="VERIFY"></form>{% endif %}{% endif %}</td>{% endwith %}
   </tr>{% endif %}
   <tr>
     <th>Group</th>
