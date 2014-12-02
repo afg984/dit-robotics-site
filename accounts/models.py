@@ -14,6 +14,14 @@ def get_profile(user):
 
 # Create your models here.
 class Profile(models.Model):
+    class Meta:
+        permissions = (
+            ('inactive_user', 'Can mark a user as active = False'),
+            ('remove_user', 'Can delete another user'),
+            ('view_email', "Can view other's email"),
+            ('view_last_login', "Can view other's login time"),
+        )
+
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
     LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
     TOKEN_LENGTH = 64
