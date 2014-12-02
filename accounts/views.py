@@ -69,7 +69,7 @@ def get_email_token(request):
 
         body_template = '''\
 Dear {username},
-Please visit the link below to veerify your email address:
+Please visit the link below to verify your email address:
 http://{link}
 
 Dit Robotics Site'''
