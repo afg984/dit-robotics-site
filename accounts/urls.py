@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required
 from . import views
 
 urlpatterns = [
@@ -11,6 +11,6 @@ urlpatterns = [
     url(r'^email/get-token/$', views.get_email_token, name='get_email_token'),
     url(r'^email/verify/([0-9A-Za-z]{64})/$', views.verify_email, name='verify_email'),
     url(r'^userlist/$',
-        user_passes_test(lambda u: u.is_superuser)(views.UserList.as_view()),
+        login_required(views.UserList.as_view()),
         name='userlist'),
 ]
