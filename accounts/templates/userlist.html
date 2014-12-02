@@ -8,18 +8,17 @@
   <tr>
     <th>Username</th>
     <th>Group</th>
-    <th>Email</th>
-    <th>Last Login</th>
+    {% if perm.view_email %}<th>Email</th>{% endif %}
+    {% if perm.view_last_login %}<th>Last Login</th>{% endif %}
     <th>Date Joined</th>
   </tr>
   {% for each_user in all_users %}
   <tr>
     <td>{{ each_user.profile.html_link }}</td>
     <td class="text-{{ each_user.profile.level_css }}">{{ each_user.profile.level_name }}</td>
-    <td>{{ each_user.email }}</td>
-    <td>{{ each_user.last_login|date:"Y/m/d H:i:s" }}</td>
+    {% if perm.view_email %}<td>{{ each_user.email }}</td>{% endif %}
+    {% if perm.view_last_login %}<td>{{ each_user.last_login|date:"Y/m/d H:i:s" }}</td>{% endif %}
     <td>{{ each_user.date_joined|date:"Y/m/d" }}</td>
-
   </tr>
   {% endfor %}
 </table>
