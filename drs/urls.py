@@ -9,7 +9,6 @@ urlpatterns = patterns('',
     url(r'^about/$', views.AboutView.as_view(), name='about'),
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^drive/', include('drive.urls')),
-    url(r'^chinesc/', include('chinesc.urls')),
     url(r'^message_board/', include('message_board.urls')),
     url(r'^accounts/', include('accounts.urls')),
 )
