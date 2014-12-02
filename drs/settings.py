@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'drs',
     'accounts',
     'drive',
-    'chinesc',
     'message_board',
     'bootstrap_plugin',
 )
