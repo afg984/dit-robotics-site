@@ -82,6 +82,7 @@ class Profile(models.Model):
 
     def email_token_refresh(self, delay=timezone.timedelta(minutes=30)):
         self.email_token_expire = timezone.now() + delay
+        self.save()
 
 
 class KnownMemberEmail(models.Model):
