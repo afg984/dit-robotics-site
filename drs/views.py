@@ -1,12 +1,8 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.views.generic import ListView
+from django.views.generic import TemplateView, ListView
 from django.contrib.auth.models import User
 
-# Create your views here.
-
-def home(request):
-    return render_to_response('home.html', RequestContext(request))
+class HomeView(TemplateView):
+    template_name = 'home.html'
 
 
 class AboutView(ListView):

@@ -5,7 +5,7 @@ from . import settings
 from . import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.home, name='home'),
+    url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^about/$', views.AboutView.as_view(), name='about'),
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^drive/', include('drive.urls')),
