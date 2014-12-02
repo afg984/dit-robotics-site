@@ -17,6 +17,7 @@
         <li><a href="{% url 'drive' %}">Drive</a></li>
         <li><a href="{% url 'message_board' %}">Message Board</a></li>
 	{% if user.is_superuser %}<li><a href="{% url 'userlist' %}">User List</a></li>{% endif %}
+	<li><a href="{% url 'about' %}">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
