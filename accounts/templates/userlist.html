@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block mtitle %}User List{% endblock %}
+
+{% block content %}
+<div class="page-header"><h1>User List</h1></div>
+<table class="table table-striped">
+  <tr>
+    <th>Username</th>
+    <th>Group</th>
+    <th>Email</th>
+    <th>Last Login</th>
+    <th>Date Joined</th>
+  </tr>
+  {% for each_user in all_users %}
+  <tr>
+    <td>{{ each_user.profile.html_link }}</td>
+    <td class="text-{{ each_user.profile.level_css }}">{{ each_user.profile.level_name }}</td>
+    <td>{{ each_user.email }}</td>
+    <td>{{ each_user.last_login|date:"Y/m/d H:i:s" }}</td>
+    <td>{{ each_user.date_joined|date:"Y/m/d" }}</td>
+
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

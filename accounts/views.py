@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.views.generic import ListView
 
 from .models import Profile
 from .forms import EmailForm
@@ -108,3 +109,8 @@ def verify_email(request, token):
         return render_to_response('email-verified.html', context)
     else:
         return render_to_response('email-link-expired.html', context)
+
+class UserList(ListView):
+    context_object_name = 'all_users'
+    queryset = User.objects.all()
+    template_name = 'userlist.html'
