@@ -8,6 +8,6 @@
 <p>... some text ...</p>
 <p>... some other text ...</p>
 <h2>Site</h2>
-<p>Development: <a target="_blank" href="https://bitbucket.org/afg984/dit-robotics-site/">https://bitbucket.org/afg984/dit-robotics-site/</a></p>
 <p>Maintainer{{ maintainers|pluralize }}: {% for maintainer in maintainers %}{% if not forloop.first %}, {% endif %}{{ maintainer.profile.html_link }}{% empty %}There are currently none.{% endfor %}</p>
+<p><a target="_blank" href="https://bitbucket.org/afg984/dit-robotics-site/issues">Report Bug</a></p>
 {% endblock %}
