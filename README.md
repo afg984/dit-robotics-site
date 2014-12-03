@@ -1,5 +1,6 @@
 # Setup on Arch Linux
 
+This is just a note for reinstallation
 
 ###Packages Required
 ```
