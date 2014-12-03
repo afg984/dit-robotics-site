@@ -3,7 +3,7 @@
 {% block mtitle %}Email Verification{% endblock %}
 
 {% block content %}
-<div class="page-header"><h1>Email Verification</h1></div>
+<h2 class="page-header">Email Verification</h2>
 {% if not error %}
 <p>An email verification link has been sent to <code>{{ user.email }}</code>, the link will expire at {{ user.profile.email_token_expire|date:"Y-m-d H:i" }}.</p>
 {% else %}

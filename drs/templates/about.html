@@ -3,11 +3,10 @@
 {% block mtitle %}About{% endblock %}
 
 {% block content %}
-<div class="page-header"><h1>About</h1></div>
-<h2>Dit Robotics</h2>
+<h2 class="page-header">Dit Robotics</h2>
 <p>... some text ...</p>
 <p>... some other text ...</p>
-<h2>Site</h2>
+<h2 class="page-header">Site</h2>
 <p>Maintainer{{ maintainers|pluralize }}: {% for maintainer in maintainers %}{% if not forloop.first %}, {% endif %}{{ maintainer.profile.html_link }}{% empty %}There are currently none.{% endfor %}</p>
 <p><a target="_blank" href="https://bitbucket.org/afg984/dit-robotics-site/issues">Report Bug</a></p>
 {% endblock %}
