@@ -7,7 +7,7 @@ from . import views
 urlpatterns = patterns('',
     url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^about/$', views.AboutView.as_view(), name='about'),
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^drive/', include('drive.urls')),
     url(r'^message_board/', include('message_board.urls')),
     url(r'^accounts/', include('accounts.urls')),
