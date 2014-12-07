@@ -95,6 +95,9 @@ class Profile(models.Model):
         self.email_token_expire = timezone.now() + delay
         self.save()
 
+    def __str__(self):
+        return self.user.username
+
 
 class KnownMemberEmail(models.Model):
     email = models.EmailField(unique=True)
