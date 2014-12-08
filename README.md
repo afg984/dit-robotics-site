@@ -21,7 +21,7 @@ cd
 mkdir drs
 cd drs
 git init
-git remote add origin git@bitbucket.org:afg984/dit-robotics-site.git
+git remote add origin <remote-repo>
 git pull origin master
 ```
 
