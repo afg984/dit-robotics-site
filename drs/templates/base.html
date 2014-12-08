@@ -20,6 +20,7 @@
 	<li><a href="{% url 'about' %}">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        {% if user.is_staff %}<li><a target="_blank" href="{% url 'admin:index' %}">Admin</a></li>{% endif %}
         {% if user.is_authenticated %}
 	<li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
 	<li><a href="{% url 'logout' %}?next={{ request.path }}">Log out</a></li>
