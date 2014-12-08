@@ -4,7 +4,6 @@ This is just a note for reinstallation
 
 ###Packages Required
 ```
-#!text
 python-django
 uwsgi
 uwsgi-plugin-python
@@ -18,7 +17,6 @@ The user "http" must have access to the project directory.
 
 This is currently achieved by adding "http" to "afg" group.
 ```
-#!text
 cd
 mkdir drs
 cd drs
@@ -29,7 +27,6 @@ git pull origin master
 
 ###uWSGI Setup
 ```
-#!text
 sudo systemctl enable emperor.uwsgi
 sudo mkdir /etc/uwsgi/vassals
 sudo ln -s /home/afg/drs/drs_uwsgi.ini /etc/uwsgi/vassals/
@@ -43,7 +40,6 @@ add "user http http;"
 
 remove "location /" block
 ```
-#!text
 sudo systemctl enable nginx
 sudo mkdir /etc/nginx/sites-enabled
 sudo ln -s /home/afg/drs/drs_nginx.conf /etc/nginx/sites-enabled/
