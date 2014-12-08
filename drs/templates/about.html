@@ -8,5 +8,5 @@
 <p>... some other text ...</p>
 <h2 class="page-header">Site</h2>
 <p>Maintainer{{ maintainers|pluralize }}: {% for maintainer in maintainers %}{% if not forloop.first %}, {% endif %}{{ maintainer.profile.html_link }}{% empty %}There are currently none.{% endfor %}</p>
-<p><a target="_blank" href="https://bitbucket.org/afg984/dit-robotics-site/issues">Report Bug</a></p>
+<p><a target="_blank" href="https://github.com/afg984/dit-robotics-site/issues">Report Bug</a></p>
 {% endblock %}
