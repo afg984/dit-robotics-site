@@ -14,6 +14,6 @@ def drive(request):
             drive_file.save()
             return redirect('drive')
     else:
-        form UploadFileForm()
+        form = UploadFileForm()
     context['form'] = form
     return render_to_response('drive.html', context)
