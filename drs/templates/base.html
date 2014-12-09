@@ -21,7 +21,7 @@
 	{% nav_li 'about' %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {% if user.is_staff %}{% nav_li 'admin:index' 'Admin' %}{% endif %}
+        {% if user.is_staff %}<li><a target="_blank" href="{% url "admin:index" %}">Admin</a></li>{% endif %}
         {% if user.is_authenticated %}
 	{% nav_li 'profile' user.username %}
 	<li><a href="{% url 'logout' %}?next={{ request.path }}">Log out</a></li>
