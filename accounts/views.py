@@ -23,6 +23,8 @@ def login_view(request):
 
 
 def registration_view(request):
+    if request.user.is_authenticated():
+        return redirect('profile')
     context = RequestContext(request)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
