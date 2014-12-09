@@ -5,6 +5,6 @@ __pycache__/
 # Django
 secret_settings.py
 /static/
-*.sqlite3
+/database/
 */migrations/*.py
 !*/migrations/__init__.py
