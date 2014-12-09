@@ -1,4 +1,5 @@
 {% extends "structure.html" %}
+{% load navpath %}
 
 {% block body %}
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -14,19 +15,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="{% url 'drive' %}">Drive</a></li>
-        <li><a href="{% url 'message_board' %}">Message Board</a></li>
-	{% if user.is_superuser %}<li><a href="{% url 'userlist' %}">User List</a></li>{% endif %}
-	<li><a href="{% url 'about' %}">About</a></li>
+	{% nav_li 'drive' %}
+	{% nav_li 'message_board' %}
+	{% if user.is_superuser %}{% nav_li 'userlist' 'User List' %}{% endif %}
+	{% nav_li 'about' %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {% if user.is_staff %}<li><a target="_blank" href="{% url 'admin:index' %}">Admin</a></li>{% endif %}
+        {% if user.is_staff %}{% nav_li 'admin:index' 'Admin' %}{% endif %}
         {% if user.is_authenticated %}
-	<li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+	{% nav_li 'profile' user.username %}
 	<li><a href="{% url 'logout' %}?next={{ request.path }}">Log out</a></li>
         {% else %}
-	<li><a href="{% url 'registration' %}">Sign up</a></li>
-	<li><a href="{% url 'login' %}?next={{ request.path }}">Log in</a></li>
+	{% nav_li 'registration' 'Sign Up' %}
+	<li{% caiv 'login' %}><a href="{% url 'login' %}?next={{ request.path }}">Log in</a></li>
         {% endif %}
       </ul>
     </div>
