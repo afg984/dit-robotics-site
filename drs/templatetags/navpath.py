@@ -15,8 +15,7 @@ def nav_li(context, view, display=None):
     href = reverse(view)
     return format_html(
         '<li{cls}><a href="{href}">{display}</a></li>',
-        # TODO: why no quotes?
-        cls=' class=active' if context['request'].path == href else '',
+        cls=mark_safe(' class="active"') if context['request'].path == href else '',
         href=href,
         display=display,
     )
