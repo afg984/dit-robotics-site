@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
 
 from drs import settings
@@ -9,7 +9,12 @@ from .forms import UploadFileForm
 from .models import DriveFile
 # Create your views here.
 
-@login_required
+def require_member(*args, **kw):
+    def is_member(user):
+        return user.is_authenticated() and user.profile.access_level > 1
+    return user_passes_test(is_member)(*args, **kw)
+
+@require_member
 def drive(request):
     context = RequestContext(request)
     if request.method == 'POST':
@@ -26,7 +31,6 @@ def drive(request):
     context['files'] = DriveFile.objects.filter(user=request.user)
     return render_to_response('drive.html', context)
 
-@login_required
 def get(request, id):
     drive_file = get_object_or_404(DriveFile, id=id)
     if drive_file.user != request.user:
@@ -39,7 +43,6 @@ def get(request, id):
         response['X-Accel-Redirect'] = drive_file.file.url
     return response
 
-@login_required
 def delete(request, id):
     drive_file = get_object_or_404(DriveFile, id=id)
     if drive_file.user != request.user:
