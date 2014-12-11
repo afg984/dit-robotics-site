@@ -38,3 +38,11 @@ def get(request, id):
     else:
         response['X-Accel-Redirect'] = drive_file.file.url
     return response
+
+@login_required
+def delete(request, id):
+    drive_file = get_object_or_404(DriveFile, id=id)
+    if drive_file.user != request.user:
+        return render_to_response('drive_denied.html', RequestContext(request))
+    drive_file.delete()
+    return redirect('drive')
