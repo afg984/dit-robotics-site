@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
 from .forms import UploadFileForm
+from .models import DriveFile
 # Create your views here.
 
 @login_required
@@ -19,4 +20,5 @@ def drive(request):
     else:
         form = UploadFileForm()
     context['form'] = form
+    context['files'] = DriveFile.objects.filter(user=request.user)
     return render_to_response('drive.html', context)
