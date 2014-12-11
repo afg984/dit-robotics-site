@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 def get_store_path(instance, filename):
-    return os.path.join('drive', instance.user, filename)
+    return os.path.join('drive', instance.user.username, filename)
 
 class DriveFile(models.Model):
     filename = models.CharField(max_length=64)
