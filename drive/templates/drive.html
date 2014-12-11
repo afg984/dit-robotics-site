@@ -14,7 +14,7 @@
 </form>
 <h2 class="page-header">My Files</h2>
 {% for file in files %}
-<p>{{ file }}</p>
+<p>{{ file.as_link }}</p>
 {% empty %}
 <p>You don't have any files.</p>
 {% endfor %}
