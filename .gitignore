@@ -5,6 +5,7 @@ __pycache__/
 # Django
 secret_settings.py
 /static/
+/media/
 /database/
 */migrations/*.py
 !*/migrations/__init__.py
