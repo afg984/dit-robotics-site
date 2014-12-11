@@ -3,5 +3,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url('^$', views.drive, name='drive'),
+    url(r'^$', views.drive, name='drive'),
+    url(r'^get/(\d+)/', views.get, name='drive-get'),
 ]
