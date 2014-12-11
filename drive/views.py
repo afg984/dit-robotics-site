@@ -1,9 +1,11 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 from .forms import UploadFileForm
 # Create your views here.
 
+@login_required
 def drive(request):
     context = RequestContext(request)
     if request.method == 'POST':

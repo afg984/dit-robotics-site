@@ -3,9 +3,7 @@
 {% block mtitle %}Drive{% endblock %}
 
 {% block content %}
-<h2 class="page-header">Drive</h2>
-<p>Welcome to Dit Drive!</p>
-<p class="text-warning">This is a work-in-progress project.</p>
+<h2 class="page-header">Upload File<small> may be deleted!</small></h2>
 <form role="form" action="." method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="form-group">
@@ -14,4 +12,5 @@
   </div>
   <input type="submit" class="btn btn-default">
 </form>
+<h2 class="page-header">My Files</h2>
 {% endblock %}
