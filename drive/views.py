@@ -13,6 +13,7 @@ def drive(request):
         if form.is_valid():
             drive_file = form.save(commit=False)
             drive_file.filename = 'NotImplemented'
+            drive_file.user = request.user
             drive_file.save()
             return redirect('drive')
     else:
