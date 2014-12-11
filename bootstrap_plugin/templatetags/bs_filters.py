@@ -11,7 +11,8 @@ class IncorrectTagsSupported(Exception):
 
 
 @register.filter
-def bs_form_control(value):
+def add_class(value, class_):
+    class_ = class_.split()
     svalue = str(value)
     soup = BeautifulSoup(svalue, "html.parser")
     childrens = list(soup.children)
@@ -19,7 +20,11 @@ def bs_form_control(value):
         raise IncorrectTagsSupported(len(childrens), value)
     tag = childrens[0]
     try:
-        tag.attrs['class'].append('form-control')
-    except:
-        tag.attrs['class'] = 'form-control'
+        tag.attrs['class'].extend(class_)
+    except KeyError:
+        tag.attrs['class'] = class_
     return mark_safe(str(tag))
+
+@register.filter
+def bs_form_control(value):
+    return add_class(value, 'form-control')
