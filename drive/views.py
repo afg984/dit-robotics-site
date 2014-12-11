@@ -1,6 +1,9 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+from drs import settings
 
 from .forms import UploadFileForm
 from .models import DriveFile
@@ -22,3 +25,16 @@ def drive(request):
     context['form'] = form
     context['files'] = DriveFile.objects.filter(user=request.user)
     return render_to_response('drive.html', context)
+
+@login_required
+def get(request, id):
+    drive_file = get_object_or_404(DriveFile, id=id)
+    if drive_file.user != request.user:
+        return render_to_response('drive_denied.html', RequestContext(request))
+    response = HttpResponse()
+    response['Content-Disposition'] = 'attachment; filename={}'.format(drive_file.basename)
+    if settings.DEBUG:
+        response.content = drive_file.file.read()
+    else:
+        response['X-Accel-Redirect'] = drive_file.file.url
+    return response
