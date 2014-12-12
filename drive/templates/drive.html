@@ -23,7 +23,9 @@
         {% for file in files %}
         <tr>
           <td>{{ file.as_link }}</td>
-	  <td><button type="submit" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
+	  <td class="text-right"><small>{{ file.file.size|filesizeformat }}</small></td>
+	  <td class="text-right"><small>{{ file.created_at|date:"Y/m/d H:i:s" }}</small></td>
+	  <td class="text-right"><button type="submit" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
         </tr>
         {% empty %}
         <tr><td>You don't have any files.</td></tr>
