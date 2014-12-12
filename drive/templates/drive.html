@@ -6,8 +6,8 @@
 <h2 class="page-header">Drive</h2>
 <div class="row">
   <div class="col-md-4">
+    <p>Welcome to Dit Drive!</p>
     <p>Usage: {{ usage|filesizeformat }}</p>
-    <p class="text-warning">Dit Drive is still testing, files may be deleted!</p>
     <form role="form" action="." method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-group">
