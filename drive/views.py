@@ -28,7 +28,9 @@ def drive(request):
     else:
         form = UploadFileForm()
     context['form'] = form
-    context['files'] = DriveFile.objects.filter(user=request.user)
+    files = DriveFile.objects.filter(user=request.user)
+    context['files'] = files
+    context['usage'] = sum(drive_file.file.size for drive_file in files)
     return render_to_response('drive.html', context)
 
 def get(request, id):
