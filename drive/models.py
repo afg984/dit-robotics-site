@@ -12,6 +12,7 @@ class DriveFile(models.Model):
     filename = models.CharField(max_length=64)
     user = models.ForeignKey(User)
     file = models.FileField(upload_to=get_store_path)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     @property
     def basename(self):
