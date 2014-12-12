@@ -11,7 +11,7 @@ def get_store_path(instance, filename):
 class DriveFile(models.Model):
     filename = models.CharField(max_length=64)
     user = models.ForeignKey(User)
-    file = models.FileField(upload_to=get_store_path)
+    file = models.FileField(upload_to=get_store_path, max_length=64)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property

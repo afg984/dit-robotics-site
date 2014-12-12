@@ -21,7 +21,7 @@ def drive(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             drive_file = form.save(commit=False)
-            drive_file.filename = request.FILES['file'].name[:64]
+            drive_file.filename = request.FILES['file']
             drive_file.user = request.user
             drive_file.save()
             return redirect('drive')
