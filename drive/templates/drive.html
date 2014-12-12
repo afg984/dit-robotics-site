@@ -23,8 +23,8 @@
         {% for file in files %}
         <tr>
           <td>{{ file.as_link }}</td>
-	  <td class="text-right"><small>{{ file.file.size|filesizeformat }}</small></td>
-	  <td class="text-right"><small>{{ file.created_at|date:"Y/m/d H:i:s" }}</small></td>
+	  <td class="text-right hidden-xs"><small>{{ file.file.size|filesizeformat }}</small></td>
+	  <td class="text-right hidden-xs"><small>{{ file.created_at|date:"Y/m/d H:i:s" }}</small></td>
 	  <td class="text-right"><button type="submit" onclick="return confirm('Are you sure you want to delete the following file?\n{{ file.filename }}')" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
         </tr>
         {% empty %}
