@@ -1,6 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block mtitle %}Drive{% endblock %}
+{% block head %}
+<script src="{% static 'js/dropzone.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 <h2 class="page-header">Drive</h2>
