@@ -33,12 +33,12 @@ def drive(request):
     context['usage'] = sum(drive_file.file.size for drive_file in files)
     return render_to_response('drive.html', context)
 
-def get(request, id):
-    drive_file = get_object_or_404(DriveFile, id=id)
+def get(request, id, filename):
+    drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
     if drive_file.user != request.user:
         return render_to_response('drive_denied.html', RequestContext(request))
     response = HttpResponse()
-    response['Content-Disposition'] = 'attachment; filename={}'.format(drive_file.filename)
+    response['Content-Disposition'] = 'attachment'
     if settings.DEBUG:
         response.content = drive_file.file.read()
     else:
