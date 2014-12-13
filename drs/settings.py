@@ -104,3 +104,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+# a tuple that lists people who get code error notifications.
+ADMINS = (('afg984', 'afg984@gmail.com'),)
