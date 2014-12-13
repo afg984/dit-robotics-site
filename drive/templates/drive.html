@@ -14,12 +14,14 @@
     <p>Usage: {{ usage|filesizeformat }}</p>
     <form role="form" action="." method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <div class="form-group">
-        {{ form.file.label_tag }}
-        {{ form.file }}
+      <div class="fallback">
+        <div class="form-group">
+          {{ form.file.label_tag }}
+          {{ form.file }}
+        </div>
+        <input type="submit" value="Upload" class="btn btn-default">
+        <p></p>
       </div>
-      <input type="submit" value="Upload" class="btn btn-default">
-      <p></p>
     </form>
   </div>
   <div class="col-md-8">
