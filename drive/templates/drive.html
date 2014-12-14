@@ -17,7 +17,7 @@ Dropzone.options.driveDropzone = {
 {% block content %}
 <div class="row">
   <div class="col-md-4">
-    <h2 class="page-header">Drive</h2>
+  <h2 class="page-header">Drive <small>beta</small></h2>
     <p>Usage: {{ usage|filesizeformat }}</p>
     <form role="form" action="." method="post" class="dropzone" id="driveDropzone" enctype="multipart/form-data">
       {% csrf_token %}
