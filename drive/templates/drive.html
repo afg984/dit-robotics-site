@@ -4,6 +4,11 @@
 {% block mtitle %}Drive{% endblock %}
 {% block head %}
 <script src="{% static 'js/dropzone.js' %}"></script>
+<script>
+Dropzone.options.driveDropzone {
+  maxFilesize: 4096;
+}
+</script>
 {% endblock %}
 
 {% block content %}
