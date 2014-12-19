@@ -24,6 +24,7 @@ Dropzone.options.driveDropzone = {
       <div class="fallback">
         <div class="form-group">
           {{ form.file.label_tag }}
+          {{ form.file.errors }}
           {{ form.file }}
         </div>
         <input type="submit" value="Upload" class="btn btn-default">
