@@ -3,11 +3,25 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
+import itertools
+
 from drs import settings
 
 from .forms import UploadFileForm
 from .models import DriveFile
 # Create your views here.
+
+def errors_to_string(errors):
+    return '; '.join(
+        map(
+            str,
+            itertools.chain(
+                *itertools.chain(
+                    *errors.as_data().values()
+                )
+            )
+        )
+    )
 
 @login_required
 def drive(request):
@@ -22,6 +36,12 @@ def drive(request):
             drive_file.user = request.user
             drive_file.save()
             return redirect('drive')
+        else:
+            if request.META.get('HTTP_DROPZONE_IDENTIFIER', None) == 'driveDropzone':
+                return HttpResponse(
+                    errors_to_string(form.errors),
+                    status=422
+                )
     else:
         form = UploadFileForm()
     context['form'] = form
