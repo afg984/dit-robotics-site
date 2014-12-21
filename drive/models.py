@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.core.urlresolvers import reverse
 # Create your models here.
 
-MAX_FILENAME_LENGTH = 128
+MAX_FILENAME_LENGTH = 80
 
 def get_store_path(instance, filename):
     return os.path.join('drive', instance.user.username, filename)
