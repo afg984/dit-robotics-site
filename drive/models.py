@@ -21,6 +21,6 @@ class DriveFile(models.Model):
     def as_link(self):
         return format_html(
             '<a href="{url}">{filename}</a>',
-            url=reverse('drive-get', args=[self.id, self.filename]),
+            url=reverse('drive-get', args=[self.user.username, self.id, self.filename]),
             filename=self.filename,
         )

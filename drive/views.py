@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 import itertools
 
@@ -50,10 +50,12 @@ def drive(request):
     context['usage'] = sum(drive_file.file.size for drive_file in files)
     return render_to_response('drive.html', context)
 
-def get(request, id, filename):
+def get(request, username, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
     if drive_file.user != request.user:
         return render_to_response('drive_denied.html', RequestContext(request))
+    if drive_file.user.username != username:
+        raise Http404
     response = HttpResponse()
     response['Content-Disposition'] = 'attachment'
     if settings.DEBUG:
