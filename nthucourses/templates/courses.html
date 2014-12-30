@@ -3,11 +3,14 @@
 
 {% block content %}
 <h2 class="page-header">NTHU Courses</h2>
-<table>
+<table class="table table-striped">
   {% for course in courses %}
   <tr>
     <td>{{ course.no }}</td>
     <td>{{ course.title_zh }}</td>
+    <td>{{ course.instructor }}</td>
+    <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
+    <td>{{ course.credit }}</td>
   </tr>
   {% endfor %}
 </table>
