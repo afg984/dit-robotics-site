@@ -4,6 +4,14 @@
 {% block content %}
 <h2 class="page-header">NTHU Courses</h2>
 <table class="table table-striped">
+  <tr>
+    <th>科號</th>
+    <th>名稱</th>
+    <th>Instructor</th>
+    <th>時段</th>
+    <th>學分</th>
+    <th>備註</th>
+  </tr>
   {% for course in courses %}
   <tr>
     <td>{{ course.no }}</td>
@@ -11,6 +19,7 @@
     <td>{{ course.instructor }}</td>
     <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
     <td>{{ course.credit }}</td>
+    <td><small>{{ course.note }}</small></td>
   </tr>
   {% endfor %}
 </table>
