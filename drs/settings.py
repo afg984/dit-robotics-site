@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'drive',
     'message_board',
     'bootstrap_plugin',
+    'nthucourses',
 )
 
 MIDDLEWARE_CLASSES = (
