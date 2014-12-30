@@ -4,7 +4,7 @@ import json
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-with open(os.path.join(os.dirname(__file__), 'course.json')) as file:
+with open(os.path.join(os.path.dirname(__file__), 'course.json')) as file:
     data = json.load(file)
 
 
