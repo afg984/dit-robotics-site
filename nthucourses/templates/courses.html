@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block mtitle %}NTHU Courses{% endblock %}
+
+{% block content %}
+<h2 class="page-header">NTHU Courses</h2>
+<table>
+  {% for course in data %}
+  <tr>
+    <td>{% course.no %}</td>
+    <td>{% course.title_zh %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
