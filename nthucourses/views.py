@@ -1,3 +1,14 @@
-from django.shortcuts import render
+import os
+import json
 
-# Create your views here.
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+with open(os.path.join(os.dirname(__file__), 'course.json')) as file:
+    data = json.load(file)
+
+
+def index(request):
+    context = RequestContext(request)
+    context['courses'] = data.values()
+    return render_to_response('courses.html', context)
