@@ -3,22 +3,18 @@
 {% block mtitle %}Message Board{% endblock %}
 
 {% block content %}
-<h2 class="page-header">Submit</h2>
+<h3 class="page-header">Submit a Message</h3>
 <form method="post" action="." role="form">
   {% csrf_token %}
   {{ form.as_bs }}
   <input type="submit" class="btn btn-default">
 </form>
 
-<h2 class="page-header">Messages</h2>
-<table class="table table-striped">
-  <tr><th>Author</th><th>Message</th><th class="hidden-xs">Time</th>
-  {% for message in messages %}
-  <tr>
-    <td>{{ message.user.profile.html_link|default:message.nickname }}</td>
-    <td>{{ message.message }}</td>
-    <td class="hidden-xs">{{ message.created_at|date:"Y-m-d H:i" }}</td>
-  </tr>
-  {% endfor %}
-</table>
+<h3 class="page-header">Messages</h3>
+{% for message in messages %}
+<blockquote>
+  <p>{{ message.message }}</p>
+  <footer>{{ message.user.profile.html_link|default:message.nickname }} at {{ message.created_at|date:"Y-m-d H:i" }}</footer>
+</blockquote>
+{% endfor %}
 {% endblock %}
