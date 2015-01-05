@@ -1,11 +1,7 @@
-import os
-import json
-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-with open(os.path.join(os.path.dirname(__file__), 'courses.json')) as file:
-    data = json.load(file)
+from .data import data
 
 
 def index(request):
