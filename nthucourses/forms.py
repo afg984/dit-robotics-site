@@ -6,8 +6,8 @@ from . import data
 
 class CourseFilterForm(forms.Form):
     OPERATIONS = (
-        ('within', '只在勾選的時段內的課'),
-        ('except', '不在勾選的時段內的課'),
+        ('except', '搜尋選取時段以外的課'),
+        ('within', '搜尋選取時段以內的課'),
     )
     operation = forms.ChoiceField(
         choices=OPERATIONS,
