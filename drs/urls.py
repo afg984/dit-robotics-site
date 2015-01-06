@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^drive/', include('drive.urls')),
     url(r'^message_board/', include('message_board.urls')),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^nthucourses/', include('nthucourses.urls', namespace='nthucourses')),
 )
 
 if settings.DEBUG:

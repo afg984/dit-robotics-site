@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load bs_filters %}
+
+{% block mtitle %}NTHU Courses{% endblock %}
+
+{% block head %}
+<style>
+    .tablebutton {
+        width: 55px;
+    }
+    .checkbox {
+        display: inline-block;
+        width: 75px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="page-header">NTHU Courses<small> beta</small></h2>
+<form class="form-horizontal">
+  <div class="form-group">
+    <div class="col-md-4">
+    {% for timetablerow in form.timetable %}
+      <div>
+        <div class="btn-group" data-toggle="buttons">
+          {% for timetablecell in timetablerow %}
+          <label class="btn btn-{% if forloop.parentloop.counter <= 5 %}success{% elif forloop.parentloop.counter <= 10 %}primary{% else %}warning{% endif %} tablebutton{% if timetablecell.choice_label in form.selected_times %} active{% endif %}">{{ timetablecell.tag|settagattr:"autocomplete=off" }}{{ timetablecell.choice_label }}</label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-md-6">
+      {% for operation in form.operation %}
+      <div class="radio">{{ operation }}</div>
+      {% endfor %}
+      {% for department in form.department %}
+      <div class="checkbox">{{ department }}</div>
+      {% endfor %}
+      <div>
+        <input type="submit" class="btn btn-default">
+      </div>
+    </div>
+  </div>
+</form>
+<table class="table table-striped">
+  <tr>
+    <th>科號</th>
+    <th>名稱</th>
+    <th>Instructor</th>
+    <th>時段</th>
+    <th>學分</th>
+    <th>備註</th>
+  </tr>
+  {% for course in courses %}
+  <tr>
+    <td>{{ course.no }}</td>
+    <td>{{ course.title_zh }}</td>
+    <td>{{ course.instructor }}</td>
+    <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
+    <td>{{ course.credit }}</td>
+    <td><small>{{ course.note }}</small></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
