@@ -6,9 +6,14 @@ from .forms import CourseFilterForm
 
 def index(request):
     context = RequestContext(request)
-    context['courses'] = data.values()
     form = CourseFilterForm(request.GET)
-    if not form.is_valid():
+    if form.is_valid():
+        if form.cleaned_data['operation'] == 'except':
+            ddata = data.except_times(form.cleaned_data['times'])
+        else:
+            ddata = data.within_times(form.cleaned_data['times'])
+        context['courses'] = ddata.values()
+    else:
         form = CourseFilterForm()
     context['form'] = form
     return render_to_response('courses.html', context)
