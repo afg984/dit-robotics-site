@@ -14,19 +14,18 @@ class CourseFilterForm(forms.Form):
         initial='except',
         widget=forms.RadioSelect,
     )
-    (
-        time1, time2, time3, time4, timen,
-        time5, time6, time7, time8, time9,
-        timea, timeb, timec
-    ) = [
-        forms.MultipleChoiceField(
-            choices=zip(*[[w + s for w in data.weekdays]]*2),
-            widget=forms.CheckboxSelectMultiple,
-        )
-        for s in data.classsects
-    ]
+    times = forms.MultipleChoiceField(
+        choices=zip(*[data.times]*2),
+        widget=forms.CheckboxSelectMultiple,
+    )
 
 
     @property
     def timetable(self):
-        return tuple(self['time' + c] for c in data.classsects)
+        return [
+            [
+                self['times'][x * len(data.classsects) + y]
+                for x in range(len(data.weekdays))
+            ]
+            for y in range(len(data.classsects))
+        ]
