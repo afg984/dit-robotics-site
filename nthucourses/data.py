@@ -10,7 +10,7 @@ times = tuple(''.join(p) for p in itertools.product(weekdays, classsects))
 times_as_table = tuple(tuple(w + s for s in classsects) for w in weekdays)
 
 
-class CourseDataSet(collections.UserDict):
+class CourseDataSet(collections.OrderedDict):
     def filter(self, function):
         return type(self)(filter(lambda grp: function(grp[1]), self.items()))
 
@@ -34,4 +34,4 @@ class CourseDataSet(collections.UserDict):
 
 
 with open(os.path.join(os.path.dirname(__file__), 'courses.json')) as file:
-    data = CourseDataSet(json.load(file))
+    data = CourseDataSet(sorted(json.load(file).items(), key=lambda x: x[0]))
