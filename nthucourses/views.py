@@ -7,5 +7,8 @@ from .forms import CourseFilterForm
 def index(request):
     context = RequestContext(request)
     context['courses'] = data.values()
-    context['form'] = CourseFilterForm()
+    form = CourseFilterForm(request.GET)
+    if not form.is_valid():
+        form = CourseFilterForm()
+    context['form'] = form
     return render_to_response('courses.html', context)

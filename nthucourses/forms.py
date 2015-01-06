@@ -29,3 +29,7 @@ class CourseFilterForm(forms.Form):
             ]
             for y in range(len(data.classsects))
         ]
+
+    @property
+    def selected_times(self):
+        return self.cleaned_data.get('times', [])
