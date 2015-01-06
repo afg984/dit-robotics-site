@@ -17,6 +17,7 @@ class CourseFilterForm(forms.Form):
     times = forms.MultipleChoiceField(
         choices=zip(*[data.times]*2),
         widget=forms.CheckboxSelectMultiple,
+        required=False,
     )
     department = forms.MultipleChoiceField(
         label='搜尋開課系所',
