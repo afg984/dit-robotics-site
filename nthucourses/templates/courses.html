@@ -61,6 +61,8 @@
     <td>{{ course.credit }}</td>
     <td><small>{{ course.note }}</small></td>
   </tr>
+  {% empty %}
+    <td colspan="6">沒有符合條件的搜尋結果。</td>
   {% endfor %}
 </table>
 {% endblock %}
