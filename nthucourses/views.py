@@ -12,6 +12,7 @@ def index(request):
             ddata = data.except_times(form.cleaned_data['times'])
         else:
             ddata = data.within_times(form.cleaned_data['times'])
+        ddata = ddata.within_departments(form.cleaned_data['department'])
         context['courses'] = ddata.values()
     else:
         form = CourseFilterForm()

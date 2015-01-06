@@ -29,7 +29,7 @@ class CourseDataSet(collections.OrderedDict):
 
     def within_departments(self, departments):
         return self.filter(
-            lambda ins: ins['id'].startswith(departments)
+            lambda ins: ins['no'][5:9].strip() in departments
         )
 
 
@@ -37,5 +37,4 @@ with open(os.path.join(os.path.dirname(__file__), 'courses.json')) as file:
     data = CourseDataSet(sorted(json.load(file).items(), key=lambda x: x[0]))
 
 
-departments = sorted(set(no[5:9] for no in data))
-print(departments)
+departments = sorted(set(no[5:9].strip() for no in data))
