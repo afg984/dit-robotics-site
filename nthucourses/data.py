@@ -35,3 +35,7 @@ class CourseDataSet(collections.OrderedDict):
 
 with open(os.path.join(os.path.dirname(__file__), 'courses.json')) as file:
     data = CourseDataSet(sorted(json.load(file).items(), key=lambda x: x[0]))
+
+
+departments = sorted(set(no[5:9] for no in data))
+print(departments)
