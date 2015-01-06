@@ -17,6 +17,17 @@
 
 {% block content %}
 <h2 class="page-header">NTHU Courses<small> beta</small></h2>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel panel-default">
+<div class="panel-heading" role="tab" id="headingSearch">
+<h4 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch" aria-expanded="{% if form.is_valid %}false{% else %}true{% endif %}" aria-controls="collapseSearch">
+搜尋選項
+</a>
+</h4>
+</div>
+<div id="collapseSearch" class="panel-collapse collapse{% if not form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingSearch">
+<div class="panel-body">
 <form class="form-horizontal">
   <div class="form-group">
     <div class="col-md-4">
@@ -43,6 +54,19 @@
     </div>
   </div>
 </form>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading" role="tab" id="headingResult">
+<h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">
+搜尋結果
+</a>
+</h4>
+</div>
+<div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
+<div class="panel-body">
 <table class="table table-striped">
   <tr>
     <th>科號</th>
@@ -65,4 +89,8 @@
     <td colspan="6">沒有符合條件的搜尋結果。</td>
   {% endfor %}
 </table>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}
