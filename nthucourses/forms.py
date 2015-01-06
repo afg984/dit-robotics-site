@@ -4,7 +4,7 @@ from django import forms
 from . import data
 
 
-class TimeFilterForm(forms.Form):
+class CourseFilterForm(forms.Form):
     OPERATIONS = (
         ('within', '只在勾選的時段內的課'),
         ('except', '不在勾選的時段內的課'),
