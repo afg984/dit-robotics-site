@@ -10,20 +10,32 @@ class IncorrectTagsSupported(Exception):
     pass
 
 
+def get_one_tag(s):
+    soup = BeautifulSoup(str(s), 'html.parser')
+    childrens = list(soup.children)
+    if len(childrens) != 1:
+        raise IncorrectTagsSupported(len(childrens), s)
+    return childrens[0]
+
+
+@register.filter
+def settagattr(value, s):
+    attr, data = s.split('=')
+    tag = get_one_tag(value)
+    tag.attrs[attr] = data
+    return mark_safe(str(tag))
+
+
 @register.filter
 def add_class(value, class_):
     class_ = class_.split()
-    svalue = str(value)
-    soup = BeautifulSoup(svalue, "html.parser")
-    childrens = list(soup.children)
-    if len(childrens) != 1:
-        raise IncorrectTagsSupported(len(childrens), value)
-    tag = childrens[0]
+    tag = get_one_tag(value)
     try:
         tag.attrs['class'].extend(class_)
     except KeyError:
         tag.attrs['class'] = class_
     return mark_safe(str(tag))
+
 
 @register.filter
 def bs_form_control(value):

@@ -1,6 +1,15 @@
 {% extends "base.html" %}
+{% load bs_filters %}
 
 {% block mtitle %}NTHU Courses{% endblock %}
+
+{% block head %}
+<style>
+    .tablebutton {
+        width: 60px;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <h2 class="page-header">NTHU Courses</h2>
@@ -11,15 +20,15 @@
     {% endfor %}
   </div>
   <div class="form-group">
-    <table>
-      {% for timetablerow in form.timetable %}
-      <tr>
+    {% for timetablerow in form.timetable %}
+    <div>
+      <div class="btn-group" data-toggle="buttons">
         {% for timetablecell in timetablerow %}
-          <td style="padding:3px;">{{ timetablecell }}</td>
+        <label class="btn btn-primary tablebutton">{{ timetablecell.tag|settagattr:"autocomplete=off" }}{{ timetablecell.choice_label }}</label>
         {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
+      </div>
+    </div>
+    {% endfor %}
   </div>
   <input type="submit" class="btn btn-default">
 </form>
