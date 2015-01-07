@@ -21,7 +21,7 @@ class CourseFilterForm(forms.Form):
         required=False,
     )
     department = forms.ChoiceField(
-        label='開課系所',
+        label='開課單位',
         choices=zip(
             data.departments,
             (
