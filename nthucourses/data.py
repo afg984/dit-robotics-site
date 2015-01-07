@@ -11,6 +11,13 @@ times_as_table = tuple(tuple(w + s for s in classsects) for w in weekdays)
 
 
 class CourseDataSet(collections.OrderedDict):
+    def __init__(self, dict_, department_index=None):
+        super().__init__(dict_)
+        if department_index is None:
+            department_index = dict_.department_index
+        self.department_index = department_index
+
+
     def filter(self, function):
         return type(self)(filter(lambda grp: function(grp[1]), self.items()))
 
@@ -28,13 +35,14 @@ class CourseDataSet(collections.OrderedDict):
 
 
     def within_departments(self, departments):
-        return self.filter(
-            lambda ins: ins['no'][5:9].strip() in departments
-        )
+        result = type(self)({}, self.department_index)
+        for department in departments:
+            for no in department['curriclum']:
+                result[no] = self[no]
+        return result
 
 
 with open(os.path.join(os.path.dirname(__file__), 'courses.json')) as file:
-    data = CourseDataSet(sorted(json.load(file).items(), key=lambda x: x[0]))
-
-
-departments = sorted(set(no[5:9].strip() for no in data))
+    data = json.load(file)
+departments = data['departments']
+courses = CourseDataSet(data['courses'], department_index=departments)
