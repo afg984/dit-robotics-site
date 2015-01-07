@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from .data import data
+from .data import courses as data
 from .forms import CourseFilterForm
 
 def index(request):
@@ -9,11 +9,11 @@ def index(request):
     form = CourseFilterForm(request.GET)
     if form.is_valid():
         if form.cleaned_data['operation'] == 'except':
-            ddata = data.except_times(form.cleaned_data['times'])
+            courses = data.except_times(form.cleaned_data['times'])
         else:
-            ddata = data.within_times(form.cleaned_data['times'])
-        ddata = ddata.within_departments(form.cleaned_data['department'])
-        context['courses'] = ddata.values()
+            courses = data.within_times(form.cleaned_data['times'])
+        courses = courses.within_departments(form.cleaned_data['department'])
+        context['courses'] = courses.values()
     else:
         form = CourseFilterForm()
     context['form'] = form
