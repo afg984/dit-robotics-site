@@ -11,15 +11,15 @@ times_as_table = tuple(tuple(w + s for s in classsects) for w in weekdays)
 
 
 class CourseDataSet(collections.OrderedDict):
-    def __init__(self, dict_, department_index=None):
-        super().__init__(dict_)
-        if department_index is None:
-            department_index = dict_.department_index
+    def __init__(self, arg, department_index, **kw):
+        super().__init__(arg, **kw)
         self.department_index = department_index
 
 
     def filter(self, function):
-        return type(self)(filter(lambda grp: function(grp[1]), self.items()))
+        return type(self)(
+            filter(lambda grp: function(grp[1]), self.items()), self.department_index
+        )
 
 
     def within_times(self, times):
