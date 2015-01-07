@@ -18,81 +18,81 @@
 {% block content %}
 <h2 class="page-header">NTHU Courses<small> beta</small></h2>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-<div class="panel panel-default">
-<div class="panel-heading" role="tab" id="headingSearch">
-<h4 class="panel-title">
-<a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch" aria-expanded="{% if form.is_valid %}false{% else %}true{% endif %}" aria-controls="collapseSearch">
-搜尋條件{% if form.errors %} <small>(無效)</small>{% endif %}
-</a>
-</h4>
-</div>
-<div id="collapseSearch" class="panel-collapse collapse{% if not form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingSearch">
-<div class="panel-body">
-<form class="form-horizontal">
-  <div class="form-group">
-    <div class="col-md-4">
-    {% for timetablerow in form.timetable %}
-      <div>
-        <div class="btn-group" data-toggle="buttons">
-          {% for timetablecell in timetablerow %}
-          <label class="btn btn-{% if forloop.parentloop.counter <= 5 %}success{% elif forloop.parentloop.counter <= 10 %}primary{% else %}warning{% endif %} tablebutton{% if timetablecell.choice_label in form.selected_times %} active{% endif %}">{{ timetablecell.tag|settagattr:"autocomplete=off" }}{{ timetablecell.choice_label }}</label>
-          {% endfor %}
-        </div>
-      </div>
-      {% endfor %}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSearch">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch" aria-expanded="{% if form.is_valid %}false{% else %}true{% endif %}" aria-controls="collapseSearch">
+          搜尋條件{% if form.errors %} <small>(無效)</small>{% endif %}
+        </a>
+      </h4>
     </div>
-    <div class="col-md-6">
-      {{ form.operation.label_tag }}
-      {% for operation in form.operation %}
-      <div class="radio">{{ operation }}</div>
-      {% endfor %}
-      {{ form.department.label_tag }}
-      {{ form.department|add_class:"form-control" }}
-      <input type="submit" class="btn btn-default">
+    <div id="collapseSearch" class="panel-collapse collapse{% if not form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingSearch">
+      <div class="panel-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <div class="col-md-4">
+            {% for timetablerow in form.timetable %}
+              <div>
+                <div class="btn-group" data-toggle="buttons">
+                  {% for timetablecell in timetablerow %}
+                  <label class="btn btn-{% if forloop.parentloop.counter <= 5 %}success{% elif forloop.parentloop.counter <= 10 %}primary{% else %}warning{% endif %} tablebutton{% if timetablecell.choice_label in form.selected_times %} active{% endif %}">{{ timetablecell.tag|settagattr:"autocomplete=off" }}{{ timetablecell.choice_label }}</label>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col-md-6">
+              {{ form.operation.label_tag }}
+              {% for operation in form.operation %}
+              <div class="radio">{{ operation }}</div>
+              {% endfor %}
+              {{ form.department.label_tag }}
+              {{ form.department|add_class:"form-control" }}
+              <input type="submit" class="btn btn-default">
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</form>
-</div>
-</div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading" role="tab" id="headingResult">
-<h4 class="panel-title">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">
-搜尋結果 <small>({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
-</a>
-</h4>
-</div>
-<div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
-<div class="panel-body">
-<small>
-<table class="table table-striped table-responsive">
-  <tr>
-    <th>科號</th>
-    <th>名稱</th>
-    <th>Instructor</th>
-    <th>時段</th>
-    <th>教室</th>
-    <th>學分</th>
-    <th>備註</th>
-  </tr>
-  {% for course in courses %}
-  <tr>
-    <td class="text-nowrap">{{ course.no }}</td>
-    <td>{{ course.title_zh }}</td>
-    <td>{{ course.instructor }}</td>
-    <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
-    <td>{{ course.room }}</td>
-    <td>{{ course.credit }}</td>
-    <td style="width:30%;">{{ course.note }}</td>
-  </tr>
-  {% empty %}
-    <td colspan="6">沒有符合條件的搜尋結果。</td>
-  {% endfor %}
-</table>
-</small>
-</div>
-</div>
-</div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingResult">
+    <h4 class="panel-title">
+    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">
+    搜尋結果 <small>({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
+    </a>
+    </h4>
+    </div>
+    <div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
+      <div class="panel-body">
+        <small>
+          <table class="table table-striped table-responsive">
+            <tr>
+              <th>科號</th>
+              <th>名稱</th>
+              <th>Instructor</th>
+              <th>時段</th>
+              <th>教室</th>
+              <th>學分</th>
+              <th>備註</th>
+            </tr>
+            {% for course in courses %}
+            <tr>
+              <td class="text-nowrap">{{ course.no }}</td>
+              <td>{{ course.title_zh }}</td>
+              <td>{{ course.instructor }}</td>
+              <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
+              <td>{{ course.room }}</td>
+              <td>{{ course.credit }}</td>
+              <td style="width:30%;">{{ course.note }}</td>
+            </tr>
+            {% empty %}
+              <td colspan="6">沒有符合條件的搜尋結果。</td>
+            {% endfor %}
+          </table>
+        </small>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
