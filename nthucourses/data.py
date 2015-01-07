@@ -38,7 +38,8 @@ class CourseDataSet(collections.OrderedDict):
         result = type(self)({}, self.department_index)
         for department in departments:
             for no in self.department_index[department]['curriclum']:
-                result[no] = self[no]
+                if no in self:
+                    result[no] = self[no]
         return result
 
 
