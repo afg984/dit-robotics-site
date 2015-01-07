@@ -80,7 +80,7 @@
   </tr>
   {% for course in courses %}
   <tr>
-    <td>{{ course.no }}</td>
+    <td class="text-nowrap">{{ course.no }}</td>
     <td>{{ course.title_zh }}</td>
     <td>{{ course.instructor }}</td>
     <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
