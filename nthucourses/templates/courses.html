@@ -67,6 +67,7 @@
 </div>
 <div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
 <div class="panel-body">
+<small>
 <table class="table table-striped table-responsive">
   <tr>
     <th>科號</th>
@@ -83,12 +84,13 @@
     <td>{{ course.instructor }}</td>
     <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
     <td>{{ course.credit }}</td>
-    <td style="width:30%;"><small>{{ course.note }}</small></td>
+    <td style="width:30%;">{{ course.note }}</td>
   </tr>
   {% empty %}
     <td colspan="6">沒有符合條件的搜尋結果。</td>
   {% endfor %}
 </table>
+</small>
 </div>
 </div>
 </div>
