@@ -12,7 +12,9 @@ def index(request):
         form = CourseFilterForm()
     if form.is_valid():
         courses = data
-        courses = courses.within_departments(form.cleaned_data['department'])
+        courses = courses.within_departments(
+            [form.cleaned_data['department']]
+        )
         if form.cleaned_data['operation'] == 'except':
             courses = courses.except_times(form.cleaned_data['times'])
         else:
