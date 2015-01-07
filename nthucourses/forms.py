@@ -10,6 +10,7 @@ class CourseFilterForm(forms.Form):
         ('within', '搜尋選取時段以內的課'),
     )
     operation = forms.ChoiceField(
+        label='時段選項',
         choices=OPERATIONS,
         initial='except',
         widget=forms.RadioSelect,

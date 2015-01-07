@@ -42,6 +42,7 @@
       {% endfor %}
     </div>
     <div class="col-md-6">
+      {{ form.operation.label_tag }}
       {% for operation in form.operation %}
       <div class="radio">{{ operation }}</div>
       {% endfor %}
