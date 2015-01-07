@@ -46,6 +46,7 @@
       {% for operation in form.operation %}
       <div class="radio">{{ operation }}</div>
       {% endfor %}
+      {{ form.department.label_tag }}
       {% for department in form.department %}
       <div class="checkbox">{{ department }}</div>
       {% endfor %}
