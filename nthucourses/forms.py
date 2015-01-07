@@ -23,7 +23,10 @@ class CourseFilterForm(forms.Form):
         label='搜尋開課系所',
         choices=zip(
             data.departments,
-            (dep['name'] for dep in data.departments),
+            (
+                name + ' ' + dep['name']
+                for name, dep in data.departments.items()
+            ),
         ),
         widget=forms.CheckboxSelectMultiple,
     )
