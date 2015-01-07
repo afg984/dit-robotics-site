@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = patterns('',
     url(r'^$', views.AboutView.as_view(), name='home'),
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^drive/', include('drive.urls')),
     url(r'^message_board/', include('message_board.urls')),
