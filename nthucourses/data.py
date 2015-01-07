@@ -44,5 +44,5 @@ class CourseDataSet(collections.OrderedDict):
 
 with open(os.path.join(os.path.dirname(__file__), 'courses.json')) as file:
     data = json.load(file)
-departments = data['departments']
+departments = collections.OrderedDict(sorted(data['departments'].items()))
 courses = CourseDataSet(data['courses'], department_index=departments)
