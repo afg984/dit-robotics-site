@@ -8,11 +8,12 @@ def index(request):
     context = RequestContext(request)
     form = CourseFilterForm(request.GET)
     if form.is_valid():
-        if form.cleaned_data['operation'] == 'except':
-            courses = data.except_times(form.cleaned_data['times'])
-        else:
-            courses = data.within_times(form.cleaned_data['times'])
+        courses = data
         courses = courses.within_departments(form.cleaned_data['department'])
+        if form.cleaned_data['operation'] == 'except':
+            courses = courses.except_times(form.cleaned_data['times'])
+        else:
+            courses = courses.within_times(form.cleaned_data['times'])
         context['courses'] = courses.values()
     else:
         form = CourseFilterForm()
