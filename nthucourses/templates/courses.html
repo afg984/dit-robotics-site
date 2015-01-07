@@ -74,6 +74,7 @@
     <th>名稱</th>
     <th>Instructor</th>
     <th>時段</th>
+    <th>教室</th>
     <th>學分</th>
     <th>備註</th>
   </tr>
@@ -83,6 +84,7 @@
     <td>{{ course.title_zh }}</td>
     <td>{{ course.instructor }}</td>
     <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
+    <td>{{ course.room }}</td>
     <td>{{ course.credit }}</td>
     <td style="width:30%;">{{ course.note }}</td>
   </tr>
