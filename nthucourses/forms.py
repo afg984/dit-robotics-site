@@ -20,7 +20,7 @@ class CourseFilterForm(forms.Form):
         required=False,
     )
     department = forms.MultipleChoiceField(
-        label='搜尋開課系所',
+        label='開課系所',
         choices=zip(
             data.departments,
             (
