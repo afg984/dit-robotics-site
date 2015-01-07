@@ -19,6 +19,7 @@ class DriveDirectory(models.Model):
     name = models.CharField(max_length=MAX_FILENAME_LENGTH)
     user = models.ForeignKey(User, related_name='+')
     shared = models.BooleanField(default=False)
+    public = models.BooleanField(default=False)
     class Meta:
         unique_together = ('parent', 'name', 'user')
 
