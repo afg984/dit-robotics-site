@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load bs_filters %}
 
 {% block mtitle %}Drive{% endblock %}
 {% block head %}
@@ -13,12 +14,17 @@ Dropzone.options.driveDropzone = {
   headers: {"Dropzone-Identifier": "driveDropzone"},
 }
 </script>
+<style>
+.button-cell {
+  width: 20px;
+}
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col-md-4">
-  <h2 class="page-header">Drive <small>beta</small></h2>
+  <h2 class="page-header">Drive<small> beta</small></h2>
     <p>Usage: {{ usage|filesizeformat }}</p>
     <form role="form" action="." method="post" class="dropzone" id="driveDropzone" enctype="multipart/form-data">
       {% csrf_token %}
@@ -33,22 +39,58 @@ Dropzone.options.driveDropzone = {
       </div>
     </form>
   </div>
-  <div class="col-md-8" style="margin-top:50px;">
-    <form method="post">
-      {% csrf_token %}
-      <table class="table table-hover">
-        {% for file in files %}
+  <div class="col-md-8">
+    <ol class="breadcrumb page-header">
+      {% for obj in directory.abspath %}
+      <li{% if forloop.last %} class="active">{{ obj.name }}{% else %}>{{ obj.as_link }}{% endif %}</il>
+      {% endfor %}
+    </ol>
+    <table class="table table-hover">
+      <tr>
+        <td class="button-cell"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></td>
+        <td colspan="4">
+          <form method="post" action="{% url "drive-mkdir" patharg %}">
+            {% csrf_token %}
+            <a href="#modalMkdir" data-toggle="modal" data-target="#modalMkdir">Create Directory<a>
+            <div class="modal fade" id="modalMkdir" tabindex="-1" role="dialog" aria-labelledby="modalMkdirLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalMkdirLabel">Create Directory</h4>
+                  </div>
+                  <div class="modal-body">
+                    {{ mkdirform.name.label_tag }}{{ mkdirform.name|add_class:"form-control" }}
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-default">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </td>
+      </tr>
+      {% for dir in directory.subdirectories.all %}
+      <tr>
+        <td class="button-cell"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></td>
+        <td>{{ dir.as_link }}</td>
+        <td colspan="3"></td>
+      </tr>
+      {% endfor %}
+      <form method="post">
+        {% csrf_token %}
+        {% for file in directory.files.all %}
         <tr>
+          <td class="button-cell"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></td>
           <td>{{ file.as_link }}</td>
-	  <td class="text-right hidden-xs"><small>{{ file.file.size|filesizeformat }}</small></td>
-	  <td class="text-right hidden-xs"><small>{{ file.created_at|date:"Y/m/d H:i:s" }}</small></td>
-	  <td class="text-right"><button type="submit" onclick="return confirm('Are you sure you want to delete the following file?\n{{ file.filename }}')" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
+          <td class="text-right hidden-xs"><small>{{ file.file.size|filesizeformat }}</small></td>
+          <td class="text-right hidden-xs"><small>{{ file.created_at|date:"Y/m/d H:i:s" }}</small></td>
+          <td class="button-cell text-right"><button type="submit" onclick="return confirm('Are you sure you want to delete the following file?\n{{ file.filename }}')" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
         </tr>
-        {% empty %}
-        <tr><td>You don't have any files.</td></tr>
-	{% endfor %}
-      </table>
-    </form>
+      </form>
+      {% endfor %}
+    </table>
   </div>
 </div>
 {% endblock %}

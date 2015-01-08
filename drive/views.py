@@ -1,14 +1,16 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
+from django.views.decorators.http import require_POST
 
 import itertools
 
 from drs import settings
 
-from .forms import UploadFileForm
-from .models import DriveFile
+from .forms import UploadFileForm, MkdirForm
+from .models import DriveFile, DriveDirectory, DriveRootDirectory
 # Create your views here.
 
 def errors_to_string(errors):
@@ -25,15 +27,54 @@ def errors_to_string(errors):
 
 @login_required
 def drive(request):
-    context = RequestContext(request)
     if request.user.profile.access_level < 2:
-        return render_to_response('drive_member_required.html', context)
+        return render_to_response('drive_member_required.html', RequestContext(request))
+    return redirect(DriveRootDirectory(user=request.user).reverse)
+
+def locate_dpath(user, path):
+    first, *path = path.strip('/').split('/')
+    result = get_object_or_404(DriveDirectory, user=user, parent=None, name=first)
+    for sub in path:
+        result = result.subdirectories.get(name=sub)
+    return result
+
+@require_POST
+def mkdir(request, args):
+    username, _, path = args.partition('/')
+    user = get_object_or_404(User, username=username)
+    if path:
+        directory = locate_dpath(user, path)
+    else:
+        directory = DriveRootDirectory(user)
+    if request.user != directory.user:
+        return render_to_response('drive_denied.html', context)
+    form = MkdirForm(request.POST)
+    if form.is_valid():
+        drive_directory = form.save(commit=False)
+        if isinstance(directory, DriveDirectory):
+            drive_directory.parent = directory
+        drive_directory.user = user
+        drive_directory.save()
+    return redirect(directory.reverse)
+
+def listing(request, args):
+    context = RequestContext(request)
+    username, _, path = args.partition('/')
+    user = get_object_or_404(User, username=username)
+    if path:
+        directory = locate_dpath(user, path)
+    else:
+        directory = DriveRootDirectory(user)
+    if request.user != directory.user:
+        return render_to_response('drive_denied.html', context)
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             drive_file = form.save(commit=False)
             drive_file.filename = request.FILES['file']
             drive_file.user = request.user
+            if isinstance(directory, DriveDirectory):
+                drive_file.parent = directory
             drive_file.save()
             return redirect('drive')
         else:
@@ -44,18 +85,19 @@ def drive(request):
                 )
     else:
         form = UploadFileForm()
+    context['directory'] = directory
     context['form'] = form
-    files = DriveFile.objects.filter(user=request.user).order_by('filename', 'created_at')
+    files = DriveFile.objects.filter(user=directory.user)
     context['files'] = files
-    context['usage'] = sum(drive_file.file.size for drive_file in files)
+    context['usage'] = sum(f.file.size for f in files)
+    context['mkdirform'] = MkdirForm()
+    context['patharg'] = args
     return render_to_response('drive.html', context)
 
-def get(request, username, id, filename):
+def get(request, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
     if drive_file.user != request.user:
         return render_to_response('drive_denied.html', RequestContext(request))
-    if drive_file.user.username != username:
-        raise Http404
     response = HttpResponse()
     response['Content-Disposition'] = 'attachment'
     if settings.DEBUG:
