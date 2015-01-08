@@ -23,26 +23,56 @@ class DriveDirectory(models.Model):
     class Meta:
         unique_together = ('parent', 'name', 'user')
 
+    @property
+    def abspath(self):
+        result = []
+        current = self
+        while current is not None:
+            result.append(current)
+            current = current.parent
+        result.append(DriveRootDirectory(self.user))
+        return result[::-1]
+
+    def __str__(self):
+        return '[{}]{}/'.format(
+            self.user.username,
+            '/'.join(instance.name for instance in self.abspath)
+        )
+
+    @property
+    def as_link(self):
+        return format_html(
+            '<a href="{url}">{name}</a>',
+            name=self.name,
+            url=self.reverse,
+        )
+        return 100
+
+    @property
+    def slashpath(self):
+        return '/'.join(d.name for d in self.abspath) + '/'
+
+    @property
+    def reverse(self):
+        return reverse('drive-listing',
+            args=[self.slashpath]
+        )
+
 
 class DriveFile(models.Model):
     filename = models.CharField(max_length=MAX_FILENAME_LENGTH)
     user = models.ForeignKey(User)
     file = models.FileField(upload_to=get_store_path, max_length=MAX_FILENAME_LENGTH)
     created_at = models.DateTimeField(auto_now_add=True)
-    parent = models.ForeignKey(DriveDirectory, null=True)
+    parent = models.ForeignKey(DriveDirectory, null=True, related_name='files')
 
     @property
     def basename(self):
         return os.path.basename(self.file.name)
 
     @property
-    def path(self):
-        result = list()
-        current = self
-        while current.parent is not None:
-            current = current.parent
-            result.append(current)
-        return result[::-1]
+    def abspath(self):
+        self.parent.abspath + [self]
 
     def as_link(self):
         return format_html(
@@ -56,3 +86,33 @@ class DriveFile(models.Model):
         if self.parent is not None and self.parent.shared:
             return True
         return False
+
+
+
+
+class DriveRootDirectory:
+    def __init__(self, user):
+        self.user = user
+        self.abspath = [self]
+        self.slashpath = '/'
+        self.shared = False
+        self.public = False
+        self.parent = None
+        self.subdirectories = DriveDirectory.objects.filter(user=user, parent=None)
+        self.files = DriveFile.objects.filter(user=user, parent=None)
+
+    @property
+    def name(self):
+        return '{}'.format(self.user.username)
+
+    @property
+    def as_link(self):
+        return format_html(
+            '<a href="{url}">{name}</a>',
+            url=self.reverse,
+            name=self.name
+        )
+
+    @property
+    def reverse(self):
+        return reverse('drive-listing', args=[self.user.username + '/'])

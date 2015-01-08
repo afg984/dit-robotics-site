@@ -13,6 +13,11 @@ Dropzone.options.driveDropzone = {
   headers: {"Dropzone-Identifier": "driveDropzone"},
 }
 </script>
+<style>
+.button-cell {
+  width: 20px;
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -33,23 +38,35 @@ Dropzone.options.driveDropzone = {
       </div>
     </form>
   </div>
-  <div class="col-md-8" style="margin-top:50px;">
+  <div class="col-md-8">
+    <ol class="breadcrumb page-header">
+      {% for obj in directory.abspath %}
+      <li{% if forloop.last %} class="active">{{ obj.name }}{% else %}>{{ obj.as_link }}{% endif %}</il>
+      {% endfor %}
+    </ol>
     <form method="post">
       {% csrf_token %}
       <table class="table table-hover">
         <tr>
+          <td class="button-cell"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></td>
           <td colspan="4"><a>Create Directory<a></td>
         </tr>
-        {% for file in files %}
+        {% for dir in directory.subdirectories.all %}
         <tr>
+          <td class="button-cell"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></td>
+          <td>{{ dir.as_link }}</td>
+          <td colspan="3"></td>
+        </tr>
+        {% endfor %}
+        {% for file in directory.files.all %}
+        <tr>
+          <td class="button-cell"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></td>
           <td>{{ file.as_link }}</td>
           <td class="text-right hidden-xs"><small>{{ file.file.size|filesizeformat }}</small></td>
           <td class="text-right hidden-xs"><small>{{ file.created_at|date:"Y/m/d H:i:s" }}</small></td>
-          <td class="text-right"><button type="submit" onclick="return confirm('Are you sure you want to delete the following file?\n{{ file.filename }}')" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
+          <td class="button-cell text-right"><button type="submit" onclick="return confirm('Are you sure you want to delete the following file?\n{{ file.filename }}')" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
         </tr>
-        {% empty %}
-        <tr><td>You don't have any files.</td></tr>
-	{% endfor %}
+        {% endfor %}
       </table>
     </form>
   </div>
