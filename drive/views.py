@@ -75,7 +75,7 @@ def get(request, id, filename):
     if drive_file.user != request.user:
         return render_to_response('drive_denied.html', RequestContext(request))
     response = HttpResponse()
-    # response['Content-Disposition'] = 'attachment'
+    response['Content-Disposition'] = 'attachment'
     if settings.DEBUG:
         response.content = drive_file.file.read()
     else:
