@@ -3,12 +3,13 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.views.decorators.http import require_POST
 
 import itertools
 
 from drs import settings
 
-from .forms import UploadFileForm
+from .forms import UploadFileForm, MkdirForm
 from .models import DriveFile, DriveDirectory, DriveRootDirectory
 # Create your views here.
 
@@ -36,6 +37,25 @@ def locate_dpath(user, path):
     for sub in path:
         result = result.subdirectories.get(name=sub)
     return result
+
+@require_POST
+def mkdir(request, args):
+    username, _, path = args.partition('/')
+    user = get_object_or_404(User, username=username)
+    if path:
+        directory = locate_dpath(user, path)
+    else:
+        directory = DriveRootDirectory(user)
+    if request.user != directory.user:
+        return render_to_response('drive_denied.html', context)
+    form = MkdirForm(request.POST)
+    if form.is_valid():
+        drive_directory = form.save(commit=False)
+        if isinstance(directory, DriveDirectory):
+            drive_directory.parent = directory
+        drive_directory.user = user
+        drive_directory.save()
+    return redirect(directory.reverse)
 
 def listing(request, args):
     context = RequestContext(request)
@@ -70,6 +90,8 @@ def listing(request, args):
     files = DriveFile.objects.filter(user=directory.user)
     context['files'] = files
     context['usage'] = sum(f.file.size for f in files)
+    context['mkdirform'] = MkdirForm()
+    context['patharg'] = args
     return render_to_response('drive.html', context)
 
 def get(request, id, filename):
