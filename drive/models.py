@@ -34,8 +34,7 @@ class DriveDirectory(models.Model):
         return result[::-1]
 
     def __str__(self):
-        return '[{}]{}/'.format(
-            self.user.username,
+        return '{}/'.format(
             '/'.join(instance.name for instance in self.abspath)
         )
 
