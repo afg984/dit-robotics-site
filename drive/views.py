@@ -38,12 +38,15 @@ def locate_dpath(user, path):
     return result
 
 def listing(request, args):
+    context = RequestContext(request)
     username, _, path = args.partition('/')
     user = get_object_or_404(User, username=username)
     if path:
         directory = locate_dpath(user, path)
     else:
         directory = DriveRootDirectory(user)
+    if request.user != directory.user:
+        return render_to_response('drive_denied.html', context)
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -62,7 +65,6 @@ def listing(request, args):
                 )
     else:
         form = UploadFileForm()
-    context = RequestContext(request)
     context['directory'] = directory
     context['form'] = form
     files = DriveFile.objects.filter(user=directory.user)
