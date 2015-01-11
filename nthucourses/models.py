@@ -18,3 +18,10 @@ class Course(models.Model):
 class Syllabus(models.Model):
     course = models.OneToOneField(Course)
     has_attachment = models.BooleanField(default=False)
+
+
+class Department(models.Model):
+    abbr = models.CharField(max_length=4)
+    name_zh = models.CharField(max_length=20)
+    name_en = models.CharField(max_length=40)
+    courses = models.ManyToManyField(Course)
