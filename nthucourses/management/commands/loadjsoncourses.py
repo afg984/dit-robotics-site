@@ -1,7 +1,7 @@
 import json
 import itertools
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from nthucourses.models import Time, Course, Department
 
