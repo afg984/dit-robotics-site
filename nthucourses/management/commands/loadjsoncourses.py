@@ -3,7 +3,7 @@ import itertools
 
 from django.core.management.base import BaseCommand, CommandError
 
-from nthucourses.models import Time, Course, Syllabus, Department
+from nthucourses.models import Time, Course, Department
 
 WEEKDAYS = 'MTWRFS'
 HOURS = '1234n56789abc'
@@ -71,11 +71,12 @@ class Command(BaseCommand):
 
     def update_departments(self):
         self.delete_all(Department)
-        for department in self.progress_iter(
-            self.jsondata['departments'].values(),
+        for abbr, department in self.progress_iter(
+            self.jsondata['departments'].items(),
             'Writing department...',
         ):
             deprow = Department.objects.create(
+                abbr=abbr,
                 name_zh=department['name'],
                 name_en=department['name_en'],
             )
