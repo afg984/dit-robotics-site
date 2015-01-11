@@ -1,9 +1,12 @@
 import json
+import itertools
 
 from django.core.management.base import BaseCommand, CommandError
 
-from nthucourses.models import Course, Syllabus, Department
+from nthucourses.models import Time, Course, Syllabus, Department
 
+WEEKDAYS = 'MTWRFS'
+HOURS = '1234n56789abc'
 
 class Command(BaseCommand):
     args = '<jsonfile>'
@@ -32,8 +35,17 @@ class Command(BaseCommand):
     def handle(self, jsonfile, **options):
         with open(jsonfile) as file:
             self.jsondata = json.load(file)
-        # self.update_courses()
-        self.update_departments()
+        self.set_time()
+        self.update_courses()
+        # self.update_departments()
+
+    def set_time(self):
+        self.delete_all(Time)
+        for timep in self.progress_iter(
+            tuple(itertools.product(WEEKDAYS, HOURS)),
+            'Setting time data...'
+        ):
+            Time.objects.create(value=''.join(timep))
 
     def update_courses(self):
         self.delete_all(Course)
@@ -41,8 +53,7 @@ class Command(BaseCommand):
             self.jsondata['courses'].values(),
             'Writing course...'
         ):
-            Course.objects.create(
-                time=''.join(course['time']),
+            courow = Course.objects.create(
                 number=course['no'],
                 capabilities=course['capabilities'],
                 credit=course['credit'],
@@ -53,6 +64,8 @@ class Command(BaseCommand):
                 title_zh=course['title_zh'],
                 note=course['note'],
             )
+            for time in course['time']:
+                course.time.add(Time.objects.get(value=time))
 
     def update_departments(self):
         self.delete_all(Department)
