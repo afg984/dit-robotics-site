@@ -9,7 +9,7 @@ class Command(BaseCommand):
     args = '<jsonfile>'
     help = 'Update course data from json file'
 
-    def handle(self, jsonfile):
+    def handle(self, jsonfile, **options):
         with open(jsonfile) as file:
             jsondata = json.load(file)
         Course.objects.all().delete()
