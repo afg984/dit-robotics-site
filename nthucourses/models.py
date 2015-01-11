@@ -13,3 +13,8 @@ class Course(models.Model):
     title_en = CharField(max_length=40)
     title_zh = CharField(max_length=40)
     note = TextField()
+
+
+class Syllabus(models.Model):
+    course = models.OneToOneField(Course)
+    has_attachment = models.BooleanField()
