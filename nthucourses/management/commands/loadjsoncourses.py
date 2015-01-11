@@ -63,6 +63,8 @@ class Command(BaseCommand):
                 title_en=course['title_en'],
                 title_zh=course['title_zh'],
                 note=course['note'],
+                outline=course['outline'],
+                attachment=course['attachment'],
             )
             for time in course['time']:
                 courow.time.add(Time.objects.get(value=time))
