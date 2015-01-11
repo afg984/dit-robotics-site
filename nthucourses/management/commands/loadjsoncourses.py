@@ -37,7 +37,7 @@ class Command(BaseCommand):
             self.jsondata = json.load(file)
         self.set_time()
         self.update_courses()
-        # self.update_departments()
+        self.update_departments()
 
     def set_time(self):
         self.delete_all(Time)
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                 note=course['note'],
             )
             for time in course['time']:
-                course.time.add(Time.objects.get(value=time))
+                courow.time.add(Time.objects.get(value=time))
 
     def update_departments(self):
         self.delete_all(Department)
