@@ -2,7 +2,7 @@ import json
 
 from django.core.management.base import BaseCommand, CommandError
 
-from nthucourses.models import Course, Syllabus
+from nthucourses.models import Course, Syllabus, Department
 
 
 class Command(BaseCommand):
@@ -31,10 +31,14 @@ class Command(BaseCommand):
 
     def handle(self, jsonfile, **options):
         with open(jsonfile) as file:
-            jsondata = json.load(file)
+            self.jsondata = json.load(file)
+        # self.update_courses()
+        self.update_departments()
+
+    def update_courses(self):
         self.delete_all(Course)
         for course in self.progress_iter(
-            jsondata['courses'].values(),
+            self.jsondata['courses'].values(),
             'Writing course...'
         ):
             Course.objects.create(
@@ -49,3 +53,17 @@ class Command(BaseCommand):
                 title_zh=course['title_zh'],
                 note=course['note'],
             )
+
+    def update_departments(self):
+        self.delete_all(Department)
+        for department in self.progress_iter(
+            self.jsondata['departments'].values(),
+            'Writing department...',
+        ):
+            deprow = Department.objects.create(
+                name_zh=department['name'],
+                name_en=department['name_en'],
+            )
+            for course_number in department['curriclum']:
+                deprow.courses.add(Course.objects.get(number=course_number))
+            deprow.save()
