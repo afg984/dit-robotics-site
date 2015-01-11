@@ -12,10 +12,10 @@ def index(request):
         form = CourseFilterForm()
     if form.is_valid():
         courses = Department.objects.get(abbr=form.cleaned_data['department']).courses
-        time = Time.objects.filter(value__in=cleaned_data['times'])
+        time = Time.objects.filter(value__in=form.cleaned_data['times'])
         if form.cleaned_data['operation'] == 'except':
             for sect in time:
-                course = course.exclude(time__contains=sect)
+                courses = courses.exclude(time__contains=sect)
         else:
             courses = courses.filter(time__in=time)
         context['courses'] = courses

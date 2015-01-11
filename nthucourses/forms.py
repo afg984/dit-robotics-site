@@ -1,7 +1,6 @@
 from django import forms
 
-
-from . import data
+from nthucourses import models
 
 
 class CourseFilterForm(forms.Form):
@@ -16,19 +15,19 @@ class CourseFilterForm(forms.Form):
         widget=forms.RadioSelect,
     )
     times = forms.MultipleChoiceField(
-        choices=zip(*[data.times]*2),
+        choices=zip(*[models.Time.objects.all()]*2),
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
     department = forms.ChoiceField(
         label='開課單位',
-        choices=zip(
-            data.departments,
+        choices=[
             (
-                name + ' ' + dep['name']
-                for name, dep in data.departments.items()
-            ),
-        ),
+                department.abbr,
+                department.abbr + ' ' + department.name_zh
+            )
+            for department in models.Department.objects.all()
+        ],
         # widget=forms.CheckboxSelectMultiple,
     )
 
@@ -37,10 +36,10 @@ class CourseFilterForm(forms.Form):
     def timetable(self):
         return [
             [
-                self['times'][x * len(data.classsects) + y]
-                for x in range(len(data.weekdays))
+                self['times'][x * len(models.Time.hours) + y]
+                for x in range(len(models.Time.weekdays))
             ]
-            for y in range(len(data.classsects))
+            for y in range(len(models.Time.weekdays))
         ]
 
     @property

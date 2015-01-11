@@ -3,6 +3,8 @@ from django.db import models
 # Create your models here.
 
 class Time(models.Model):
+    weekdays = 'MTWRFS'
+    hours = '1234n56789abc'
     value = models.CharField(max_length=2, unique=True)
 
     def __str__(self):
