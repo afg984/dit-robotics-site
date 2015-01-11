@@ -3,16 +3,16 @@ from django.db import models
 # Create your models here.
 
 class Course(models.Model):
-    time = CharField(max_length=20)
-    number = CharField(max_length=20)
-    capabilities = TextField()
-    credit = PositiveSmallIntegerField(null=True)
-    enrollment = PositiveSmallIntegerField()
-    instructor = CharField(max_length=20)
-    room = CharField(max_length=20)
-    title_en = CharField(max_length=40)
-    title_zh = CharField(max_length=40)
-    note = TextField()
+    time = models.CharField(max_length=20)
+    number = models.CharField(max_length=20)
+    capabilities = models.TextField()
+    credit = models.PositiveSmallIntegerField(null=True)
+    enrollment = models.PositiveSmallIntegerField()
+    instructor = models.CharField(max_length=20)
+    room = models.CharField(max_length=20)
+    title_en = models.CharField(max_length=40)
+    title_zh = models.CharField(max_length=40)
+    note = models.TextField()
 
 
 class Syllabus(models.Model):
