@@ -5,8 +5,6 @@ from django.core.management.base import BaseCommand, CommandError
 
 from nthucourses.models import Time, Course, Department
 
-WEEKDAYS = 'MTWRFS'
-HOURS = '1234n56789abc'
 
 class Command(BaseCommand):
     args = '<jsonfile>'
@@ -42,7 +40,7 @@ class Command(BaseCommand):
     def set_time(self):
         self.delete_all(Time)
         for timep in self.progress_iter(
-            tuple(itertools.product(WEEKDAYS, HOURS)),
+            tuple(itertools.product(Time.weekdays, Time.hours)),
             'Setting time data...'
         ):
             Time.objects.create(value=''.join(timep))
