@@ -2,8 +2,12 @@ from django.db import models
 
 # Create your models here.
 
+class Time(models.Model):
+    value = models.CharField(max_length=2, unique=True)
+
+
 class Course(models.Model):
-    time = models.CharField(max_length=20)
+    time = models.ManyToManyField(Time)
     number = models.CharField(max_length=20)
     capabilities = models.TextField()
     credit = models.PositiveSmallIntegerField(null=True)
