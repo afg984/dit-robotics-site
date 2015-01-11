@@ -17,4 +17,4 @@ class Course(models.Model):
 
 class Syllabus(models.Model):
     course = models.OneToOneField(Course)
-    has_attachment = models.BooleanField()
+    has_attachment = models.BooleanField(default=False)
