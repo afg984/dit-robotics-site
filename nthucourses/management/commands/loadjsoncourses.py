@@ -17,13 +17,13 @@ class Command(BaseCommand):
             Course.objects.create(
                 time=''.join(course['time']),
                 number=course['no'],
-                capabilities=courses['capabilities'],
-                credit=courses['credit'],
-                enrollment=courses['enrollment'],
-                instructor=courses['instructor'],
-                room=courses['room'],
-                title_en=courses['title_en'],
-                title_zh=courses['title_zh'],
-                note=courses['note'],
+                capabilities=course['capabilities'],
+                credit=course['credit'],
+                enrollment=course['enrollment'],
+                instructor=course['instructor'],
+                room=course['room'],
+                title_en=course['title_en'],
+                title_zh=course['title_zh'],
+                note=course['note'],
             )
         
