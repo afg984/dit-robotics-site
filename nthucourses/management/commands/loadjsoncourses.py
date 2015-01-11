@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
     def delete_all(self, model):
         while model.objects.count() >= 1000:
-            model.objects.latest('id').delete()
+            model.objects.last().delete()
             self.stdout.write('Deleteing...{:5}'.format(model.objects.count()), ending='\r')
         model.objects.all().delete()
         self.stdout.write('Deletion completed.')
