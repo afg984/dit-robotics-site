@@ -17,6 +17,8 @@ class Course(models.Model):
     title_en = models.CharField(max_length=40)
     title_zh = models.CharField(max_length=40)
     note = models.TextField()
+    outline = models.TextField()
+    attachment = models.PositiveIntegerField(null=True)
 
 
 class Department(models.Model):
