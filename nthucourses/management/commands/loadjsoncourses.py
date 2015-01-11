@@ -39,11 +39,11 @@ class Command(BaseCommand):
 
     def set_time(self):
         self.delete_all(Time)
-        for timep in self.progress_iter(
-            tuple(itertools.product(Time.weekdays, Time.hours)),
-            'Setting time data...'
-        ):
-            Time.objects.create(value=''.join(timep))
+        Time.objects.bulk_create(
+            Time(value=''.join(timep))
+            for timep in itertools.product(Time.weekdays, Time.hours)
+        )
+        self.stdout.write('Time creation done.')
 
     def update_courses(self):
         self.delete_all(Course)
