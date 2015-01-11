@@ -47,11 +47,12 @@ class Command(BaseCommand):
 
     def update_courses(self):
         self.delete_all(Course)
+        courses = list()
         for course in self.progress_iter(
             self.jsondata['courses'].values(),
-            'Writing course...'
+            'Creating courses...'
         ):
-            courow = Course.objects.create(
+            courow = Course(
                 number=course['no'],
                 capabilities=course['capabilities'],
                 credit=course['credit'],
@@ -66,12 +67,16 @@ class Command(BaseCommand):
             )
             for time in course['time']:
                 courow.time.add(Time.objects.get(value=time))
+            courses.append(courow)
+        self.stdout.write('Writing Course table...')
+        Course.bulk_create(courses)
 
     def update_departments(self):
         self.delete_all(Department)
+        departments = list()
         for abbr, department in self.progress_iter(
             self.jsondata['departments'].items(),
-            'Writing department...',
+            'Creating departments...',
         ):
             deprow = Department.objects.create(
                 abbr=abbr,
@@ -80,4 +85,6 @@ class Command(BaseCommand):
             )
             for course_number in department['curriclum']:
                 deprow.courses.add(Course.objects.get(number=course_number))
-            deprow.save()
+            departments.append(deprow)
+        self.stdout.write('Writing Department table...')
+        Department.bulk_create(departments)
