@@ -85,7 +85,7 @@ class Command(BaseCommand):
     def update_departments(self):
         self.delete_all(Department)
         bulk_targets = list()
-        course_targes = list()
+        course_targets = list()
         for abbr, department in self.progress_iter(
             self.jsondata['departments'].items(),
             'Loading departments...',
