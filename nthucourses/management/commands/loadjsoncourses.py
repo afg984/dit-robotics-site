@@ -2,6 +2,7 @@ import json
 import itertools
 
 from django.core.management.base import BaseCommand
+from django.utils.timezone import get_current_timezone, make_aware
 from django.utils.dateparse import parse_datetime
 
 from nthucourses.models import TimeStamp, Time, Course, Department
@@ -37,14 +38,15 @@ class Command(BaseCommand):
     def handle(self, jsonfile, **options):
         with open(jsonfile) as file:
             self.jsondata = json.load(file)
+        self.write_timestamp()
         self.set_time()
         self.update_courses()
         self.update_departments()
 
     def write_timestamp(self):
-        dt = parse_datetime(self.jsondata['timestamp']
+        dt = make_aware(parse_datetime(self.jsondata['timestamp']), get_current_timezone())
         TimeStamp.objects.create(stamp=dt)
-        self.stdout.write('data timestamp: {}'.format(dt.isoformat()))
+        self.stdout.write('Data timestamp: {}'.format(dt.isoformat()))
 
     def set_time(self):
         self.delete_all(Time)
