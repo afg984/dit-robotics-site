@@ -55,6 +55,7 @@ class Command(BaseCommand):
                 number=course['no'],
                 capabilities=course['capabilities'],
                 credit=course['credit'],
+                size_limit=course.get('size', None),
                 enrollment=course['enrollment'],
                 instructor=course['instructor'],
                 room=course['room'],
