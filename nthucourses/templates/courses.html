@@ -81,7 +81,7 @@
               <td class="text-nowrap">{{ course.no }}</td>
               <td>{{ course.title_zh }}</td>
               <td>{{ course.instructor }}</td>
-              <td>{% for time in course.time %}{{ time }}{% endfor %}</td>
+              <td>{{ course.time_string }}</td>
               <td>{{ course.room }}</td>
               <td>{{ course.credit }}</td>
               <td style="width:30%;">{{ course.note }}</td>

@@ -32,6 +32,10 @@ class Course(models.Model):
     def __str__(self):
         return self.number
 
+    @property
+    def time_string(self):
+        return ''.join(self.time.all())
+
 
 class Department(models.Model):
     abbr = models.CharField(max_length=4, unique=True)

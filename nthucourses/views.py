@@ -11,7 +11,7 @@ def index(request):
     else:
         form = CourseFilterForm()
     if form.is_valid():
-        courses = Department.objects.get(abbr=form.cleaned_data['department']).courses
+        courses = Department.objects.get(abbr=form.cleaned_data['department']).courses.all()
         if form.cleaned_data['operation'] == 'except':
             time = Time.objects.exclude(value__in=form.cleaned_data['times'])
         else:
