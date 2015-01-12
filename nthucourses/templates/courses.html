@@ -15,6 +15,10 @@
     td, th {
         vertical-align: middle!important;
     }
+    .fblock {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
 </style>
 {% endblock %}
 
@@ -42,13 +46,13 @@
               </div>
               {% endfor %}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6"><div class="fblock">
               {{ form.operation.label_tag }}
               {% for operation in form.operation %}
               <div class="radio">{{ operation }}</div>
-              {% endfor %}
+              {% endfor %}</div><div class="fblock">
               {{ form.department.label_tag }}
-              {{ form.department|add_class:"form-control" }}
+              {{ form.department|add_class:"form-control" }}</div>
               <input type="submit" class="btn btn-default">
             </div>
           </div>
