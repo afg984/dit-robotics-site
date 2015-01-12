@@ -15,7 +15,7 @@ class Course(models.Model):
     time = models.ManyToManyField(Time)
     number = models.CharField(max_length=20)
     capabilities = models.TextField()
-    credit = models.PositiveSmallIntegerField(null=True)
+    credit = models.PositiveSmallIntegerField()
     enrollment = models.PositiveSmallIntegerField()
     instructor = models.CharField(max_length=20)
     room = models.CharField(max_length=20)
