@@ -20,6 +20,6 @@
 {% if course.has_attachment %}
 <p><a href="{{ course.pdf_url }}" target="blank_">cached PDF attachment</p>
 {% else %}
-<div class="well pre-ws">{{ course.outline }}</div>
+<div class="well pre-ws no-gradient">{{ course.outline }}</div>
 {% endif %}
 {% endblock %}
