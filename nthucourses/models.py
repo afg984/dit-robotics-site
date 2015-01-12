@@ -16,6 +16,7 @@ class Course(models.Model):
     number = models.CharField(max_length=20)
     capabilities = models.TextField()
     credit = models.PositiveSmallIntegerField()
+    size_limit = models.PositiveSmallIntegerField(null=True)
     enrollment = models.PositiveSmallIntegerField()
     instructor = models.CharField(max_length=20)
     room = models.CharField(max_length=20)
