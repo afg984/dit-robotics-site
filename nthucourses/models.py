@@ -26,6 +26,9 @@ class Course(models.Model):
     outline = models.TextField()
     attachment = models.PositiveIntegerField(null=True)
 
+    class Meta:
+        ordering = ('number',)
+
     def __str__(self):
         return self.number
 
@@ -35,6 +38,9 @@ class Department(models.Model):
     name_zh = models.CharField(max_length=20)
     name_en = models.CharField(max_length=40)
     courses = models.ManyToManyField(Course)
+
+    class Meta:
+        ordering = ('abbr',)
 
     def __str__(self):
         return self.abbr
