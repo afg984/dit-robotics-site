@@ -24,9 +24,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingSearch">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch" aria-expanded="{% if form.is_valid %}false{% else %}true{% endif %}" aria-controls="collapseSearch">
-          搜尋條件{% if form.errors %} <small>(無效)</small>{% endif %}
-        </a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch" aria-expanded="{% if form.is_valid %}false{% else %}true{% endif %}" aria-controls="collapseSearch">搜尋條件</a>{% if form.errors %}<small> (無效)</small>{% endif %}
       </h4>
     </div>
     <div id="collapseSearch" class="panel-collapse collapse{% if not form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingSearch">
@@ -61,9 +59,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingResult">
     <h4 class="panel-title">
-    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">
-    搜尋結果
-    </a><small>({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
+    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">搜尋結果</a><small> ({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
     </h4>
     </div>
     <div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
