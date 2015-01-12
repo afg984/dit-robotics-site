@@ -10,7 +10,7 @@ class Command(BaseCommand):
     args = '<pdf-dir>'
     help = 'deploy course pdf files'
     def handle(self, pdfdir, **options):
-        target_dir = os.path.join('nthucourses', 'static', 'syllabus-pdf')
+        target_dir = os.path.join('nthucourses', Course.pdf_dir)
         if os.path.isdir(target_dir):
             shutil.rmtree(target_dir)
         os.makedirs(target_dir)

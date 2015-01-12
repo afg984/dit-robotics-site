@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 
 # Create your models here.
@@ -12,6 +14,7 @@ class Time(models.Model):
 
 
 class Course(models.Model):
+    pdf_dir = 'static/syllabus-pdf/'
     time = models.ManyToManyField(Time)
     number = models.CharField(max_length=20)
     capabilities = models.TextField()
@@ -35,6 +38,10 @@ class Course(models.Model):
     @property
     def time_string(self):
         return ''.join(map(str, self.time.all()))
+
+    @property
+    def pdf_url(self):
+        return '{}/{}.pdf'.format(self.pdf_dir, self.number)
 
 
 class Department(models.Model):
