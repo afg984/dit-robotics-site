@@ -47,11 +47,13 @@ class Command(BaseCommand):
 
     def update_courses(self):
         self.delete_all(Course)
+        bulk_targets = list()
+        time_targets = list()
         for course in self.progress_iter(
             self.jsondata['courses'].values(),
-            'Writing courses...'
+            'Loading courses...'
         ):
-            courow = Course.objects.create(
+            courow = Course(
                 number=course['no'],
                 capabilities=course['capabilities'],
                 credit=course['credit'],
@@ -65,10 +67,20 @@ class Command(BaseCommand):
                 outline=course['outline'],
                 attachment=course['attachment'],
             )
-            courow.time = [
+            bulk_targets.append(courow)
+            time_targets.append((course['no'], [
                 Time.objects.get(value=time) for time in course['time']
-            ]
-            courow.save()
+            ]))
+        self.stdout.write('Writing courses...')
+        Course.objects.bulk_create(bulk_targets)
+        for number, time in self.progress_iter(
+            time_targets,
+            'Writing time info for courses...'
+        ):
+            course = Course.objects.get(number=number)
+            course.time = time
+            course.save()
+
 
     def update_departments(self):
         self.delete_all(Department)
