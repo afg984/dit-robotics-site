@@ -18,7 +18,7 @@
 </div>
 <h3>Syllabus</h3>
 {% if course.has_attachment %}
-<p><a href="{{ course.pdf_url }}" target="blank_">cached PDF attachment</p>
+<p><a href="{{ course.pdf_url }}" target="blank_">cached PDF attachment</a></p>
 {% else %}
 <div class="well pre-ws no-gradient">{{ course.outline }}</div>
 {% endif %}
