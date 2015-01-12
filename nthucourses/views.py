@@ -26,4 +26,5 @@ def syllabus(request, number):
     course = Course.objects.get(number=number)
     context = RequestContext(request)
     context['course'] = course
+    context['timestamp'] = TimeStamp.objects.last().stamp
     return render_to_response('syllabus.html', context)
