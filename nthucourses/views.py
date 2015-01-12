@@ -13,10 +13,10 @@ def index(request):
     if form.is_valid():
         courses = Department.objects.get(abbr=form.cleaned_data['department']).courses.all()
         if form.cleaned_data['operation'] == 'except':
-            time = Time.objects.exclude(value__in=form.cleaned_data['times'])
+            not_time = Time.objects.filter(value__in=form.cleaned_data['times'])
         else:
-            time = Time.objects.filter(value__in=form.cleaned_data['times'])
-        courses = courses.filter(time__in=time)
+            not_time = Time.objects.exclude(value__in=form.cleaned_data['times'])
+        courses = courses.exclude(time__in=not_time)
         context['courses'] = courses
     context['form'] = form
     return render_to_response('courses.html', context)
