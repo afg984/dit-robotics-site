@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.utils.encoding import iri_to_uri
 
 # Create your models here.
 
@@ -44,7 +45,7 @@ class Course(models.Model):
 
     @property
     def pdf_url(self):
-        return '/{}{}.pdf'.format(self.pdf_dir, self.number)
+        return iri_to_uri('/{}{}.pdf'.format(self.pdf_dir, self.number))
 
     @property
     def has_attachment(self):
