@@ -41,7 +41,11 @@ class Course(models.Model):
 
     @property
     def pdf_url(self):
-        return '{}/{}.pdf'.format(self.pdf_dir, self.number)
+        return '/{}{}.pdf'.format(self.pdf_dir, self.number)
+
+    @property
+    def has_attachment(self):
+        return self.attachment is not None
 
 
 class Department(models.Model):
