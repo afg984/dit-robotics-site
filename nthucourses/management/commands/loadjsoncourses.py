@@ -24,8 +24,8 @@ class Command(BaseCommand):
         self.stdout.write('')
 
     def delete_all(self, model):
-        while model.objects.count() >= 1000:
-            model.objects.last().delete()
+        while model.objects.count() > 999:
+            model.objects.filter(id__gt=max(model.objects.last.id() - 999, model.objects.all()[998].id)).delete()
             self.stdout.write('Deleteing...{:5}'.format(model.objects.count()), ending='\r')
         model.objects.all().delete()
         self.stdout.write('Deletion completed.')
@@ -47,12 +47,11 @@ class Command(BaseCommand):
 
     def update_courses(self):
         self.delete_all(Course)
-        courses = list()
         for course in self.progress_iter(
             self.jsondata['courses'].values(),
-            'Creating courses...'
+            'Writing courses...'
         ):
-            courow = Course(
+            courow = Course.objects.create(
                 number=course['no'],
                 capabilities=course['capabilities'],
                 credit=course['credit'],
@@ -65,26 +64,24 @@ class Command(BaseCommand):
                 outline=course['outline'],
                 attachment=course['attachment'],
             )
-            for time in course['time']:
-                courow.time.add(Time.objects.get(value=time))
-            courses.append(courow)
-        self.stdout.write('Writing Course table...')
-        Course.bulk_create(courses)
+            courow.time = [
+                Time.objects.get(value=time) for time in course['time']
+            ]
+            courow.save()
 
     def update_departments(self):
         self.delete_all(Department)
-        departments = list()
         for abbr, department in self.progress_iter(
             self.jsondata['departments'].items(),
-            'Creating departments...',
+            'Writing departments...',
         ):
             deprow = Department.objects.create(
                 abbr=abbr,
                 name_zh=department['name'],
                 name_en=department['name_en'],
             )
-            for course_number in department['curriclum']:
-                deprow.courses.add(Course.objects.get(number=course_number))
-            departments.append(deprow)
-        self.stdout.write('Writing Department table...')
-        Department.bulk_create(departments)
+            deprow.courses = [
+                Course.objects.get(number=course_number)
+                for course_number in department['curriclum']
+            ]
+            deprow.save()
