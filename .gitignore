@@ -9,3 +9,4 @@ secret_settings.py
 /database/
 */migrations/*.py
 !*/migrations/__init__.py
+/nthucourses/static/syllabus-pdf/
