@@ -62,13 +62,13 @@
     <div class="panel-heading" role="tab" id="headingResult">
     <h4 class="panel-title">
     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">
-    搜尋結果 <small>({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
-    </a>
+    搜尋結果
+    </a><small>({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
     </h4>
     </div>
     <div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
       <div class="panel-body">
-        <p class="text-danger">注意：本站所列之課程資料僅供參考。</p>
+        <p class="text-danger">注意：本站所列之課程資料僅供參考。<small class="text-muted"> 資料日期：{{ timestamp|date:"c" }}</small></p>
         <small>
           <table class="table table-striped">
             <tr>
