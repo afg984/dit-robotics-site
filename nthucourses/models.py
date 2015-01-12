@@ -34,7 +34,7 @@ class Course(models.Model):
 
     @property
     def time_string(self):
-        return ''.join(self.time.all())
+        return ''.join(map(str, self.time.all()))
 
 
 class Department(models.Model):
