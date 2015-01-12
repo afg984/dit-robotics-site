@@ -38,7 +38,7 @@
               <div>
                 <div class="btn-group" data-toggle="buttons">
                   {% for timetablecell in timetablerow %}
-                  <label class="btn btn-{% if forloop.parentloop.counter <= 5 %}success{% elif forloop.parentloop.counter <= 10 %}primary{% else %}warning{% endif %} tablebutton{% if timetablecell.choice_label in form.selected_times %} active{% endif %}">{{ timetablecell.tag|settagattr:"autocomplete=off" }}{{ timetablecell.choice_label }}</label>
+                  <label class="btn btn-{% if forloop.parentloop.counter <= 5 %}success{% elif forloop.parentloop.counter <= 10 %}primary{% else %}warning{% endif %} tablebutton{% if timetablecell.choice_label in form.selected_time %} active{% endif %}">{{ timetablecell.tag|settagattr:"autocomplete=off" }}{{ timetablecell.choice_label }}</label>
                   {% endfor %}
                 </div>
               </div>

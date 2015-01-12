@@ -13,9 +13,9 @@ def index(request):
     if form.is_valid():
         courses = Department.objects.get(abbr=form.cleaned_data['department']).courses
         if form.cleaned_data['operation'] == 'except':
-            not_time = Time.objects.filter(value__in=form.cleaned_data['times'])
+            not_time = Time.objects.filter(value__in=form.cleaned_data['time'])
         else:
-            not_time = Time.objects.exclude(value__in=form.cleaned_data['times'])
+            not_time = Time.objects.exclude(value__in=form.cleaned_data['time'])
         courses = courses.exclude(time__in=not_time).distinct()
         context['courses'] = courses
     context['form'] = form

@@ -14,7 +14,7 @@ class CourseFilterForm(forms.Form):
         initial='except',
         widget=forms.RadioSelect,
     )
-    times = forms.MultipleChoiceField(
+    time = forms.MultipleChoiceField(
         choices=zip(*[models.Time.objects.all()]*2),
         widget=forms.CheckboxSelectMultiple,
         required=False,
@@ -36,12 +36,12 @@ class CourseFilterForm(forms.Form):
     def timetable(self):
         return [
             [
-                self['times'][x * len(models.Time.hours) + y]
+                self['time'][x * len(models.Time.hours) + y]
                 for x in range(len(models.Time.weekdays))
             ]
             for y in range(len(models.Time.hours))
         ]
 
     @property
-    def selected_times(self):
-        return self.cleaned_data.get('times', [])
+    def selected_time(self):
+        return self.cleaned_data.get('time', [])
