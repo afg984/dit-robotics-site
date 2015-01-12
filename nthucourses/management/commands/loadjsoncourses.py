@@ -84,17 +84,28 @@ class Command(BaseCommand):
 
     def update_departments(self):
         self.delete_all(Department)
+        bulk_targets = list()
+        course_targes = list()
         for abbr, department in self.progress_iter(
             self.jsondata['departments'].items(),
-            'Writing departments...',
+            'Loading departments...',
         ):
-            deprow = Department.objects.create(
+            deprow = Department(
                 abbr=abbr,
                 name_zh=department['name'],
                 name_en=department['name_en'],
             )
-            deprow.courses = [
+            bulk_targets.append(deprow)
+            course_targets.append((abbr, [
                 Course.objects.get(number=course_number)
                 for course_number in department['curriclum']
-            ]
-            deprow.save()
+            ]))
+        self.stdout.write('Writing departments...')
+        Department.objects.bulk_create(bulk_targets)
+        for abbr, courses in self.progress_iter(
+            course_targets,
+            'Writing course data for departments...'
+        ):
+            department = Department.objects.get(abbr=abbr)
+            department.courses = courses
+            department.save()
