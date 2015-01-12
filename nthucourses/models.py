@@ -4,6 +4,9 @@ from django.db import models
 
 # Create your models here.
 
+class TimeStamp(models.Model):
+    stamp = models.DatetimeField()
+
 class Time(models.Model):
     weekdays = 'MTWRFS'
     hours = '1234n56789abc'
