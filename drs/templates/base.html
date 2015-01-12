@@ -25,10 +25,10 @@
         {% if user.is_staff %}<li><a target="_blank" href="{% url "admin:index" %}">Admin</a></li>{% endif %}
         {% if user.is_authenticated %}
         {% nav_li 'profile' user.username %}
-        <li><a href="{% url 'logout' %}?next={{ request.path }}">Log out</a></li>
+        <li><a href="{% url 'logout' %}?next={{ request.path|iriencode }}">Log out</a></li>
         {% else %}
         {% nav_li 'registration' 'Sign up' %}
-        <li{% caiv 'login' %}><a href="{% url 'login' %}?next={{ request.path }}">Log in</a></li>
+        <li{% caiv 'login' %}><a href="{% url 'login' %}?next={{ request.path|iriencode }}">Log in</a></li>
         {% endif %}
       </ul>
     </div>
