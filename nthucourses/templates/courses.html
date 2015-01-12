@@ -78,7 +78,7 @@
             </tr>
             {% for course in courses %}
             <tr>
-              <td class="text-nowrap">{{ course.number }}</td>
+              <td class="text-nowrap"><a target="_blank" href="{% url 'nthucourses:syllabus' course.number %}">{{ course.number }}</a></td>
               <td>{{ course.title_zh }}</td>
               <td>{{ course.instructor }}</td>
               <td>{{ course.time_string }}</td>
