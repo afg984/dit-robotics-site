@@ -39,7 +39,7 @@ class CourseFilterForm(forms.Form):
                 self['times'][x * len(models.Time.hours) + y]
                 for x in range(len(models.Time.weekdays))
             ]
-            for y in range(len(models.Time.weekdays))
+            for y in range(len(models.Time.hours))
         ]
 
     @property
