@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from .forms import CourseFilterForm
-from .models import Department, Time, Course
+from .models import Department, Time, Course, TimeStamp
 
 def index(request):
     context = RequestContext(request)
@@ -19,6 +19,7 @@ def index(request):
         courses = courses.exclude(time__in=not_time).distinct()
         context['courses'] = courses
     context['form'] = form
+    context['timestamp'] = TimeStamp.objects.last().stamp
     return render_to_response('courses.html', context)
 
 def syllabus(request, number):
