@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from .forms import CourseFilterForm
-from .models import Department, Time
+from .models import Department, Time, Course
 
 def index(request):
     context = RequestContext(request)
@@ -20,3 +20,9 @@ def index(request):
         context['courses'] = courses
     context['form'] = form
     return render_to_response('courses.html', context)
+
+def syllabus(request, number):
+    course = Course.objects.get(number=number)
+    context = RequestContext(request)
+    context['course'] = course
+    return render_to_response('syllabus.html', context)
