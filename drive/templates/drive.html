@@ -74,7 +74,7 @@ Dropzone.options.driveDropzone = {
     </table>
   </div>
 </div>
-<div class="modal fade" id="modalMkdir" tabindex="-1" role="dialog" aria-labelledby="modalMkdirLabel" aria-hidden="true">
+<div class="modal" id="modalMkdir" tabindex="-1" role="dialog" aria-labelledby="modalMkdirLabel" aria-hidden="true">
   <form method="post" action="{% url "drive-mkdir" patharg %}">
     {% csrf_token %}
     <div class="modal-dialog">
