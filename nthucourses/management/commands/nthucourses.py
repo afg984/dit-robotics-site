@@ -11,10 +11,11 @@ from nthucourses.models import TimeStamp, Time, Course, Department
 
 
 class Command(BaseCommand):
-    args = '<loadjson|copypdf> <path>'
+    args = '<commane> <path>'
     help = '''\
 loadjson: load json course data from path
- copypdf: copy pdf attachments from path'''
+ copypdf: copy pdf attachments from path
+ loaddir: load all data from directory'''
 
     def handle(self, *args, **options):
         try:
@@ -25,6 +26,9 @@ loadjson: load json course data from path
             self.loadjson(path, **options)
         elif command == 'copypdf':
             self.copypdf(path, **options)
+        elif command == 'loaddir':
+            self.loadjson(os.path.join(path, 'courses.json'))
+            self.copypdf(os.path.join(path, 'attachments'))
         else:
             raise CommandError('Unknown command %r' % command)
 
