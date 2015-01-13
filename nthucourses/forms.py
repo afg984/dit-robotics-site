@@ -11,8 +11,8 @@ class CourseFilterForm(forms.Form):
     ORDERING = (
         ('number', '科號'),
         ('time', '時間'),
-        ('credit_density', '學分密度'),
-        ('enrollment_density', '人數比'),
+        ('-credit_density', '學分密度'),
+        ('-enrollment_density', '人數比'),
     )
     operation = forms.ChoiceField(
         label='時段選項',
