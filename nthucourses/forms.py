@@ -13,6 +13,7 @@ class CourseFilterForm(forms.Form):
         ('firsttime', '時間'),
         ('-enrollment_density', '人數 / 人限'),
         ('-credit_density', '學分 / 節數'),
+        ('title_geinfo', '通識分類'),
     )
     operation = forms.ChoiceField(
         label='時段選項',

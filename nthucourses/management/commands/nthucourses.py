@@ -114,6 +114,7 @@ loadjson: load json course data from path
                 room=course['room'],
                 title_en=course['title_en'],
                 title_zh=course['title_zh'],
+                title_geinfo=course['title_geinfo'],
                 note=course['note'],
                 outline=course['outline'],
                 attachment=course['attachment'],

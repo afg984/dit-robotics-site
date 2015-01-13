@@ -100,7 +100,7 @@
               <button type="button" class="btn-link nodec" data-toggle="modal" data-target="#course{{ course.id }}Modal">{{ course.number }}</button>
               {% endif %}
             </td>
-            <td>{{ course.title_zh }}</td>
+            <td>{{ course.title_zh }}{% if course.title_geinfo %}<br><small class="text-warning">{{ course.title_geinfo }}</small>{% endif %}</td>
             <td>{{ course.instructor }}</td>
             <td>{{ course.time_string }}</td>
             <td class="text-nowrap">{{ course.enrollment }} / {{ course.size_limit|default:"?" }}</td>

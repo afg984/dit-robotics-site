@@ -29,6 +29,7 @@ class Course(models.Model):
     room = models.CharField(max_length=20)
     title_en = models.CharField(max_length=40)
     title_zh = models.CharField(max_length=40)
+    title_geinfo = models.CharField(max_length=20)
     note = models.TextField()
     outline = models.TextField()
     attachment = models.PositiveIntegerField(null=True)
