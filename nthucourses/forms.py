@@ -10,7 +10,7 @@ class CourseFilterForm(forms.Form):
     )
     ORDERING = (
         ('number', '科號'),
-        ('time', '時間'),
+        ('time', '時間 (尚未支援)'),
         ('-enrollment_density', '人數 / 人限'),
         ('-credit_density', '學分 / 節數'),
     )
