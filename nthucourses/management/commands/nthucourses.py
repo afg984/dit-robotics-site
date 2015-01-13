@@ -46,7 +46,7 @@ loadjson: load json course data from path
                     '{}.pdf'.format(course.number)
                 )
                 shutil.copyfile(src, dst)
-                self.stdout.write('copied file {}'.format(dst))
+                self.stdout.write('copied file %r' % dst)
 
     def loadjson(self, jsonfile, **options):
         with open(jsonfile) as file:
