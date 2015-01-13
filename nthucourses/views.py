@@ -20,9 +20,12 @@ def index(request):
         courses = courses.exclude(time__in=not_time)
         ordering = form.cleaned_data['ordering']
         if ordering != 'number':
-            if ordering == 'firsttime':
-                courses = courses.annotate(firsttime=Min('time'))
-            courses = courses.order_by(ordering, 'number')
+            if ordering == 'title_geinfo':
+                courses = courses.order_by('-is_gec', ordering, 'number')
+            else:
+                if ordering == 'firsttime':
+                    courses = courses.annotate(firsttime=Min('time'))
+                courses = courses.order_by(ordering, 'number')
         context['courses'] = courses.distinct()
     context['form'] = form
     context['timestamp'] = TimeStamp.objects.last().stamp
