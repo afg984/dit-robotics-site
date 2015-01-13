@@ -8,6 +8,12 @@ class CourseFilterForm(forms.Form):
         ('except', '搜尋選取時段以外的課'),
         ('within', '搜尋選取時段以內的課'),
     )
+    ORDERING = (
+        ('number', '科號'),
+        ('time', '時間'),
+        ('credit_density', '學分密度'),
+        ('enrollment_density', '人數比'),
+    )
     operation = forms.ChoiceField(
         label='時段選項',
         choices=OPERATIONS,
@@ -29,6 +35,12 @@ class CourseFilterForm(forms.Form):
             for department in models.Department.objects.all()
         ],
         # widget=forms.CheckboxSelectMultiple,
+    )
+    ordering = forms.ChoiceField(
+        label='排序方式',
+        choices=ORDERING,
+        initial='number',
+        widget=forms.RadioSelect,
     )
 
 
