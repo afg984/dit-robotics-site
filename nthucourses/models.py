@@ -69,7 +69,7 @@ class Course(models.Model):
 
     @property
     def getag(self):
-        return self.title_geinfo.replace('Elective', '')
+        return self.title_geinfo.replace('Elective GE course: ', '')
 
 
 class Department(models.Model):
