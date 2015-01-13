@@ -87,7 +87,7 @@
           </tr>
           {% for course in courses %}
           <tr>
-            <td class="text-nowrap"><a target="_blank" href="{% url 'nthucourses:syllabus' course.number %}">{{ course.number }}</a></td>
+            <td class="text-nowrap"><button type="button" class="btn-link nodec" data-toggle="modal" data-target="#course{{ course.id }}Modal">{{ course.number }}</button></td>
             <td>{{ course.title_zh }}</td>
             <td>{{ course.instructor }}</td>
             <td>{{ course.time_string }}</td>
@@ -104,4 +104,5 @@
     </div>
   </div>
 </div>
+{% for course in courses %}{% include "syllabus-modal.html" %}{% endfor %}
 {% endblock %}
