@@ -1,15 +1,65 @@
+import os
+import sys
+import shutil
 import json
 import itertools
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.utils.dateparse import parse_datetime
 
 from nthucourses.models import TimeStamp, Time, Course, Department
 
 
 class Command(BaseCommand):
-    args = '<jsonfile>'
-    help = 'Update course data from json file'
+    args = '<loadjson|copypdf> <path>'
+    help = '''\
+loadjson: load json course data from path
+ copypdf: copy pdf attachments from path'''
+
+    def handle(self, *args, **options):
+        try:
+            command, path = args
+        except ValueError:
+            raise CommandError('usage: {} nthucourses <command> <path>'.format(sys.argv[0]))
+        if command == 'loadjson':
+            self.loadjson(path, **options)
+        elif command == 'copypdf':
+            self.copypdf(path, **options)
+        else:
+            raise CommandError('Unknown command %r' % command)
+
+    def copypdf(self, pdfdir, **options):
+        target_dir = os.path.join('nthucourses', Course.pdf_dir)
+        if os.path.isdir(target_dir):
+            shutil.rmtree(target_dir)
+        os.makedirs(target_dir)
+        for course in Course.objects.all():
+            if course.attachment is not None:
+                src = os.path.join(
+                    pdfdir,
+                    '{}-{}'.format(
+                        course.number, course.attachment
+                    )
+                )
+                dst = os.path.join(
+                    target_dir,
+                    '{}.pdf'.format(course.number)
+                )
+                shutil.copyfile(src, dst)
+                self.stdout.write('copied file {}'.format(dst))
+
+    def loadjson(self, jsonfile, **options):
+        with open(jsonfile) as file:
+            self.jsondata = json.load(file)
+        self.write_timestamp()
+        self.set_time()
+        self.update_courses()
+        self.update_departments()
+
+    def write_timestamp(self):
+        dt = parse_datetime(self.jsondata['timestamp'])
+        TimeStamp.objects.create(stamp=dt)
+        self.stdout.write('Data timestamp: {}'.format(dt.isoformat()))
 
     def progress_iter(self, seq, msg):
         total = len(seq)
@@ -33,19 +83,6 @@ class Command(BaseCommand):
             self.stdout.write('Deleteing...{:5}'.format(model.objects.count()), ending='\r')
         model.objects.all().delete()
         self.stdout.write('Deletion completed.')
-
-    def handle(self, jsonfile, **options):
-        with open(jsonfile) as file:
-            self.jsondata = json.load(file)
-        self.write_timestamp()
-        self.set_time()
-        self.update_courses()
-        self.update_departments()
-
-    def write_timestamp(self):
-        dt = parse_datetime(self.jsondata['timestamp'])
-        TimeStamp.objects.create(stamp=dt)
-        self.stdout.write('Data timestamp: {}'.format(dt.isoformat()))
 
     def set_time(self):
         self.delete_all(Time)
