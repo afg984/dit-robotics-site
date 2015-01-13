@@ -32,6 +32,8 @@ class Course(models.Model):
     note = models.TextField()
     outline = models.TextField()
     attachment = models.PositiveIntegerField(null=True)
+    credit_density = models.FloatField()
+    enrollment_density = models.FloatField()
 
     class Meta:
         ordering = ('number',)
@@ -50,6 +52,17 @@ class Course(models.Model):
     @property
     def has_attachment(self):
         return self.attachment is not None
+
+    @staticmethod
+    def _float_division(a, b):
+        if a is None or not b:
+            return -1.
+        return a / b
+
+    def save(self):
+        self.credit_density = self._float_division(self.credit, self.time.count())
+        self.enrollment_density = self._float_divistion(self.enrollment, self.size_limit)
+        super().save()
 
 
 class Department(models.Model):
