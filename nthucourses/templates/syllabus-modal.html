@@ -14,7 +14,7 @@
           <p><a target="_blank" href="{% url 'nthucourses:syllabus' course.number %}">獨立頁面</a></p>
         </div>
         <div class="col-md-8">
-          <p class="pre-ws">{{ course.note }}</p>
+          {% if course.note %}<p class="pre-ws">{{ course.note }}</p>{% endif %}
           <p class="text-danger">注意：本站所列之課程資料僅供參考。</p>
           <p class="text-muted"><small>資料日期：{{ timestamp|date:"c" }}</small></p>
         </div>
