@@ -23,6 +23,7 @@
 {% endblock %}
 
 {% block content %}
+{% with coursecount=courses.count %}
 <h2 class="page-header">NTHU Courses<small> beta</small></h2>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
@@ -73,7 +74,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingResult">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">搜尋結果</a><small> ({{ courses.count|default:"沒有符合條件的搜尋結果" }})</small>
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">搜尋結果</a><small> ({{ coursecount|default:"沒有符合條件的搜尋結果" }})</small>
       </h4>
     </div>
     <div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
@@ -92,7 +93,13 @@
           </tr>
           {% for course in courses %}
           <tr>
-            <td class="text-nowrap"><button type="button" class="btn-link nodec" data-toggle="modal" data-target="#course{{ course.id }}Modal">{{ course.number }}</button></td>
+            <td class="text-nowrap">
+              {% if coursecount > 30 %}
+              <a target="_blank" href="{% url 'nthucourses:syllabus' course.number %}">{{ course.number }}</a>
+              {% else %}
+              <button type="button" class="btn-link nodec" data-toggle="modal" data-target="#course{{ course.id }}Modal">{{ course.number }}</button>
+              {% endif %}
+            </td>
             <td>{{ course.title_zh }}</td>
             <td>{{ course.instructor }}</td>
             <td>{{ course.time_string }}</td>
@@ -112,4 +119,5 @@
 <div>
   {% for course in courses %}{% include "syllabus-modal.html" %}{% endfor %}
 </div>
+{% endwith %}
 {% endblock %}
