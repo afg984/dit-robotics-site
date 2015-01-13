@@ -25,7 +25,7 @@
       <p>{{ course.number }}<p>
       <p>{{ course.instructor }} - {{ course.time_string|default:"未列時間" }} @ {{ course.room|default:"未列地點" }}<p>
       <p>{{ course.enrollment }} / {{ course.size_limit|default:"?" }} 人, {{ course.credit }} 學分</p>
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#capabilityModal">檢視核心能力</button>
+      <button type="button" class="btn-link nodec" data-toggle="modal" data-target="#capabilityModal">檢視核心能力</button>
     </div>
     <div class="col-md-8">
       {% if course.title_geinfo %}<p class="text-warning">{{ course.getag }}</p>{% endif %}
