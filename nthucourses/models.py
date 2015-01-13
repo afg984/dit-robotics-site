@@ -29,7 +29,8 @@ class Course(models.Model):
     room = models.CharField(max_length=20)
     title_en = models.CharField(max_length=40)
     title_zh = models.CharField(max_length=40)
-    title_geinfo = models.CharField(max_length=20)
+    title_geinfo = models.CharField(max_length=50)
+    is_gec = models.BooleanField(default=False)
     note = models.TextField()
     outline = models.TextField()
     attachment = models.PositiveIntegerField(null=True)
@@ -63,6 +64,7 @@ class Course(models.Model):
     def save(self):
         self.credit_density = self._float_division(self.credit, self.time.count())
         self.enrollment_density = self._float_division(self.enrollment, self.size_limit)
+        self.is_gec = 'Core' in self.title_geinfo
         super().save()
 
 
