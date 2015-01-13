@@ -3,12 +3,29 @@
 {% block mtitle %}{{ course.number }}{% endblock %}
 
 {% block content %}
+<div class="modal fade" id="capabilityModal" tabindex="-1" role="dialog" aria-labelledby="capabilityModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="capabilityModalLabel">核心能力 - {{ course.title_zh }}</h4>
+      </div>
+      <div class="modal-body">
+        <p class="pre-ws">{{ course.capabilities }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+      </div>
+    </div>
+  </div>
+</div>
 <h2 class="page-header">{{ course.title_zh }}<small> {{ course.title_en }}</small></h2>
 <div class="row">
 <div class="col-md-4">
 <p>{{ course.number }}<p>
 <p>{{ course.instructor }} - {{ course.time_string|default:"未列時間" }} @ {{ course.room|default:"未列地點" }}<p>
 <p>{{ course.enrollment }} / {{ course.size_limit|default:"?" }} 人, {{ course.credit }} 學分</p>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#capabilityModal">檢視核心能力</button>
 </div>
 <div class="col-md-8">
 <p class="pre-ws">{{ course.note }}</p>
