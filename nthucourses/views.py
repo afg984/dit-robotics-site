@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.db.models import Min
 
 from .forms import CourseFilterForm
 from .models import Department, Time, Course, TimeStamp
@@ -17,8 +18,11 @@ def index(request):
         else:
             not_time = Time.objects.exclude(value__in=form.cleaned_data['time'])
         courses = courses.exclude(time__in=not_time)
-        if form.cleaned_data['ordering'] != 'number':
-            courses = courses.order_by(form.cleaned_data['ordering'], 'number')
+        ordering = form.cleaned_data['ordering']
+        if ordering != 'number':
+            if ordering == 'firsttime':
+                courses = courses.annotate(firsttime=Min('time'))
+            courses = courses.order_by(ordering, 'number')
         context['courses'] = courses.distinct()
     context['form'] = form
     context['timestamp'] = TimeStamp.objects.last().stamp
