@@ -2,7 +2,6 @@ import json
 import itertools
 
 from django.core.management.base import BaseCommand
-from django.utils.timezone import get_current_timezone, make_aware
 from django.utils.dateparse import parse_datetime
 
 from nthucourses.models import TimeStamp, Time, Course, Department
@@ -44,7 +43,7 @@ class Command(BaseCommand):
         self.update_departments()
 
     def write_timestamp(self):
-        dt = make_aware(parse_datetime(self.jsondata['timestamp']), get_current_timezone())
+        dt = parse_datetime(self.jsondata['timestamp'])
         TimeStamp.objects.create(stamp=dt)
         self.stdout.write('Data timestamp: {}'.format(dt.isoformat()))
 
