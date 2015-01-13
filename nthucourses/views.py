@@ -17,6 +17,8 @@ def index(request):
         else:
             not_time = Time.objects.exclude(value__in=form.cleaned_data['time'])
         courses = courses.exclude(time__in=not_time).distinct()
+        if form.cleaned_data['ordering'] != 'number':
+            courses = courses.order_by(form.cleaned_data['ordering'])
         context['courses'] = courses
     context['form'] = form
     context['timestamp'] = TimeStamp.objects.last().stamp
