@@ -67,6 +67,10 @@ class Course(models.Model):
         self.is_gec = 'Core' in self.title_geinfo
         super().save()
 
+    @property
+    def getag(self):
+        return self.title_geinfo.replace('Elective', '')
+
 
 class Department(models.Model):
     abbr = models.CharField(max_length=4, unique=True)

@@ -23,7 +23,7 @@
 <div class="row">
 <div class="col-md-4">
 <p>{{ course.number }}<p>
-{% if course.title_geinfo %}<p class="text-warning">{{ course.title_geinfo }}</p>{% endif %}
+{% if course.title_geinfo %}<p class="text-warning">{{ course.getag }}</p>{% endif %}
 <p>{{ course.instructor }} - {{ course.time_string|default:"未列時間" }} @ {{ course.room|default:"未列地點" }}<p>
 <p>{{ course.enrollment }} / {{ course.size_limit|default:"?" }} 人, {{ course.credit }} 學分</p>
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#capabilityModal">檢視核心能力</button>

@@ -8,7 +8,7 @@
       <div class="modal-body row">
         <div class="col-md-4">
           <p>{{ course.number }}<p>
-          {% if course.title_geinfo %}<p class="text-warning">{{ course.title_geinfo }}</p>{% endif %}
+          {% if course.title_geinfo %}<p class="text-warning">{{ course.getag }}</p>{% endif %}
           <p>{{ course.instructor }} - {{ course.time_string|default:"未列時間" }} @ {{ course.room|default:"未列地點" }}<p>
           <p>{{ course.enrollment }} / {{ course.size_limit|default:"?" }} 人, {{ course.credit }} 學分</p>
           <p><a target="_blank" href="{% url 'nthucourses:syllabus' course.number %}">獨立頁面</a></p>
