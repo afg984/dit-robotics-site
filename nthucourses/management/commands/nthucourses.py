@@ -145,7 +145,7 @@ loadjson: load json course data from path
             bulk_targets.append(deprow)
             course_targets.append((abbr, [
                 Course.objects.get(number=course_number)
-                for course_number in department['curriclum']
+                for course_number in department['curriculum']
             ]))
         self.stdout.write('Writing departments...')
         Department.objects.bulk_create(bulk_targets)
