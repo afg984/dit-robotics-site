@@ -47,7 +47,7 @@ def mkdir(request, args):
     else:
         directory = DriveRootDirectory(user)
     if request.user != directory.user:
-        return render_to_response('drive_denied.html', context)
+        return render_to_response('drive_denied.html', RequestContext(context))
     form = MkdirForm(request.POST)
     if form.is_valid():
         drive_directory = form.save(commit=False)
