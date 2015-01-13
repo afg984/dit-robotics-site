@@ -16,10 +16,10 @@ def index(request):
             not_time = Time.objects.filter(value__in=form.cleaned_data['time'])
         else:
             not_time = Time.objects.exclude(value__in=form.cleaned_data['time'])
-        courses = courses.exclude(time__in=not_time).distinct()
+        courses = courses.exclude(time__in=not_time)
         if form.cleaned_data['ordering'] != 'number':
             courses = courses.order_by(form.cleaned_data['ordering'], 'number')
-        context['courses'] = courses
+        context['courses'] = courses.distinct()
     context['form'] = form
     context['timestamp'] = TimeStamp.objects.last().stamp
     return render_to_response('courses.html', context)
