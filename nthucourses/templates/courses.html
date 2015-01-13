@@ -36,7 +36,7 @@
         <form class="form-horizontal">
           <div class="form-group">
             <div class="col-md-4">
-            {% for timetablerow in form.timetable %}
+              {% for timetablerow in form.timetable %}
               <div>
                 <div class="btn-group" data-toggle="buttons">
                   {% for timetablecell in timetablerow %}
@@ -46,18 +46,23 @@
               </div>
               {% endfor %}
             </div>
-            <div class="col-md-6"><div class="fblock">
-              {{ form.operation.label_tag }}
-              {% for operation in form.operation %}
-              <div class="radio">{{ operation }}</div>
-              {% endfor %}</div><div class="fblock">
-              {{ form.department.label_tag }}
-              {{ form.department|add_class:"form-control" }}</div>
+            <div class="col-md-6">
+              <div class="fblock">
+                {{ form.operation.label_tag }}
+                {% for operation in form.operation %}
+                <div class="radio">{{ operation }}</div>
+                {% endfor %}
+              </div>
+              <div class="fblock">
+                {{ form.department.label_tag }}
+                {{ form.department|add_class:"form-control" }}
+              </div>
               <div class="fblock">
                 {{ form.ordering.label_tag }}
                 {% for ordering in form.ordering %}
                 <div class="radio">{{ ordering }}</div>
-                {% endfor %}</div>
+                {% endfor %}
+              </div>
               <input type="submit" class="btn btn-default">
             </div>
           </div>
@@ -67,9 +72,9 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingResult">
-    <h4 class="panel-title">
-    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">搜尋結果</a><small> ({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
-    </h4>
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResult" aria-expanded="{% if form.is_valid %}true{% else %}false{% endif %}" aria-controls="collapseResult">搜尋結果</a><small> ({{ courses|length|default:"沒有符合條件的搜尋結果" }})</small>
+      </h4>
     </div>
     <div id="collapseResult" class="panel-collapse collapse{% if form.is_valid %} in{% endif %}" role="tabpanel" aria-labelledby="headingResult">
       <div class="panel-body">
@@ -97,7 +102,7 @@
             <td style="width:30%;" class="pre-ws">{{ course.note }}</td>
           </tr>
           {% empty %}
-            <tr><td colspan="8">沒有符合條件的搜尋結果。</td></tr>
+          <tr><td colspan="8">沒有符合條件的搜尋結果。</td></tr>
           {% endfor %}
         </table>
       </div>
