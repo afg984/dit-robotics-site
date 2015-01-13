@@ -61,7 +61,7 @@ class Course(models.Model):
 
     def save(self):
         self.credit_density = self._float_division(self.credit, self.time.count())
-        self.enrollment_density = self._float_divistion(self.enrollment, self.size_limit)
+        self.enrollment_density = self._float_division(self.enrollment, self.size_limit)
         super().save()
 
 
