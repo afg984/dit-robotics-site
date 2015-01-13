@@ -32,8 +32,8 @@ class Course(models.Model):
     note = models.TextField()
     outline = models.TextField()
     attachment = models.PositiveIntegerField(null=True)
-    credit_density = models.FloatField()
-    enrollment_density = models.FloatField()
+    credit_density = models.FloatField(null=True)
+    enrollment_density = models.FloatField(null=True)
 
     class Meta:
         ordering = ('number',)
