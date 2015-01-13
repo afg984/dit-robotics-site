@@ -116,8 +116,10 @@
     </div>
   </div>
 </div>
+{% if coursecount <= 30 %}
 <div>
   {% for course in courses %}{% include "syllabus-modal.html" %}{% endfor %}
 </div>
+{% endif %}
 {% endwith %}
 {% endblock %}
