@@ -42,7 +42,7 @@ Dropzone.options.driveDropzone = {
   <div class="col-md-8">
     <ol class="breadcrumb page-header">
       {% for obj in directory.abspath %}
-      <li{% if forloop.last %} class="active">{{ obj.name }}{% else %}>{{ obj.as_link }}{% endif %}</il>
+      <li{% if forloop.last %} class="active">{{ obj.name }}{% else %}>{{ obj.as_link }}{% endif %}</li>
       {% endfor %}
     </ol>
     <table class="table table-hover">
