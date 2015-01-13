@@ -91,7 +91,7 @@
             <td>{{ course.title_zh }}</td>
             <td>{{ course.instructor }}</td>
             <td>{{ course.time_string }}</td>
-            <td>{{ course.enrollment }} / {{ course.size_limit|default:"?" }}</td>
+            <td class="text-nowrap">{{ course.enrollment }} / {{ course.size_limit|default:"?" }}</td>
             <td>{{ course.room }}</td>
             <td>{{ course.credit }}</td>
             <td style="width:30%;" class="pre-ws">{{ course.note }}</td>
