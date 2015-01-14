@@ -11,7 +11,7 @@ class TimeStamp(models.Model):
 class Time(models.Model):
     weekdays = 'MTWRFS'
     hours = '1234n56789abc'
-    value = models.CharField(max_length=2, unique=True)
+    value = models.CharField(max_length=2, unique=True, db_index=True)
 
     def __str__(self):
         return self.value
@@ -20,7 +20,7 @@ class Time(models.Model):
 class Course(models.Model):
     pdf_dir = 'static/syllabus-pdf/'
     time = models.ManyToManyField(Time)
-    number = models.CharField(max_length=20)
+    number = models.CharField(max_length=20, db_index=True)
     capabilities = models.TextField()
     credit = models.PositiveSmallIntegerField()
     size_limit = models.PositiveSmallIntegerField(null=True)
@@ -34,11 +34,12 @@ class Course(models.Model):
     note = models.TextField()
     outline = models.TextField()
     attachment = models.PositiveIntegerField(null=True)
-    credit_density = models.FloatField(null=True)
-    enrollment_density = models.FloatField(null=True)
+    credit_density = models.FloatField(null=True, db_index=True)
+    enrollment_density = models.FloatField(null=True, db_index=True)
 
     class Meta:
         ordering = ('number',)
+        index_together = (('is_gec', 'title_geinfo'),)
 
     def __str__(self):
         return self.number
