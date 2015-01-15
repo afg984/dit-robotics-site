@@ -7,7 +7,7 @@ import itertools
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.dateparse import parse_datetime
 
-from nthucourses.models import TimeStamp, Time, Course, Department
+from nthucourses.models import MetaData, Time, Course, Department
 
 
 class Command(BaseCommand):
@@ -55,15 +55,17 @@ loadjson: load json course data from path
     def loadjson(self, jsonfile, **options):
         with open(jsonfile) as file:
             self.jsondata = json.load(file)
-        self.write_timestamp()
+        self.write_metadata()
         self.set_time()
         self.update_courses()
         self.update_departments()
 
-    def write_timestamp(self):
-        dt = parse_datetime(self.jsondata['timestamp'])
-        TimeStamp.objects.create(stamp=dt)
-        self.stdout.write('Data timestamp: {}'.format(dt.isoformat()))
+    def write_metadata(self):
+        dt = parse_datetime(self.jsondata['metadata']['timestamp'])
+        semester = self.jsondata['metadata']['semester']
+        MetaData.objects.create(timestamp=dt, semester=semester)
+        self.stdout.write('Data timestamp: {}, Semester: {}'.format(
+            dt.isoformat(), semester))
 
     def progress_iter(self, seq, msg):
         total = len(seq)
