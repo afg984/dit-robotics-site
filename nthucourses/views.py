@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.db.models import Min
 
 from .forms import CourseFilterForm
-from .models import Department, Time, Course, TimeStamp
+from .models import Department, Time, Course, MetaData
 
 def index(request):
     context = RequestContext(request)
@@ -28,7 +28,7 @@ def index(request):
                 courses = courses.order_by(ordering, 'number')
         context['courses'] = courses.distinct()
     context['form'] = form
-    context['timestamp'] = TimeStamp.objects.last().stamp
+    context['metadata'] = MetaData.objects.last()
     return render_to_response('courses.html', context)
 
 def syllabus(request, number):
