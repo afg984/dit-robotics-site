@@ -120,6 +120,7 @@ loadjson: load json course data from path
                 note=course['note'],
                 outline=course['outline'],
                 attachment=course['attachment'],
+                has_prerequisite=course['has_prerequisite'],
             )
             bulk_targets.append(courow)
             time_targets.append((course['no'], [
