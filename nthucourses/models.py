@@ -45,6 +45,7 @@ class Course(models.Model):
     attachment = models.PositiveIntegerField(null=True)
     credit_density = models.FloatField(null=True, db_index=True)
     enrollment_density = models.FloatField(null=True, db_index=True)
+    has_prerequisite = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('number',)
