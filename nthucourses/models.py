@@ -5,8 +5,17 @@ from django.utils.encoding import iri_to_uri
 
 # Create your models here.
 
-class TimeStamp(models.Model):
-    stamp = models.DateTimeField()
+class MetaData(models.Model):
+    timestamp = models.DateTimeField()
+    semester = models.CharField(max_length=5)
+
+    @property
+    def semester_hr(self):
+        return '{} 學年度第 {} 學期'.format(
+            self.semester[:3],
+            self.semester[4]
+        )
+
 
 class Time(models.Model):
     weekdays = 'MTWRFS'
