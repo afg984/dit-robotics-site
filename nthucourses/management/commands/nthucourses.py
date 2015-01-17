@@ -56,6 +56,7 @@ loadjson: load json course data from path
         with open(jsonfile) as file:
             self.jsondata = json.load(file)
         self.write_metadata()
+        self.update_prerequisites()
         self.set_time()
         self.update_courses()
         self.update_departments()
