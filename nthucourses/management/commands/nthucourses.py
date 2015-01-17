@@ -70,15 +70,18 @@ loadjson: load json course data from path
     def progress_iter(self, seq, msg):
         total = len(seq)
         width = len(str(total))
-        for n, item in enumerate(seq, start=1):
-            yield item
+        format_string = '{msg}({n:{width}}/{total:{width}})'
+        for n, item in enumerate(seq):
             self.stdout.write(
-                '{msg}({n:{width}}/{total:{width}})'.format(
+                format_string.format(
                     msg=msg, n=n, width=width, total=total,
                 ),
                 ending='\r',
             )
-        self.stdout.write('')
+            yield item
+        self.stdout.write(format_string.format(
+            msg=msg, n=total, width=width, total=total,
+        ))
 
     def delete_all(self, model):
         while model.objects.count() > 999:
