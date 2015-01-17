@@ -17,6 +17,11 @@ class MetaData(models.Model):
         )
 
 
+class Prerequisite(models.Model):
+    course_title = models.CharField(max_length=20)
+    info = models.TextField()
+
+
 class Time(models.Model):
     weekdays = 'MTWRFS'
     hours = '1234n56789abc'
