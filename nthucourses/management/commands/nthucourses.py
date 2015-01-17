@@ -7,7 +7,7 @@ import itertools
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.dateparse import parse_datetime
 
-from nthucourses.models import MetaData, Time, Course, Department
+from nthucourses.models import MetaData, Time, Course, Department, Prerequisite
 
 
 class Command(BaseCommand):
@@ -97,6 +97,18 @@ loadjson: load json course data from path
             for timep in itertools.product(Time.weekdays, Time.hours)
         )
         self.stdout.write('Time creation done.')
+
+    def update_prerequisites(self):
+        Prerequisite.objects.all().delete()
+        bulk_targets = list()
+        for course_title, info in self.jsondata['prerequisites'].values():
+            bulk_targets.append(Prerequisite(
+                course_title=course_title,
+                info=info,
+            ))
+        Prerequisite.objects.bulk_create(bulk_targets)
+        self.stdout.write('Updated prerequisites.')
+
 
     def update_courses(self):
         self.delete_all(Course)
