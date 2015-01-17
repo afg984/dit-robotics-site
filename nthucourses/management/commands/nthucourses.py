@@ -105,13 +105,16 @@ loadjson: load json course data from path
     def update_prerequisites(self):
         Prerequisite.objects.all().delete()
         bulk_targets = list()
-        for course_title, info in self.jsondata['prerequisites'].values():
+        for course_title, info in self.progress_iter(
+            self.jsondata['prerequisites'].items(),
+            'Loading prerequisites...',
+        ):
             bulk_targets.append(Prerequisite(
                 course_title=course_title,
-                info=info,
+                info=json.dumps(info),
             ))
         Prerequisite.objects.bulk_create(bulk_targets)
-        self.stdout.write('Updated prerequisites.')
+        self.stdout.write('Written prerequisites.')
 
 
     def update_courses(self):
