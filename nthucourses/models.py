@@ -18,7 +18,7 @@ class MetaData(models.Model):
 
 
 class Prerequisite(models.Model):
-    course_title = models.CharField(max_length=20, primary_key=True)
+    course_title = models.CharField(max_length=20, db_index=True)
     info = models.TextField()
 
 
