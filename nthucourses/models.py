@@ -21,6 +21,8 @@ class Prerequisite(models.Model):
     course_title = models.CharField(max_length=20, db_index=True)
     info = models.TextField()
 
+    ordering = ('course_title',)
+
 
 class Time(models.Model):
     weekdays = 'MTWRFS'
