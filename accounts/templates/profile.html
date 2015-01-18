@@ -8,11 +8,11 @@
   <tr>
     <th>Username</th>
     <td>{{ profileuser.username }}</td>
-  {% if isself or perms.accounts.view_email %}
+  {#% if isself or perms.accounts.view_email %#}
   <tr>{% with ev=profileuser.profile.email_verified %}
     <th>Email</th>
     <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% if isself %} <form method="post" class="inline" action="{% url 'get_email_token' %}">{% csrf_token %%}<small><input type="submit" class="btn-link nodec" value="VERIFY"></small></form>{% endif %}{% endif %}</td>{% endwith %}
-  </tr>{% endif %}
+  </tr>{#% endif %#}
   <tr>
     <th>Group</th>
     <td class="text-{{ profileuser.profile.level_css }}">{{ profileuser.profile.level_name }}</td>
