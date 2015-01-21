@@ -12,6 +12,9 @@ Dropzone.options.driveDropzone = {
   maxFilesize: 4096,
   createImageThumbnails: false,
   headers: {"Dropzone-Identifier": "driveDropzone"},
+  complete: function(file) {
+    $("#listingTable").load("{% url 'drive-listingtable' patharg %}");
+  },
 }
 </script>
 <style>

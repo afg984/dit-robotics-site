@@ -94,6 +94,21 @@ def listing(request, args):
     context['patharg'] = args
     return render_to_response('drive.html', context)
 
+
+def listingtable(request, args):
+    context = RequestContext(request)
+    username, _, path = args.partition('/')
+    user = get_object_or_404(User, username=username)
+    if path:
+        directory = locate_dpath(user, path)
+    else:
+        directory = DriveRootDirectory(user)
+    context['directory'] = directory
+    context['files'] = DriveFile.objects.filter(user=directory.user)
+    context['patharg'] = args
+    return render_to_response('drive-listing.html', context)
+
+
 def get(request, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
     if drive_file.user != request.user:
