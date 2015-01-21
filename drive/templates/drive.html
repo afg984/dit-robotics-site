@@ -45,33 +45,7 @@ Dropzone.options.driveDropzone = {
       {% if forloop.last %}<li class="active">{{ obj.name }}{% else %}<li>{{ obj.as_link }}{% endif %}</li>
       {% endfor %}
     </ol>
-    <form method="post">
-      {% csrf_token %}
-      <table class="table table-hover">
-        <tr>
-          <td class="button-cell"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></td>
-          <td colspan="4">
-            <a href="#modalMkdir" data-toggle="modal" data-target="#modalMkdir">Create Directory</a>
-          </td>
-        </tr>
-        {% for dir in directory.subdirectories.all %}
-        <tr>
-          <td class="button-cell"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></td>
-          <td>{{ dir.as_link }}</td>
-          <td colspan="3"></td>
-        </tr>
-        {% endfor %}
-        {% for file in directory.files.all %}
-        <tr>
-          <td class="button-cell"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></td>
-          <td>{{ file.as_link }}</td>
-          <td class="text-right hidden-xs"><small>{{ file.file.size|filesizeformat }}</small></td>
-          <td class="text-right hidden-xs"><small>{{ file.created_at|date:"Y/m/d H:i:s" }}</small></td>
-          <td class="button-cell text-right"><button type="submit" onclick="return confirm('Are you sure you want to delete the following file?\n{{ file.filename }}')" class="close" formaction="{% url 'drive-delete' file.id %}"><span aria-hidden="true">&times;</span></button></td>
-        </tr>
-        {% endfor %}
-      </table>
-    </form>
+    {% include "drive-listing.html" %}
   </div>
 </div>
 <div class="modal" id="modalMkdir" tabindex="-1" role="dialog" aria-labelledby="modalMkdirLabel" aria-hidden="true">
