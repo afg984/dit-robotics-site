@@ -7,7 +7,7 @@ from django.utils.encoding import iri_to_uri
 
 class MetaData(models.Model):
     timestamp = models.DateTimeField()
-    semester = models.CharField(max_length=5)
+    semester = models.CharField(max_length=6)
 
     @property
     def semester_hr(self):
@@ -41,9 +41,9 @@ class Course(models.Model):
     credit = models.PositiveSmallIntegerField()
     size_limit = models.PositiveSmallIntegerField(null=True)
     enrollment = models.PositiveSmallIntegerField()
-    instructor = models.CharField(max_length=20)
+    instructor = models.CharField(max_length=40)
     room = models.CharField(max_length=20)
-    title_en = models.CharField(max_length=40)
+    title_en = models.CharField(max_length=120)
     title_zh = models.CharField(max_length=40)
     title_geinfo = models.CharField(max_length=50)
     is_gec = models.BooleanField(default=False)
@@ -92,8 +92,8 @@ class Course(models.Model):
 
 class Department(models.Model):
     abbr = models.CharField(max_length=4, unique=True)
-    name_zh = models.CharField(max_length=20)
-    name_en = models.CharField(max_length=40)
+    name_zh = models.CharField(max_length=40)
+    name_en = models.CharField(max_length=120)
     courses = models.ManyToManyField(Course)
 
     class Meta:
