@@ -46,7 +46,7 @@ def registration_view(request):
         email_form = EmailForm()
     context['form'] = form
     context['email_form'] = email_form
-    return render_to_response('registration.html', context)
+    return render_to_response('accounts/registration.html', context)
 
 def profile(request, username=None):
     context = RequestContext(request)
@@ -58,7 +58,7 @@ def profile(request, username=None):
     else:
          context['profileuser'] = get_object_or_404(User, username=username)
     context['isself'] = (request.user == context['profileuser'])
-    return render_to_response('profile.html', context)
+    return render_to_response('accounts/profile.html', context)
 
 @login_required
 def get_email_token(request):
@@ -69,7 +69,7 @@ def get_email_token(request):
         if request.method == 'GET':
             if not request.user.profile.email_token_alive:
                 context['error'] = 'The email verification link does not exist.'
-            return render_to_response('email-sent.html', context)
+            return render_to_response('accounts/email-sent.html', context)
 
         body_template = '''\
 Dear {username},
@@ -101,7 +101,7 @@ Dit Robotics Site'''
                     context['error'] = 'The server failed to send an email to {}'.format(request.user.email)
         else:
             context['error'] = 'You have not set your email yet!'
-    return render_to_response('email-sent.html', context)
+    return render_to_response('accounts/email-sent.html', context)
 
 def verify_email(request, token):
     context = RequestContext(request)
@@ -109,9 +109,9 @@ def verify_email(request, token):
     context['vuser'] = vuser
     if vuser.profile.email_token_expire > timezone.now():
         vuser.profile.set_email_verified()
-        return render_to_response('email-verified.html', context)
+        return render_to_response('accounts/email-verified.html', context)
     else:
-        return render_to_response('email-link-expired.html', context)
+        return render_to_response('accounts/email-link-expired.html', context)
 
 class UserList(ListView):
     context_object_name = 'all_users'
