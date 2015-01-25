@@ -19,7 +19,7 @@ def login_view(request):
     if request.user.is_authenticated():
         return redirect('profile')
     else:
-        return django_login_view(request, template_name='login.html')
+        return django_login_view(request, template_name='accounts/login.html')
 
 
 def registration_view(request):
@@ -116,4 +116,4 @@ def verify_email(request, token):
 class UserList(ListView):
     context_object_name = 'all_users'
     queryset = User.objects.all()
-    template_name = 'userlist.html'
+    template_name = 'accounts/userlist.html'
