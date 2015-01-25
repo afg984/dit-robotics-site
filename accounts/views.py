@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import login as django_login_view
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -40,6 +41,7 @@ def registration_view(request):
             user.email = email_form.cleaned_data['email']
             user.save()
             Profile.objects.create(user=user)
+            messages.success(request, '註冊成功！請點選 VERIFY 以驗證你的 Email')
             return redirect('profile')
     else:
         form = UserCreationForm()

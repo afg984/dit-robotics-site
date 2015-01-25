@@ -1,0 +1,11 @@
+{% load bs_filters %}
+{% if messages %}
+<div class="messages-container">
+  {% for message in messages %}
+    <div class="alert alert-{{ message.level|map_message_level }} alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ message }}
+    </div>
+  {% endfor %}
+</div>
+{% endif %}

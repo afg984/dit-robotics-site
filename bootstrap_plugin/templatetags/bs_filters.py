@@ -40,3 +40,14 @@ def add_class(value, class_):
 @register.filter
 def bs_form_control(value):
     return add_class(value, 'form-control')
+
+
+@register.filter
+def map_message_level(value):
+    return {
+        10: 'debug',
+        20: 'info',
+        25: 'success',
+        30: 'warning',
+        40: 'debug',
+    }.get(value, value)
