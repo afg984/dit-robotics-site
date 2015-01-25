@@ -28,7 +28,7 @@ def errors_to_string(errors):
 @login_required
 def drive(request):
     if request.user.profile.access_level < 2:
-        return render_to_response('drive_member_required.html', RequestContext(request))
+        return render_to_response('drive/member_required.html', RequestContext(request))
     return redirect(DriveRootDirectory(user=request.user).reverse)
 
 def locate_dpath(user, path):
@@ -47,7 +47,7 @@ def mkdir(request, args):
     else:
         directory = DriveRootDirectory(user)
     if request.user != directory.user:
-        return render_to_response('drive_denied.html', RequestContext(context))
+        return render_to_response('drive/denied.html', RequestContext(context))
     form = MkdirForm(request.POST)
     if form.is_valid():
         drive_directory = form.save(commit=False)
@@ -66,7 +66,7 @@ def listing(request, args):
     else:
         directory = DriveRootDirectory(user)
     if request.user != directory.user:
-        return render_to_response('drive_denied.html', context)
+        return render_to_response('drive/denied.html', context)
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -92,7 +92,7 @@ def listing(request, args):
     context['usage'] = sum(f.file.size for f in files)
     context['mkdirform'] = MkdirForm()
     context['patharg'] = args
-    return render_to_response('drive.html', context)
+    return render_to_response('drive/index.html', context)
 
 
 def listingtable(request, args):
@@ -106,13 +106,13 @@ def listingtable(request, args):
     context['directory'] = directory
     context['files'] = DriveFile.objects.filter(user=directory.user)
     context['patharg'] = args
-    return render_to_response('drive-listing.html', context)
+    return render_to_response('drive/listing.html', context)
 
 
 def get(request, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
     if drive_file.user != request.user:
-        return render_to_response('drive_denied.html', RequestContext(request))
+        return render_to_response('drive/denied.html', RequestContext(request))
     response = HttpResponse()
     response['Content-Disposition'] = 'attachment'
     if settings.DEBUG:
@@ -124,6 +124,6 @@ def get(request, id, filename):
 def delete(request, id):
     drive_file = get_object_or_404(DriveFile, id=id)
     if drive_file.user != request.user:
-        return render_to_response('drive_denied.html', RequestContext(request))
+        return render_to_response('drive/denied.html', RequestContext(request))
     drive_file.delete()
     return redirect('drive')
