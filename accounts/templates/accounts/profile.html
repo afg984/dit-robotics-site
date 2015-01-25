@@ -11,8 +11,8 @@
     <td>{{ profileuser.username }}</td>
   {#% if isself or perms.accounts.view_email %#}
   <tr>{% with ev=profileuser.profile.email_verified %}
-    <th>Email</th>
-    <td {% if not ev %}class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev %} [NOT VERIFIED]{% if isself %} <form method="post" class="inline" action="{% url 'get_email_token' %}">{% csrf_token %%}<small><input type="submit" class="btn-link nodec" value="VERIFY"></small></form>{% endif %}{% endif %}</td>{% endwith %}
+    <th>Email{% if not ev %}<small class="text-muted"> (not verified)</small>{% endif %}</th>
+    <td{% if not ev %} class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev and isself %} <form method="post" class="inline" action="{% url 'get_email_token' %}">{% csrf_token %%}<small><input type="submit" class="btn-link nodec" value="VERIFY"></small></form>{% endif %}</td>{% endwith %}
   </tr>{#% endif %#}
   <tr>
     <th>Group</th>
