@@ -48,7 +48,7 @@ Dropzone.options.driveDropzone = {
       {% if forloop.last %}<li class="active">{{ obj.name }}{% else %}<li>{{ obj.as_link }}{% endif %}</li>
       {% endfor %}
     </ol>
-    {% include "drive-listing.html" %}
+    {% include "drive/listing.html" %}
   </div>
 </div>
 <div class="modal" id="modalMkdir" tabindex="-1" role="dialog" aria-labelledby="modalMkdirLabel" aria-hidden="true">
