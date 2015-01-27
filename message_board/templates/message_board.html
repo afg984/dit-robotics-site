@@ -16,5 +16,10 @@
   <p>{{ message.message }}</p>
   <footer>{{ message.user.profile.html_link|default:message.nickname }} at {{ message.created_at|date:"Y-m-d H:i" }}</footer>
 </blockquote>
+{% empty %}
+<blockquote>
+  <p>There are no messages.</p>
+  <footer>SYSTEM</footer>
+</blockquote>
 {% endfor %}
 {% endblock %}
