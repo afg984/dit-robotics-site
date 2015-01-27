@@ -78,7 +78,7 @@ Dear {username},
 Please visit the link below to verify your email address:
 http://{link}
 
-Dit Robotics Site'''
+DIT Robotics Site'''
 
         if request.user.email:
             token = request.user.profile.get_email_token()
