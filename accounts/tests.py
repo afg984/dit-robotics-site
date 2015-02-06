@@ -1,11 +1,10 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 # Create your tests here.
 
 class AccountTestCase(TestCase):
     def setUp(self):
-        client = Client()
         self.username = 'account_test_user'
         self.password = 'account_test_password'
         self.email = 'account_test_email@example.com'
