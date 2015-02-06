@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+
+from accounts.models import Profile
 # Create your tests here.
 
 class AccountTestCase(TestCase):
@@ -36,3 +38,31 @@ class AccountTestCase(TestCase):
 
     def test_user_is_noemail(self):
         self.assertEqual(self.user.profile.level_name, 'NOEMAIL')
+
+    def test_user_can_login(self):
+        response = self.client.post(
+            reverse('login'),
+            {
+                'id_username': self.username,
+                'id_password': self.password,
+            },
+            follow=True
+        )
+        self.assertContains(response, self.username)
+        self.assertContains(response, 'Log out')
+    
+
+class ProfileManagerTest(TestCase):
+    def setUp(self):
+        self.username = 'testuser123'
+        self.password = 'testpassword1234'
+        self.email = 'email123@test.com'
+        self.profile = Profile.objects.create_user(
+            username=self.username,
+            password=self.password,
+            email=self.email
+        )
+
+    def test_profile_manager_can_create_user(self):
+        user = User.objects.get(username=self.username)
+        self.assertEqual(self.profile, user.profile)
