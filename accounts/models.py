@@ -12,7 +12,18 @@ def get_profile(user):
     except Profile.DoesNotExist:
         return Profile.objects.create(user=user)
 
-# Create your models here.
+
+class ProfileManager(models.Manager):
+    def create_user(self, username, password, email):
+        self.create(
+            user=User.objects.create_user(
+                username=username,
+                password=password,
+                email=email,
+            )
+        )
+
+
 class Profile(models.Model):
     class Meta:
         permissions = (
@@ -29,6 +40,7 @@ class Profile(models.Model):
     email_verified = models.BooleanField(default=False)
     email_token = models.CharField(max_length=TOKEN_LENGTH, default="")
     email_token_expire = models.DateTimeField(null=True)
+    objects = ProfileManager()
 
     @property
     def is_member(self):
