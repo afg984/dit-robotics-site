@@ -15,7 +15,7 @@ def get_profile(user):
 
 class ProfileManager(models.Manager):
     def create_user(self, username, password, email):
-        self.create(
+        return self.create(
             user=User.objects.create_user(
                 username=username,
                 password=password,
