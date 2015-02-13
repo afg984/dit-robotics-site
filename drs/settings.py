@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'message_board',
     'bootstrap_plugin',
     'nthucourses',
+    'dpcstatus',
 )
 
 MIDDLEWARE_CLASSES = (

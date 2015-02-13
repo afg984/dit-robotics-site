@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^message_board/', include('message_board.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^nthucourses/', include('nthucourses.urls', namespace='nthucourses')),
+    url(r'^dpcstatus/', include('dpcstatus.urls', namespace='dpcstatus')),
 )
 
 if settings.DEBUG:

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block mtitle %}3D Printer Status{% endblock %}
+
+{% block content %}
+<h2 class="page-header">3D Printer Status</h2>
+<p>{{ status|default:"Unknown" }}</p>
+<h3>Log</h3>
+<div class="well no-gradient">
+  {{ log }}
+</div>
+<h3>Errors</h3>
+<div class="well no-gradient">
+  {{ errors }}
+</div>
+{% endblock %}
