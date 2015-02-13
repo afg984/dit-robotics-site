@@ -4,13 +4,24 @@
 
 {% block content %}
 <h2 class="page-header">3D Printer Status</h2>
-<p>{{ status|default:"Unknown" }}</p>
+{% if ERROR %}
+<p class="text-danger">Error occurred while obtaining printer status.</p>
+<h3>Traceback</h3>
+<pre>
+{{ ERROR }}
+</pre>
+{% else %}
+<p>{% for c in STATUS.0.message %}{% if c == '|' %}</p><p>{% else %}{{ c }}{% endif %}{% endfor %}</p>
 <h3>Log</h3>
-<div class="well no-gradient">
-  {{ log }}
-</div>
-<h3>Errors</h3>
-<div class="well no-gradient">
-  {{ errors }}
-</div>
+<pre>
+  {% for stdout in STDOUT %}{{ stdout.time }} {{ stdout.message }}
+  {% endfor %}
+</pre>
+<h3>Exceptions</h3>
+<pre>
+  {% for exception in EXCEPTION %}{{ exception.time }}
+  {{ exception.message }}
+  {% endfor %}
+</pre>
+{% endif %}
 {% endblock %}

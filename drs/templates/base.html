@@ -18,6 +18,7 @@
       <ul class="nav navbar-nav navbar-left">
         {% nav_li 'message_board' %}
         {% nav_li 'drive' %}
+        {% nav_li 'dpcstatus:index' '3D Printer' %}
         {% nav_li 'nthucourses:index' 'NTHU Courses' %}
         {% if user.is_superuser %}{% nav_li 'userlist' 'User list' %}{% endif %}
       </ul>
