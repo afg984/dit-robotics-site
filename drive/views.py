@@ -133,7 +133,7 @@ def get(request, id, filename):
 @require_POST
 def delete(request, id):
     drive_file = get_object_or_404(DriveFile, id=id)
-    redirect_drive = get_dir(request.POST.get('pathspec', ''))
+    redirect_dir = get_dir(request.POST.get('pathspec', ''))
     if drive_file.user != request.user:
         return render_to_response('drive/denied.html', RequestContext(request))
     drive_file.delete()
