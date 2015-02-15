@@ -18,11 +18,7 @@ The user "http" must have access to the project directory.
 This is currently achieved by adding "http" to "afg" group.
 ```
 cd
-mkdir drs
-cd drs
-git init
-git remote add origin <remote-repo>
-git pull origin master
+git clone git@github.com:afg984/dit-robotics-site.git drs
 ```
 
 ###uWSGI Setup
