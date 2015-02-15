@@ -39,8 +39,8 @@ def locate_dpath(user, path):
     return result
 
 @require_POST
-def mkdir(request, args):
-    username, _, path = args.partition('/')
+def mkdir(request, pathspec):
+    username, _, path = pathspec.partition('/')
     user = get_object_or_404(User, username=username)
     if path:
         directory = locate_dpath(user, path)
@@ -57,9 +57,9 @@ def mkdir(request, args):
         drive_directory.save()
     return redirect(directory.reverse)
 
-def listing(request, args):
+def listing(request, pathspec):
     context = RequestContext(request)
-    username, _, path = args.partition('/')
+    username, _, path = pathspec.partition('/')
     user = get_object_or_404(User, username=username)
     if path:
         directory = locate_dpath(user, path)
@@ -91,13 +91,13 @@ def listing(request, args):
     context['files'] = files
     context['usage'] = sum(f.file.size for f in files)
     context['mkdirform'] = MkdirForm()
-    context['patharg'] = args
+    context['pathspec'] = pathspec
     return render_to_response('drive/index.html', context)
 
 
-def listingtable(request, args):
+def listingtable(request, pathspec):
     context = RequestContext(request)
-    username, _, path = args.partition('/')
+    username, _, path = pathspec.partition('/')
     user = get_object_or_404(User, username=username)
     if path:
         directory = locate_dpath(user, path)
@@ -105,7 +105,7 @@ def listingtable(request, args):
         directory = DriveRootDirectory(user)
     context['directory'] = directory
     context['files'] = DriveFile.objects.filter(user=directory.user)
-    context['patharg'] = args
+    context['pathspec'] = pathspec
     return render_to_response('drive/listing.html', context)
 
 
