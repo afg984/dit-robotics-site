@@ -49,31 +49,21 @@ def get_dir(pathspec):
 
 @require_POST
 def mkdir(request, pathspec):
-    username, _, path = pathspec.partition('/')
-    user = get_object_or_404(User, username=username)
-    if path:
-        directory = locate_dpath(user, path)
-    else:
-        directory = DriveRootDirectory(user)
+    directory = get_dir(pathspec)
     if request.user != directory.user:
         return render_to_response('drive/denied.html', RequestContext(context))
     form = MkdirForm(request.POST)
     if form.is_valid():
-        drive_directory = form.save(commit=False)
+        new_directory = form.save(commit=False)
         if isinstance(directory, DriveDirectory):
-            drive_directory.parent = directory
-        drive_directory.user = user
-        drive_directory.save()
+            new_directory.parent = directory
+        new_directory.user = directory.user
+        new_directory.save()
     return redirect(directory.reverse())
 
 def listing(request, pathspec):
     context = RequestContext(request)
-    username, _, path = pathspec.partition('/')
-    user = get_object_or_404(User, username=username)
-    if path:
-        directory = locate_dpath(user, path)
-    else:
-        directory = DriveRootDirectory(user)
+    directory = get_dir(pathspec)
     if request.user != directory.user:
         return render_to_response('drive/denied.html', context)
     if request.method == 'POST':
@@ -106,12 +96,7 @@ def listing(request, pathspec):
 
 def listingtable(request, pathspec):
     context = RequestContext(request)
-    username, _, path = pathspec.partition('/')
-    user = get_object_or_404(User, username=username)
-    if path:
-        directory = locate_dpath(user, path)
-    else:
-        directory = DriveRootDirectory(user)
+    directory = get_dir(pathspec)
     context['directory'] = directory
     context['files'] = DriveFile.objects.filter(user=directory.user)
     context['pathspec'] = pathspec
