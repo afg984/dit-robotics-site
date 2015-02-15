@@ -21,6 +21,12 @@ cd
 git clone git@github.com:afg984/dit-robotics-site.git drs
 ```
 
+###Drive Setup
+```
+mkdir media
+chmod 775 media
+```
+
 ###uWSGI Setup
 ```
 sudo systemctl enable emperor.uwsgi
