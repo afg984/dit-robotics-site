@@ -29,7 +29,7 @@ def errors_to_string(errors):
 def drive(request):
     if request.user.profile.access_level < 2:
         return render_to_response('drive/member_required.html', RequestContext(request))
-    return redirect(DriveRootDirectory(user=request.user).reverse)
+    return redirect(DriveRootDirectory(user=request.user).reverse())
 
 def locate_dpath(user, path):
     first, *path = path.strip('/').split('/')
@@ -64,7 +64,7 @@ def mkdir(request, pathspec):
             drive_directory.parent = directory
         drive_directory.user = user
         drive_directory.save()
-    return redirect(directory.reverse)
+    return redirect(directory.reverse())
 
 def listing(request, pathspec):
     context = RequestContext(request)

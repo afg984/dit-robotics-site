@@ -43,7 +43,7 @@ class DriveDirectory(models.Model):
         return format_html(
             '<a href="{url}">{name}</a>',
             name=self.name,
-            url=self.reverse,
+            url=self.reverse(),
         )
         return 100
 
@@ -107,7 +107,7 @@ class DriveRootDirectory:
     def as_link(self):
         return format_html(
             '<a href="{url}">{name}</a>',
-            url=self.reverse,
+            url=self.reverse(),
             name=self.name
         )
 
