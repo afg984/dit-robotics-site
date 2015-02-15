@@ -35,7 +35,7 @@ def locate_dpath(user, path):
     first, *path = path.strip('/').split('/')
     result = get_object_or_404(DriveDirectory, user=user, parent=None, name=first)
     for sub in path:
-        result = result.subdirectories.get(name=sub)
+        result = get_object_or_404(result.subdirectories, name=sub)
     return result
 
 @require_POST
