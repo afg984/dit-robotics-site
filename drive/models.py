@@ -51,7 +51,6 @@ class DriveDirectory(models.Model):
     def slashpath(self):
         return '/'.join(d.name for d in self.abspath) + '/'
 
-    @property
     def reverse(self):
         return reverse('drive-listing',
             args=[self.slashpath]
@@ -112,6 +111,5 @@ class DriveRootDirectory:
             name=self.name
         )
 
-    @property
     def reverse(self):
         return reverse('drive-listing', args=[self.user.username + '/'])

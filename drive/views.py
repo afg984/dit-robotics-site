@@ -38,6 +38,15 @@ def locate_dpath(user, path):
         result = get_object_or_404(result.subdirectories, name=sub)
     return result
 
+def get_dir(pathspec):
+    username, _, path = pathspec.partition('/')
+    user = get_object_or_404(User, username=username)
+    if path:
+        directory = locate_dpath(user, path)
+    else:
+        directory = DriveRootDirectory(user)
+    return directory
+
 @require_POST
 def mkdir(request, pathspec):
     username, _, path = pathspec.partition('/')
@@ -124,15 +133,17 @@ def get(request, id, filename):
 @require_POST
 def delete(request, id):
     drive_file = get_object_or_404(DriveFile, id=id)
+    redirect_drive = get_dir(request.POST.get('pathspec', ''))
     if drive_file.user != request.user:
         return render_to_response('drive/denied.html', RequestContext(request))
     drive_file.delete()
-    return redirect('drive')
+    return redirect(redirect_dir.reverse())
 
 @require_POST
 def rmdir(request, pk):
     drive_directory = get_object_or_404(DriveDirectory, pk=pk)
+    redirect_dir = get_dir(request.POST.get('pathspec', ''))
     if drive_directory.user != request.user:
         return render_to_response('drive/denied.html', RequestContext(request))
     drive_directory.delete()
-    return redirect('drive')
+    return redirect(redirect_dir.reverse())
