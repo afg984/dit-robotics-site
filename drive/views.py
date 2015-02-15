@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.decorators.http import require_POST
 
 import itertools
@@ -64,7 +64,7 @@ def mkdir(request, pathspec):
 def listing(request, pathspec):
     context = RequestContext(request)
     directory = get_dir(pathspec)
-    if request.user != directory.user:
+    if not directory.is_available_to(request.user):
         return render_to_response('drive/denied.html', context)
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -97,6 +97,8 @@ def listing(request, pathspec):
 def listingtable(request, pathspec):
     context = RequestContext(request)
     directory = get_dir(pathspec)
+    if not directory.is_available_to(request.user):
+        return HttpResponseForbidden()
     context['directory'] = directory
     context['files'] = DriveFile.objects.filter(user=directory.user)
     context['pathspec'] = pathspec
@@ -105,7 +107,7 @@ def listingtable(request, pathspec):
 
 def get(request, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
-    if drive_file.user != request.user:
+    if not drive_file.is_available(request.user):
         return render_to_response('drive/denied.html', RequestContext(request))
     response = HttpResponse()
     response['Content-Disposition'] = 'attachment'
