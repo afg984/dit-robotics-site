@@ -127,3 +127,11 @@ def delete(request, id):
         return render_to_response('drive/denied.html', RequestContext(request))
     drive_file.delete()
     return redirect('drive')
+
+@require_POST
+def rmdir(request, pk):
+    drive_directory = get_object_or_404(DriveDirectory, pk=pk)
+    if drive_directory.user != request.user:
+        return render_to_response('drive/denied.html', RequestContext(request))
+    drive_directory.delete()
+    return redirect('drive')
