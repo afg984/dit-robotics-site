@@ -121,6 +121,7 @@ def get(request, id, filename):
         response['X-Accel-Redirect'] = drive_file.file.url
     return response
 
+@require_POST
 def delete(request, id):
     drive_file = get_object_or_404(DriveFile, id=id)
     if drive_file.user != request.user:
