@@ -56,6 +56,11 @@ class DriveDirectory(models.Model):
             args=[self.slashpath]
         )
 
+    def is_available_to(self, user):
+        if self.user == user:
+            return True
+        return self.shared
+
 
 class DriveFile(models.Model):
     filename = models.CharField(max_length=MAX_FILENAME_LENGTH)
@@ -85,6 +90,9 @@ class DriveFile(models.Model):
             return True
         return False
 
+    def is_available_to(self, user):
+        return self.user == user or self.shared
+
 
 
 
@@ -113,3 +121,6 @@ class DriveRootDirectory:
 
     def reverse(self):
         return reverse('drive-listing', args=[self.user.username + '/'])
+
+    def is_available_to(self, user):
+        return self.user == user
