@@ -74,6 +74,10 @@ class ProfileManagerTest(UserSetupTestCase):
 
 
 class ProfileViewTest(UserSetupTestCase):
+    def test_profile_index_is_404(self):
+        response = self.client.get('/profile/')
+        self.assertEqual(404, response.status_code)
+
     def test_get_absolute_url_implemented(self):
         self.assertIn('profile', self.profile.get_absolute_url())
 

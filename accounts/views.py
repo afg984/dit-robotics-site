@@ -49,15 +49,9 @@ def registration_view(request):
     context['email_form'] = email_form
     return render(request, 'accounts/registration.html', context)
 
-def profile(request, username=None):
+def profile(request, username):
     context = {}
-    if username is None:
-        if request.user.is_authenticated():
-            context['profileuser'] = request.user
-        else:
-            return redirect('login')
-    else:
-         context['profileuser'] = get_object_or_404(User, username=username)
+    context['profileuser'] = get_object_or_404(User, username=username)
     context['isself'] = (request.user == context['profileuser'])
     return render(request, 'accounts/profile.html', context)
 
