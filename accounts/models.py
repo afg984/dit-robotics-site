@@ -72,7 +72,7 @@ class Profile(models.Model):
     def html_link(self):
         return format_html(
             '<a href="{href}">{username}</a>',
-            href=reverse('profile', args=[self.user.username]),
+            href=self.get_absolute_url(),
             username = self.user.get_username(),
         )
 
