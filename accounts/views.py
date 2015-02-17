@@ -90,7 +90,7 @@ DIT Robotics Site'''
                 context['error'] = traceback.format_exc().splitlines()[-1]
             else:
                 if success:
-                    request.user.profile.email_token_refresh()
+                    request.user.profile.refresh_email_token()
                     return redirect('get_email_token')
                 else:
                     context['error'] = 'The server failed to send an email to {}'.format(request.user.email)

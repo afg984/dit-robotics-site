@@ -103,7 +103,7 @@ class Profile(models.Model):
             return False
         return len(self.email_token) == self.TOKEN_LENGTH and self.email_token_expire > timezone.now()
 
-    def email_token_refresh(self, delay=timezone.timedelta(minutes=30)):
+    def refresh_email_token(self, delay=timezone.timedelta(minutes=30)):
         self.email_token_expire = timezone.now() + delay
         self.save()
 
