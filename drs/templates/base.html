@@ -25,7 +25,7 @@
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_staff %}<li><a target="_blank" href="{% url "admin:index" %}">Admin</a></li>{% endif %}
         {% if user.is_authenticated %}
-        {% nav_li 'profile' user.username %}
+        <li{% if request.path == user.profile.get_absolute_url %} class="active"{% endif %}><a href="{{ user.profile.get_absolute_url }}">{{ user.username }}</a></li>
         <li><a href="{% url 'logout' %}?next={{ request.path|iriencode }}">Log out</a></li>
         {% else %}
         {% nav_li 'registration' 'Sign up' %}
