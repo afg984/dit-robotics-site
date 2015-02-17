@@ -17,9 +17,9 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
         {% navli 'message_board' %}
+        {% navli 'nthucourses:index' display='NTHU Courses' %}
         {% navli 'drive' %}
         {% navli 'dpcstatus:index' display='3D Printer' %}
-        {% navli 'nthucourses:index' display='NTHU Courses' %}
         {% if user.is_superuser %}{% navli 'userlist' display='User list' %}{% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
