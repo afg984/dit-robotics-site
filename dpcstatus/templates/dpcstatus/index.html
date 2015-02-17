@@ -13,15 +13,28 @@
 {% else %}
 <p>{% for c in STATUS.0.message %}{% if c == '|' %}</p><p>{% else %}{{ c }}{% endif %}{% endfor %}</p>
 <h3>Log</h3>
-<pre>
-  {% for stdout in STDOUT %}{{ stdout.time }} {{ stdout.message }}
-  {% endfor %}
-</pre>
+<div class="well no-gradient monospaced">
+  <table>
+    {% for stdout in STDOUT %}
+    <tr>
+      <td style="padding-right:10px;">{{ stdout.time }}</td>
+      <td>{{ stdout.message }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 <h3>Exceptions</h3>
-<pre>
-  {% for exception in EXCEPTION %}{{ exception.time }}
-  {{ exception.message }}
-  {% endfor %}
-</pre>
+<div class="well no-gradient monospaced">
+  <table>
+  {% for exception in EXCEPTION %}
+    <tr>
+      <td>{{ exception.time }}</td>
+      <td>{{ exception.message }}</td>
+    </tr>
+    {% empty %}
+    <tr><td>None.</td></tr>
+    {% endfor %}
+  </table>
+</div>
 {% endif %}
 {% endblock %}
