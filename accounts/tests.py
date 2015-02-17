@@ -22,7 +22,10 @@ class AccountTestCase(TestCase):
         self.user = User.objects.get(username=self.username)
 
     def test_redirect_registered_account_to_profile_page(self):
-        self.assertRedirects(self.registration_response, reverse('profile'))
+        self.assertRedirects(
+            self.registration_response,
+            reverse('profile', args=[self.user.username])
+        )
 
     def test_user_has_correct_email(self):
         self.assertEqual(
