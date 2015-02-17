@@ -51,7 +51,7 @@ def get_dir(pathspec):
 def mkdir(request, pathspec):
     directory = get_dir(pathspec)
     if request.user != directory.user:
-        return render_to_response('drive/denied.html', RequestContext(context))
+        return render_to_response('drive/denied.html', RequestContext(request))
     form = MkdirForm(request.POST)
     if form.is_valid():
         new_directory = form.save(commit=False)
