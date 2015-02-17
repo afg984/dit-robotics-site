@@ -107,6 +107,9 @@ class Profile(models.Model):
         self.email_token_expire = timezone.now() + delay
         self.save()
 
+    def get_absolute_url(self):
+        return reverse('profile', args=[self.user.username])
+
     def __str__(self):
         return self.user.username
 
