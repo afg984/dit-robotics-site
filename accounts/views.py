@@ -69,18 +69,19 @@ def get_email_token(request):
         body_template = '''\
 Dear {username},
 Please visit the link below to verify your email address:
-http://{link}
+http://{host}{path}
 
-DIT Robotics Site'''
+{host}'''
 
         if request.user.email:
             token = request.user.profile.get_email_token()
             try:
                 success = send_mail(
-                    'ditrobotics.tw email verification',
+                    '{host} email verification'.format(host=request.get_host()),
                     body_template.format(
                         username=request.user.username,
-                        link=request.get_host() + reverse('verify_email', args=[token]),
+                        host=request.get_host(),
+                        path=reverse('verify_email', args=[token]),
                     ),
                     'noreply.ditrobotics@gmail.com',
                     [request.user.email],
