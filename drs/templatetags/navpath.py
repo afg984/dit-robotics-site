@@ -9,10 +9,11 @@ def isview(request, name):
     return request.path == reverse(name)
 
 @register.simple_tag(takes_context=True)
-def nav_li(context, view, display=None):
+def nav_li(context, view, *args, **kwargs):
+    display = kwargs.pop('display', None)
     if display is None:
         display = view.replace('_', ' ').capitalize()
-    href = reverse(view)
+    href = reverse(view, args=args, kwargs=kwargs)
     return format_html(
         '<li{cls}><a href="{href}">{display}</a></li>',
         cls=mark_safe(' class="active"') if context['request'].path == href else '',

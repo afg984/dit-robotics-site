@@ -18,14 +18,14 @@
       <ul class="nav navbar-nav navbar-left">
         {% nav_li 'message_board' %}
         {% nav_li 'drive' %}
-        {% nav_li 'dpcstatus:index' '3D Printer' %}
-        {% nav_li 'nthucourses:index' 'NTHU Courses' %}
-        {% if user.is_superuser %}{% nav_li 'userlist' 'User list' %}{% endif %}
+        {% nav_li 'dpcstatus:index' display='3D Printer' %}
+        {% nav_li 'nthucourses:index' display='NTHU Courses' %}
+        {% if user.is_superuser %}{% nav_li 'userlist' display='User list' %}{% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_staff %}<li><a target="_blank" href="{% url "admin:index" %}">Admin</a></li>{% endif %}
         {% if user.is_authenticated %}
-        <li{% if request.path == user.profile.get_absolute_url %} class="active"{% endif %}><a href="{{ user.profile.get_absolute_url }}">{{ user.username }}</a></li>
+        {% nav_li 'profile' user.username display=user.username %}
         <li><a href="{% url 'logout' %}?next={{ request.path|iriencode }}">Log out</a></li>
         {% else %}
         {% nav_li 'registration' 'Sign up' %}
