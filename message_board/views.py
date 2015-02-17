@@ -1,12 +1,11 @@
-from django.shortcuts import render_to_response, redirect
-from django.template import RequestContext
+from django.shortcuts import render, redirect
 
 from .models import Message
 from .forms import AnonymousMessageForm, UserMessageForm
 
 # Create your views here.
 def message_board(request):
-    context = RequestContext(request)
+    context = {}
     if request.user.is_authenticated():
         MessageForm = UserMessageForm
     else:
@@ -25,4 +24,4 @@ def message_board(request):
     else:
         context['form'] = MessageForm()
     context['messages'] = Message.objects.order_by('-id')
-    return render_to_response('message_board.html', context)
+    return render(request, 'message_board.html', context)

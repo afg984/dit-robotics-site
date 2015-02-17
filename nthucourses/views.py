@@ -1,12 +1,11 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.db.models import Min
 
 from .forms import CourseFilterForm
 from .models import Department, Time, Course, MetaData, Prerequisite
 
 def index(request):
-    context = RequestContext(request)
+    context = {}
     if request.GET:
         form = CourseFilterForm(request.GET)
     else:
@@ -29,21 +28,21 @@ def index(request):
         context['courses'] = courses.distinct()
     context['form'] = form
     context['metadata'] = MetaData.objects.last()
-    return render_to_response('courses.html', context)
+    return render(request, 'courses.html', context)
 
 def syllabus(request, number):
     course = Course.objects.get(number=number)
-    context = RequestContext(request)
+    context = {}
     context['course'] = course
     context['metadata'] = MetaData.objects.last()
-    return render_to_response('syllabus.html', context)
+    return render(request, 'syllabus.html', context)
 
 
 def prerequisites(request):
     context = dict()
     context['prerequisites'] = Prerequisite.objects.order_by('course_title')
-    return render_to_response(
+    return render(
+        request,
         'prerequisites.html',
         context,
-        context_instance=RequestContext(request),
     )

@@ -3,8 +3,7 @@ import traceback
 import urllib.request
 
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -19,12 +18,12 @@ def get_data():
 
 def index(request):
     if not request.user.is_authenticated() or request.user.profile.access_level < 2:
-        return render_to_response(
+        return render(
+            request,
             'dpcstatus/denied.html',
-            context_instance=RequestContext(request)
         )
-    return render_to_response(
+    return render(
+        request,
         'dpcstatus/index.html',
         get_data(),
-        context_instance=RequestContext(request)
     )

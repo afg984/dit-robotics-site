@@ -1,5 +1,4 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login as django_login_view
@@ -26,7 +25,7 @@ def login_view(request):
 def registration_view(request):
     if request.user.is_authenticated():
         return redirect(request.user.profile)
-    context = RequestContext(request)
+    context = {}
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         email_form = EmailForm(request.POST)
@@ -48,10 +47,10 @@ def registration_view(request):
         email_form = EmailForm()
     context['form'] = form
     context['email_form'] = email_form
-    return render_to_response('accounts/registration.html', context)
+    return render(request, 'accounts/registration.html', context)
 
 def profile(request, username=None):
-    context = RequestContext(request)
+    context = {}
     if username is None:
         if request.user.is_authenticated():
             context['profileuser'] = request.user
@@ -60,18 +59,18 @@ def profile(request, username=None):
     else:
          context['profileuser'] = get_object_or_404(User, username=username)
     context['isself'] = (request.user == context['profileuser'])
-    return render_to_response('accounts/profile.html', context)
+    return render(request, 'accounts/profile.html', context)
 
 @login_required
 def get_email_token(request):
-    context = RequestContext(request)
+    context = {}
     if request.user.profile.email_verified:
         context['error'] = 'Your email is already verified.'
     else:
         if request.method == 'GET':
             if not request.user.profile.email_token_alive:
                 context['error'] = 'The email verification link does not exist.'
-            return render_to_response('accounts/email-sent.html', context)
+            return render(request, 'accounts/email-sent.html', context)
 
         body_template = '''\
 Dear {username},
@@ -103,17 +102,17 @@ DIT Robotics Site'''
                     context['error'] = 'The server failed to send an email to {}'.format(request.user.email)
         else:
             context['error'] = 'You have not set your email yet!'
-    return render_to_response('accounts/email-sent.html', context)
+    return render(request, 'accounts/email-sent.html', context)
 
 def verify_email(request, token):
-    context = RequestContext(request)
+    context = {}
     vuser = get_object_or_404(Profile, email_token=token).user
     context['vuser'] = vuser
     if vuser.profile.email_token_expire > timezone.now():
         vuser.profile.set_email_verified()
-        return render_to_response('accounts/email-verified.html', context)
+        return render(request, 'accounts/email-verified.html', context)
     else:
-        return render_to_response('accounts/email-link-expired.html', context)
+        return render(request, 'accounts/email-link-expired.html', context)
 
 class UserList(ListView):
     context_object_name = 'all_users'
