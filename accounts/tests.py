@@ -50,19 +50,31 @@ class AccountTestCase(TestCase):
         )
         self.assertContains(response, self.username)
         self.assertContains(response, 'Log out')
-    
 
-class ProfileManagerTest(TestCase):
+
+class UserSetupTestCase(TestCase):
     def setUp(self):
         self.username = 'testuser123'
         self.password = 'testpassword1234'
-        self.email = 'email123@test.com'
+        self.email = 'email123@example.com'
         self.profile = Profile.objects.create_user(
             username=self.username,
             password=self.password,
             email=self.email
         )
 
+
+class ProfileManagerTest(UserSetupTestCase):
     def test_profile_manager_can_create_user(self):
         user = User.objects.get(username=self.username)
         self.assertEqual(self.profile, user.profile)
+
+
+class ProfileViewTest(UserSetupTestCase):
+    def test_get_absolute_url_implemented(self):
+        self.assertIn('profile', self.profile.get_absolute_url())
+
+    def test_get_absolute_url_points_to_profile_page(self):
+        response = self.client.get(self.profile.get_absolute_url())
+        self.assertContains(response, self.username)
+        self.assertContains(response, self.email)
