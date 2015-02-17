@@ -116,18 +116,3 @@ class Profile(models.Model):
 
 class KnownMemberEmail(models.Model):
     email = models.EmailField(unique=True)
-
-    @classmethod
-    def load_csv(cls, path):
-        import csv
-        with open(path, newline='') as file:
-            reader = csv.reader(file)
-
-            first = next(reader)
-            index = first.index('電子郵件')
-
-            for row in reader:
-                email = row[index].strip()
-                obj, created = cls.objects.get_or_create(email=email)
-                if created:
-                    print('Added', email, 'to', cls.__name__)
