@@ -18,14 +18,14 @@ from .forms import EmailForm
 
 def login_view(request):
     if request.user.is_authenticated():
-        return redirect('profile')
+        return redirect(request.user.profile)
     else:
         return django_login_view(request, template_name='accounts/login.html')
 
 
 def registration_view(request):
     if request.user.is_authenticated():
-        return redirect('profile')
+        return redirect(request.user.profile)
     context = RequestContext(request)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -42,7 +42,7 @@ def registration_view(request):
             user.save()
             Profile.objects.create(user=user)
             messages.success(request, '註冊成功！請點選 VERIFY 以驗證你的 Email')
-            return redirect('profile')
+            return redirect(request.user.profile)
     else:
         form = UserCreationForm()
         email_form = EmailForm()
