@@ -9,7 +9,7 @@ def isview(request, name):
     return request.path == reverse(name)
 
 @register.simple_tag(takes_context=True)
-def nav_li(context, view, *args, **kwargs):
+def navli(context, view, *args, **kwargs):
     display = kwargs.pop('display', None)
     if display is None:
         display = view.replace('_', ' ').capitalize()
