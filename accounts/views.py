@@ -49,6 +49,10 @@ def registration_view(request):
     context['email_form'] = email_form
     return render(request, 'accounts/registration.html', context)
 
+@login_required
+def profile_redirect(request):
+    return redirect(request.user.profile)
+
 def profile(request, username):
     context = {}
     context['profileuser'] = get_object_or_404(User, username=username)

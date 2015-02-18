@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from accounts.models import Profile
 # Create your tests here.
 
-class AccountTestCase(TestCase):
+class AccountRegistrationTestCase(TestCase):
     def setUp(self):
         self.username = 'account_test_user'
         self.password = 'account_test_password'
@@ -84,7 +84,7 @@ class ProfileViewTest(UserSetupTestCase):
     def test_get_absolute_url_points_to_profile_page(self):
         response = self.client.get(self.profile.get_absolute_url())
         self.assertContains(response, self.username)
-        self.assertContains(response, self.email)
+        self.assertContains(response, 'Profile')
 
     def test_profile_view_content(self):
         response = self.client.get(self.profile.get_absolute_url())
@@ -92,3 +92,14 @@ class ProfileViewTest(UserSetupTestCase):
         self.assertContains(response, self.username)
         self.assertNotContains(response, self.password)
         self.assertNotContains(response, self.email)
+
+    def test_login_redirects_to_profile(self):
+        response = self.client.post(
+            reverse('login'),
+            dict(
+                username=self.username,
+                password=self.password,
+            ),
+            follow=True,
+        )
+        self.assertRedirects(response, self.profile.get_absolute_url())
