@@ -85,3 +85,10 @@ class ProfileViewTest(UserSetupTestCase):
         response = self.client.get(self.profile.get_absolute_url())
         self.assertContains(response, self.username)
         self.assertContains(response, self.email)
+
+    def test_profile_view_content(self):
+        response = self.client.get(self.profile.get_absolute_url())
+        self.assertEqual(200, response.status_code)
+        self.assertContains(response, self.username)
+        self.assertNotContains(response, self.password)
+        self.assertNotContains(response, self.email)

@@ -7,7 +7,7 @@
 <div class="col-md-2">
 <nav>
   <ul class="nav nav-pills nav-stacked" style="padding-bottom:20px;">
-    {% navli 'profile' user.username display="Profile" %}
+    {% if user.is_authenticated %}{% navli 'profile' user.username display="Profile" %}{% else %}<li><a href="{% url 'login' %}">Profile</a></li>{% endif %}
     {% navli 'userlist' display="User List" %}
     {% if user.is_staff %}<li><a target="_blank" href="{% url 'admin:index' %}">Admin</a></li>{% endif %}
   </ul>
