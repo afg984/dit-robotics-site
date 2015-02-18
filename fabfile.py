@@ -1,5 +1,8 @@
 from __future__ import print_function
 
+import os
+import tempfile
+
 from fabric.api import run, cd, local, env
 from fabric.contrib.console import confirm
 from fabric.colors import red
@@ -40,10 +43,12 @@ def syncdb(not_confirmed=True):
             stdout=CounterNullIO('\rdumping data...(%d Bytes)')
         )
     print()
-    with open(jsontmppath, mode='w') as file:
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as file:
         file.write(jsons)
+        jsontmppath = file.name
     local('python3 manage.py flush --noinput')
     local('python3 manage.py loaddata %s' % jsontmppath)
+    os.unlink(jsontmppath)
 
 
 @needs_host
