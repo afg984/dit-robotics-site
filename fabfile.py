@@ -39,7 +39,7 @@ def syncdb(not_confirmed=True):
         _confirm('your local database')
     with cd('~/drs/'):
         jsons = run(
-            'python3 manage.py dumpdata --natural-foreign --natural-primary',
+            'python3 manage.py dumpdata',
             stdout=CounterNullIO('\rdumping data...(%d Bytes)')
         )
     print()
@@ -47,6 +47,7 @@ def syncdb(not_confirmed=True):
         file.write(jsons)
         jsontmppath = file.name
     local('python3 manage.py flush --noinput')
+    local("psql --dbname=drs --command='TRUNCATE django_content_type CASCADE'")
     local('python3 manage.py loaddata %s' % jsontmppath)
     os.unlink(jsontmppath)
 
