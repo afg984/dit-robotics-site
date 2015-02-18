@@ -43,11 +43,12 @@ class AccountRegistrationTestCase(TestCase):
         self.assertEqual(self.user.profile.level_name, 'NOEMAIL')
 
     def test_user_can_login(self):
+        self.client.logout()
         response = self.client.post(
             reverse('login'),
             {
-                'id_username': self.username,
-                'id_password': self.password,
+                'username': self.username,
+                'password': self.password,
             },
             follow=True
         )
