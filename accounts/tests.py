@@ -42,23 +42,6 @@ class AccountRegistrationTestCase(TestCase):
     def test_user_is_noemail(self):
         self.assertEqual(self.user.profile.level_name, 'NOEMAIL')
 
-    def test_user_can_login(self):
-        self.client.logout()
-        response = self.client.post(
-            reverse('login'),
-            {
-                'username': self.username,
-                'password': self.password,
-            },
-            follow=True
-        )
-        self.assertContains(response, self.username)
-        self.assertContains(response, 'Log out')
-
-    def test_user_can_logout(self):
-        response = self.client.get(reverse('logout'), follow=True) # or self.client.logout()
-        self.assertContains(response, 'Log in')
-        self.assertNotContains(response, 'Log out')
 
 
 class UserSetupTestCase(TestCase):
@@ -71,6 +54,29 @@ class UserSetupTestCase(TestCase):
             password=self.password,
             email=self.email
         )
+
+    def login_follow(self):
+        return self.client.post(
+            reverse('login'),
+            {
+                'username': self.username,
+                'password': self.password,
+            },
+            follow=True
+        )
+
+
+class AuthenticationTest(UserSetupTestCase):
+    def test_user_can_login(self):
+        response = self.login_follow()
+        self.assertContains(response, self.username)
+        self.assertContains(response, 'Log out')
+
+    def test_user_can_logout(self):
+        self.client.login(username=self.username, password=self.password)
+        response = self.client.get(reverse('logout'), follow=True) # or self.client.logout()
+        self.assertContains(response, 'Log in')
+        self.assertNotContains(response, 'Log out')
 
 
 class ProfileManagerTest(UserSetupTestCase):
@@ -100,12 +106,5 @@ class ProfileViewTest(UserSetupTestCase):
         self.assertNotContains(response, self.email)
 
     def test_login_redirects_to_profile(self):
-        response = self.client.post(
-            reverse('login'),
-            dict(
-                username=self.username,
-                password=self.password,
-            ),
-            follow=True,
-        )
+        response = self.login_follow()
         self.assertRedirects(response, self.profile.get_absolute_url())
