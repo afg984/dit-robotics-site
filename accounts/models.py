@@ -23,9 +23,6 @@ class ProfileManager(models.Manager):
             )
         )
 
-    def get_by_natural_key(self, username):
-        return User.objects.get_by_natural_key(username=username).profile
-
 
 class Profile(models.Model):
     class Meta:
@@ -112,9 +109,6 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse('profile', args=[self.user.username])
-
-    def natural_key(self):
-        return self.user.natural_key()
 
     def __str__(self):
         return self.user.username
