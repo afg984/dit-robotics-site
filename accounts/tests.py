@@ -55,6 +55,11 @@ class AccountRegistrationTestCase(TestCase):
         self.assertContains(response, self.username)
         self.assertContains(response, 'Log out')
 
+    def test_user_can_logout(self):
+        response = self.client.get(reverse('logout'), follow=True) # or self.client.logout()
+        self.assertContains(response, 'Log in')
+        self.assertNotContains(response, 'Log out')
+
 
 class UserSetupTestCase(TestCase):
     def setUp(self):
