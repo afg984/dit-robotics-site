@@ -22,7 +22,6 @@
         {% navli 'dpcstatus:index' display='3D Printer' %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {% if user.is_staff %}<li><a target="_blank" href="{% url "admin:index" %}">Admin</a></li>{% endif %}
         {% if user.is_authenticated %}
         {% navli 'profile' user.username display=user.username %}
         <li><a href="{% url 'logout' %}?next={{ request.path|iriencode }}">Log out</a></li>

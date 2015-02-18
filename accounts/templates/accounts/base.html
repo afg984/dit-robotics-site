@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load navpath %}
+
+{% block content %}
+<h2 class="page-header">{{ user.username }}</h2>
+<div class="row">
+<div class="col-md-2">
+<nav>
+  <ul class="nav nav-pills nav-stacked" style="padding-bottom:20px;">
+    {% navli 'profile' user.username display="Profile" %}
+    {% navli 'userlist' display="User List" %}
+    {% if user.is_staff %}<li><a target="_blank" href="{% url 'admin:index' %}">Admin</a></li>{% endif %}
+  </ul>
+</nav>
+</div>
+<div class="col-md-10">
+{% block accounts_content %}
+{% endblock %}
+</div>
+</div>
+{% endblock %}
