@@ -20,7 +20,6 @@
         {% navli 'nthucourses:index' display='NTHU Courses' %}
         {% navli 'drive' %}
         {% navli 'dpcstatus:index' display='3D Printer' %}
-        {% if user.is_superuser %}{% navli 'userlist' display='User list' %}{% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_staff %}<li><a target="_blank" href="{% url "admin:index" %}">Admin</a></li>{% endif %}
