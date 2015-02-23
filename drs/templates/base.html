@@ -27,7 +27,7 @@
         <li><a href="{% url 'logout' %}?next={{ request.path|iriencode }}">Log out</a></li>
         {% else %}
         {% navli 'registration' display='Sign up' %}
-        <li{% caiv 'login' %}><a href="{% url 'login' %}?next={{ request.path|iriencode }}">Log in</a></li>
+        <li{% caiv 'login' %}><a href="{% url 'login' %}?next={{ request.path|iriencode }}">登入</a></li>
         {% endif %}
       </ul>
     </div>
