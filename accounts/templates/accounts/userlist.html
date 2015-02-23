@@ -5,11 +5,11 @@
 {% block accounts_content %}
 <table class="table table-striped">
   <tr>
-    <th>Username</th>
+    <th>使用者名稱</th>
     <th>Group</th>
     {% if perms.accounts.view_email %}<th>Email</th>{% endif %}
-    {% if perms.accounts.view_last_login %}<th>Last Login</th>{% endif %}
-    <th>Date Joined</th>
+    {% if perms.accounts.view_last_login %}<th>上次登入</th>{% endif %}
+    <th>加入日期</th>
   </tr>
   {% for each_user in all_users %}
   <tr>
