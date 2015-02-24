@@ -32,7 +32,7 @@
   <table>
     {% for stdout in STDOUT %}
     <tr>
-      <td style="padding-right:10px;">{{ stdout.time }}</td>
+      <td style="padding-right:10px;" class="hidden-xs hidden-sm hidden-md">{{ stdout.time }}</td>
       <td>{{ stdout.message }}</td>
     </tr>
     {% endfor %}
@@ -43,7 +43,7 @@
   <table>
   {% for exception in EXCEPTION %}
     <tr>
-      <td>{{ exception.time }}</td>
+      <td class="hidden-xs hidden-sm hidden-md">{{ exception.time }}</td>
       <td>{{ exception.message }}</td>
     </tr>
     {% empty %}
