@@ -4,12 +4,7 @@
 
 {% block content %}
 <div class="row">
-<div class="col-md-6">
-<h1>{{ perc|default:"--.--" }} % <small class="text-{{ statusstyle }}">{{ status|default:"Unknown" }}</small></h1>
-<h3>{{ est|default:"--:--:--" }} <small>Remaining</small></h4>
-<h3><small>Done</small> {{ done|default:"--:--:--" }}</h3>
-<h3><small>Hot End</small> {{ temp|default:"---.-" }} &deg;C</h3>
-</div>
+{% include "dpcstatus/pretty-status.html" %}
 {% if not ERROR %}
 <div class="col-md-6">
 <h3>Details</h3>
