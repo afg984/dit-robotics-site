@@ -4,7 +4,7 @@ import datetime
 import traceback
 import urllib.request
 
-
+from django.utils.dateparse import parse_datetime
 from django.shortcuts import render
 
 # Create your views here.
@@ -29,7 +29,7 @@ def add_pretty(datadict):
         if '無法連接設備' in msg:
             stuff['status'] = 'Disconnected'
             stuff['statusstyle'] = 'warning'
-        elif 'loaded' in msg:
+        elif msg.startswith('Loaded'):
             stuff['status'] = 'Idle'
             stuff['statusstyle'] = 'success'
             stuff['perc'] = '100.0'
