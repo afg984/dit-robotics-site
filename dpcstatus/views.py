@@ -32,8 +32,6 @@ def add_pretty(datadict):
         elif msg.startswith('Loaded'):
             stuff['status'] = 'Idle'
             stuff['statusstyle'] = 'success'
-            stuff['perc'] = '100.0'
-            stuff['est'] = '00:00:00'
     else:
         stuff = stuff.groupdict()
         stuff['status'] = 'Printing'
