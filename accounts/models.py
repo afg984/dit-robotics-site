@@ -36,7 +36,7 @@ class Profile(models.Model):
     LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
     LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
     TOKEN_LENGTH = 64
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, primary_key=True)
     email_verified = models.BooleanField(default=False)
     email_token = models.CharField(max_length=TOKEN_LENGTH, default="")
     email_token_expire = models.DateTimeField(null=True)
@@ -72,7 +72,7 @@ class Profile(models.Model):
     def html_link(self):
         return format_html(
             '<a href="{href}">{username}</a>',
-            href=reverse('profile', args=[self.user.username]),
+            href=self.get_absolute_url(),
             username = self.user.get_username(),
         )
 
@@ -103,9 +103,12 @@ class Profile(models.Model):
             return False
         return len(self.email_token) == self.TOKEN_LENGTH and self.email_token_expire > timezone.now()
 
-    def email_token_refresh(self, delay=timezone.timedelta(minutes=30)):
+    def refresh_email_token(self, delay=timezone.timedelta(minutes=30)):
         self.email_token_expire = timezone.now() + delay
         self.save()
+
+    def get_absolute_url(self):
+        return reverse('profile', args=[self.user.username])
 
     def __str__(self):
         return self.user.username
@@ -113,18 +116,3 @@ class Profile(models.Model):
 
 class KnownMemberEmail(models.Model):
     email = models.EmailField(unique=True)
-
-    @classmethod
-    def load_csv(cls, path):
-        import csv
-        with open(path, newline='') as file:
-            reader = csv.reader(file)
-
-            first = next(reader)
-            index = first.index('電子郵件')
-
-            for row in reader:
-                email = row[index].strip()
-                obj, created = cls.objects.get_or_create(email=email)
-                if created:
-                    print('Added', email, 'to', cls.__name__)

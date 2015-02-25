@@ -1,5 +1,4 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden
@@ -28,7 +27,7 @@ def errors_to_string(errors):
 @login_required
 def drive(request):
     if request.user.profile.access_level < 2:
-        return render_to_response('drive/member_required.html', RequestContext(request))
+        return render(request, 'drive/member_required.html')
     return redirect(DriveRootDirectory(user=request.user).reverse())
 
 def locate_dpath(user, path):
@@ -51,7 +50,7 @@ def get_dir(pathspec):
 def mkdir(request, pathspec):
     directory = get_dir(pathspec)
     if request.user != directory.user:
-        return render_to_response('drive/denied.html', RequestContext(request))
+        return render(request, 'drive/denied.html')
     form = MkdirForm(request.POST)
     if form.is_valid():
         new_directory = form.save(commit=False)
@@ -62,10 +61,10 @@ def mkdir(request, pathspec):
     return redirect(directory.reverse())
 
 def listing(request, pathspec):
-    context = RequestContext(request)
+    context = {}
     directory = get_dir(pathspec)
     if not directory.is_available_to(request.user):
-        return render_to_response('drive/denied.html', context)
+        return render(request, 'drive/denied.html', context)
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -91,24 +90,24 @@ def listing(request, pathspec):
     context['usage'] = sum(f.file.size for f in files)
     context['mkdirform'] = MkdirForm()
     context['pathspec'] = pathspec
-    return render_to_response('drive/index.html', context)
+    return render(request, 'drive/index.html', context)
 
 
 def listingtable(request, pathspec):
-    context = RequestContext(request)
+    context = {}
     directory = get_dir(pathspec)
     if not directory.is_available_to(request.user):
         return HttpResponseForbidden()
     context['directory'] = directory
     context['files'] = DriveFile.objects.filter(user=directory.user)
     context['pathspec'] = pathspec
-    return render_to_response('drive/listing.html', context)
+    return render(request, 'drive/listing.html', context)
 
 
 def get(request, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
     if not drive_file.is_available(request.user):
-        return render_to_response('drive/denied.html', RequestContext(request))
+        return render(request, 'drive/denied.html')
     response = HttpResponse()
     response['Content-Disposition'] = 'attachment'
     if settings.DEBUG:
@@ -122,7 +121,7 @@ def delete(request, id):
     drive_file = get_object_or_404(DriveFile, id=id)
     redirect_dir = get_dir(request.POST.get('pathspec', ''))
     if drive_file.user != request.user:
-        return render_to_response('drive/denied.html', RequestContext(request))
+        return render(request, 'drive/denied.html')
     drive_file.delete()
     return redirect(redirect_dir.reverse())
 
@@ -131,6 +130,6 @@ def rmdir(request, pk):
     drive_directory = get_object_or_404(DriveDirectory, pk=pk)
     redirect_dir = get_dir(request.POST.get('pathspec', ''))
     if drive_directory.user != request.user:
-        return render_to_response('drive/denied.html', RequestContext(request))
+        return render(request, 'drive/denied.html')
     drive_directory.delete()
     return redirect(redirect_dir.reverse())

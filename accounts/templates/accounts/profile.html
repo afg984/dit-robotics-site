@@ -1,29 +1,28 @@
-{% extends "base.html" %}
+{% extends "accounts/base.html" %}
 
 {% block mtitle %}{{ profileuser.username }}{% endblock %}
 
-{% block content %}
-<h2 class="page-header" style="border-bottom:none;">{{ profileuser.username }}</h2>
+{% block accounts_content %}
 {% include "messages.html" %}
 <table class="table table-striped">
   <tr>
-    <th>Username</th>
+    <th>使用者名稱</th>
     <td>{{ profileuser.username }}</td>
-  {#% if isself or perms.accounts.view_email %#}
+  {% if isself or perms.accounts.view_email %}
   <tr>{% with ev=profileuser.profile.email_verified %}
     <th>Email{% if not ev %}<small class="text-muted"> (not verified)</small>{% endif %}</th>
     <td{% if not ev %} class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev and isself %} <form method="post" class="inline" action="{% url 'get_email_token' %}">{% csrf_token %%}<small><input type="submit" class="btn-link nodec" value="VERIFY"></small></form>{% endif %}</td>{% endwith %}
-  </tr>{#% endif %#}
+  </tr>{% endif %}
   <tr>
     <th>Group</th>
     <td class="text-{{ profileuser.profile.level_css }}">{{ profileuser.profile.level_name }}</td>
   </tr>
   <tr>
-    <th>Date Joined</th>
+    <th>加入日期</th>
     <td>{{ profileuser.date_joined|date:"Y/m/d" }}</td>
   </tr>
   {% if isself %}<tr>
-    <th>Password</th>
+    <th>密碼</th>
     <td class="text-warning">This field is not ready yet...</td>
   </tr>{% endif %}
 </table>

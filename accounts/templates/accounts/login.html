@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load bs_filters %}
 
-{% block mtitle %}Log in{% endblock %}
+{% block mtitle %}登入{% endblock %}
 
 {% block content %}
 <div style="max-width: 400px; margin-left: auto; margin-right: auto;">
-  <h2 class="page-header">Log in</h2>
+  <h2 class="page-header">登入</h2>
   <form method="post" action="{% url 'login' %}" role="form">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}">
@@ -18,7 +18,7 @@
       {{ form.password|bs_form_control }}
     </div>
     {% if form.errors %}<p class="text-danger">Invalid username or password.</p>{% endif %}
-    <input type="submit" value="Login" class="btn btn-default">
+    <input type="submit" value="登入" class="btn btn-default">
   </form>
 </div>
 {% endblock %}
