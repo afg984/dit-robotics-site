@@ -26,7 +26,7 @@ def add_pretty(datadict):
     if stuff is None:
         stuff = dict()
         msg = targetmsg['message']
-        if '無法連接設備' in msg:
+        if '無法連接設備' in msg or 'is offline' in msg:
             stuff['status'] = 'Disconnected'
             stuff['statusstyle'] = 'warning'
         elif msg.startswith('Loaded'):
