@@ -3,6 +3,7 @@ import json
 import datetime
 import traceback
 import urllib.request
+import urllib.error
 
 from django.utils.dateparse import parse_datetime
 from django.shortcuts import render
@@ -49,6 +50,12 @@ def get_data():
         data = json.loads(urllib.request.urlopen(URL, timeout=3).read().decode())
         add_pretty(data)
         return data
+    except urllib.error.URLError:
+        return {
+            'ERROR': traceback.format_exc(),
+            'status': 'Computer Offline',
+            'statusstyle': 'danger',
+        }
     except Exception:
         return {
             'ERROR': traceback.format_exc(),
