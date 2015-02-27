@@ -10,7 +10,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-URL = 'http://192.168.100.12:5000'
+URL = 'http://192.168.100.12'
 
 
 pattern = re.compile(
