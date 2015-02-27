@@ -4,19 +4,6 @@
 
 {% block content %}
 <h2 class="page-header">3D Printer Status</h2>
-<div class="row">
-<div class="col-md-6" id="status-block">
-  {% include 'dpcstatus/pretty-status.html' %}
-</div>
-{% if not ERROR %}
-<div class="col-md-6">
-<h3>Details</h3>
-<div class="well monospaced">
-<p>{% for c in STATUS.0.message %}{% if c == '|' %}</p><p>{% else %}{{ c }}{% endif %}{% endfor %}</p>
-</div>
-</div>
-{% endif %}
-</div>
 
 
 {% if ERROR %}
@@ -25,6 +12,10 @@
 {{ ERROR.rstrip }}
 </pre>
 {% else %}
+<h3>Details</h3>
+<div class="well monospaced">
+<p>{% for c in STATUS.0.message %}{% if c == '|' %}</p><p>{% else %}{{ c }}{% endif %}{% endfor %}</p>
+</div>
 <h3>Log</h3>
 <div class="well no-gradient monospaced">
   <table>
@@ -49,18 +40,5 @@
     {% endfor %}
   </table>
 </div>
-{% endif %}
-{% endblock %}
-
-{% block script %}
-{% if not ERROR %}
-<script>
-setInterval(
-  function() {
-    $('#status-block').load('{% url "dpcstatus:status-block" %}');
-  },
-  3000
-);
-</script>
 {% endif %}
 {% endblock %}

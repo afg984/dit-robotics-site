@@ -64,7 +64,7 @@ def get_data():
         }
     
 
-def index(request, full=True):
+def index(request, template_name):
     if not request.user.is_authenticated() or request.user.profile.access_level < 2:
         return render(
             request,
@@ -72,6 +72,6 @@ def index(request, full=True):
         )
     return render(
         request,
-        'dpcstatus/index.html' if full else 'dpcstatus/pretty-status.html',
+        template_name,
         get_data(),
     )
