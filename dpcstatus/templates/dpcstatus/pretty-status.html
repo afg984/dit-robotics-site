@@ -2,3 +2,4 @@
 {% if est %}<h3><small>Est</small> {{ est }} <small>Remaining</small></h3>{% endif %}
 {% if done %}<h3><small>Done at</small> {{ done }}</h3>{% endif %}
 {% if temp %}<h3><small>Hot End</small> {{ temp }} &deg;C</h3>{% endif %}
+<span class="text-muted pull-left"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> {% now "H:i:s" %}</span>
