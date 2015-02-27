@@ -16,8 +16,18 @@
         vertical-align: middle!important;
     }
     .fblock {
-        margin-top: 15px;
         margin-bottom: 15px;
+    }
+    .fblock>.checkbox.inline {
+        display: inline-block;
+        width: 80px;
+    }
+    .fblock>.radio.inline {
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .fblock>label {
+        display: block;
     }
 </style>
 {% endblock %}
@@ -36,6 +46,7 @@
         <form class="form-horizontal">
           <div class="form-group">
             <div class="col-md-4">
+              {{ form.operation.label_tag }}
               {% for timetablerow in form.timetable %}
               <div>
                 <div class="btn-group" data-toggle="buttons">
@@ -45,22 +56,25 @@
                 </div>
               </div>
               {% endfor %}
-            </div>
-            <div class="col-md-6">
               <div class="fblock">
-                {{ form.operation.label_tag }}
                 {% for operation in form.operation %}
                 <div class="radio">{{ operation }}</div>
                 {% endfor %}
               </div>
+            </div>
+            <div class="col-md-8">
               <div class="fblock">
                 {{ form.department.label_tag }}
-                {{ form.department|add_class:"form-control" }}
+                {% for department in form.department %}
+                <div class="checkbox inline">{{ department }}</div>
+                {% endfor %}
               </div>
               <div class="fblock">
                 {{ form.ordering.label_tag }}
                 {% for ordering in form.ordering %}
-                <div class="radio">{{ ordering }}</div>
+                <div class="radio inline">
+                {{ ordering }}
+                </div>
                 {% endfor %}
               </div>
               <input type="submit" class="btn btn-default">

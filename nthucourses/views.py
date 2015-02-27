@@ -20,7 +20,7 @@ def index(request):
     else:
         form = CourseFilterForm()
     if form.is_valid():
-        courses = Department.objects.get(abbr=form.cleaned_data['department']).courses
+        courses = Course.objects.filter(department__in=Department.objects.filter(abbr__in=form.cleaned_data['department']))
         if form.cleaned_data['operation'] == 'except':
             not_time = Time.objects.filter(value__in=form.cleaned_data['time'])
         else:

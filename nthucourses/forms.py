@@ -26,16 +26,16 @@ class CourseFilterForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-    department = forms.ChoiceField(
+    department = forms.MultipleChoiceField(
         label='開課單位',
         choices=[
             (
                 department.abbr,
-                department.abbr + ' ' + department.name_zh
+                department.abbr
             )
             for department in models.Department.objects.all()
         ],
-        # widget=forms.CheckboxSelectMultiple,
+        widget=forms.CheckboxSelectMultiple,
     )
     ordering = forms.ChoiceField(
         label='排序方式',
