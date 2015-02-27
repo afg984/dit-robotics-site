@@ -60,6 +60,7 @@ loadjson: load json course data from path
         self.set_time()
         self.update_courses()
         self.update_departments()
+        self.set_update_done()
 
     def write_metadata(self):
         dt = parse_datetime(self.jsondata['metadata']['timestamp'])
@@ -67,6 +68,11 @@ loadjson: load json course data from path
         MetaData.objects.create(timestamp=dt, semester=semester)
         self.stdout.write('Data timestamp: {}, Semester: {}'.format(
             dt.isoformat(), semester))
+
+    def set_update_done(self):
+        target = MetaData.objects.last()
+        target.is_updating = False
+        target.save()
 
     def progress_iter(self, seq, msg):
         total = len(seq)

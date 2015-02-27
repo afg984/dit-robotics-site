@@ -4,6 +4,15 @@ from django.db.models import Min
 from .forms import CourseFilterForm
 from .models import Department, Time, Course, MetaData, Prerequisite
 
+
+def update_protect(view):
+    def _view(request, *args, **kwargs):
+        if MetaData.objects.last().is_updating:
+            return render(request, 'nthucourses/updating.html')
+        return view(request, *args, **kwargs)
+    return _view
+
+@update_protect
 def index(request):
     context = {}
     if request.GET:
@@ -30,6 +39,7 @@ def index(request):
     context['metadata'] = MetaData.objects.last()
     return render(request, 'courses.html', context)
 
+@update_protect
 def syllabus(request, number):
     course = Course.objects.get(number=number)
     context = {}
@@ -37,7 +47,7 @@ def syllabus(request, number):
     context['metadata'] = MetaData.objects.last()
     return render(request, 'syllabus.html', context)
 
-
+@update_protect
 def prerequisites(request):
     context = dict()
     context['prerequisites'] = Prerequisite.objects.order_by('course_title')

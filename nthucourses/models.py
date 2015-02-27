@@ -8,6 +8,7 @@ from django.utils.encoding import iri_to_uri
 class MetaData(models.Model):
     timestamp = models.DateTimeField()
     semester = models.CharField(max_length=6)
+    is_updating = models.BooleanField(default=True)
 
     @property
     def semester_hr(self):
