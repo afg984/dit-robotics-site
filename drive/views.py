@@ -106,7 +106,7 @@ def listingtable(request, pathspec):
 
 def get(request, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
-    if not drive_file.is_available(request.user):
+    if not drive_file.is_available_to(request.user):
         return render(request, 'drive/denied.html')
     response = HttpResponse()
     response['Content-Disposition'] = 'attachment'
