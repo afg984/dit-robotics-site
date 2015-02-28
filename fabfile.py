@@ -57,7 +57,7 @@ def syncmedia(not_confirmed=True):
     if not_confirmed:
         _confirm('your local media directory')
     local('mkdir -p media/drive/')
-    local('rsync -ah --delete --info=progress2 %r:%r %r' % (
+    local('rsync -trh --delete --info=progress2 %r:%r %r' % (
         env.host_string, remote_media, 'media/drive/'
     ))
 
