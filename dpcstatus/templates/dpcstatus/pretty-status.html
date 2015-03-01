@@ -1,4 +1,4 @@
-<h2><span class="text-{{ printer.statusstyle|default:"muted" }}">{{ printer.status|default:"Unknown" }}</span>{% if printer.percentage %} {{ printer.percentage }} %{% endif %}</h2>
+<h2><span class="text-{{ printer.statusstyle|default:"muted" }}">{{ printer.status|default:"Unknown" }}</span>{% if printer.percentage %} {{ printer.percentage|floatformat:2 }} %{% endif %}</h2>
 {% if printer.remaining %}<h3><small>Est</small> {{ printer.remaining }} <small>Remaining</small></h3>{% endif %}
-{% if printer.done %}<h3><small>Done at</small> {{ printer.done }}</h3>{% endif %}
+{% if printer.done %}<h3><small>Done at</small> {{ printer.done|date:"m/d H:i:s" }}</h3>{% endif %}
 <span class="text-muted pull-left"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> {% now "H:i:s" %}</span>
