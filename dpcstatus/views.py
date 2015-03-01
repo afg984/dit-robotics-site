@@ -15,9 +15,9 @@ SUMMARY_URL = URL + '/summary/'
 def add_context(data):
     printer = data['printer']
     printer['timestamp'] = parse_datetime(printer['timestamp'])
-    printer['age'] = datetime.now() - printer['timestamp']
+    printer['age'] = datetime.datetime.now() - printer['timestamp']
     if 'starttime' in printer:
-        printer['starttime'] = datetime.fromtimestamp(printer['starttime'])
+        printer['starttime'] = datetime.datetime.fromtimestamp(printer['starttime'])
     if 'secondsremain' in printer:
         printer['remaining'] = datetime.timedelta(seconds=printer['remaining'])
         printer['done'] = printer['timestamp'] + printer['remaining']
