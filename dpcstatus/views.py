@@ -19,7 +19,7 @@ def add_context(data):
     if 'starttime' in printer:
         printer['starttime'] = datetime.datetime.fromtimestamp(printer['starttime'])
     if 'secondsremain' in printer:
-        printer['remaining'] = datetime.timedelta(seconds=printer['remaining'])
+        printer['remaining'] = datetime.timedelta(seconds=printer['secondsremain'])
         printer['done'] = printer['timestamp'] + printer['remaining']
     if 'status' in printer:
         printer['statusstyle'] = {
