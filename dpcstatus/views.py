@@ -22,6 +22,7 @@ def add_context(data):
     if 'secondsremain' in printer:
         printer['remaining'] = datetime.timedelta(seconds=printer['secondsremain'])
         printer['done'] = printer['timestamp'] + printer['remaining']
+        printer['remaining'] -= printer['age']
         printer['remaining'] -= datetime.timedelta(microseconds=printer['remaining'].microseconds)
     if 'status' in printer:
         printer['statusstyle'] = {
