@@ -1,3 +1,4 @@
+import io
 import json
 import datetime
 import traceback
@@ -33,7 +34,12 @@ def add_context(data):
 
 def get_data(url=URL):
     try:
-        data = json.loads(urllib.request.urlopen(url, timeout=1).read().decode())
+        data = json.load(
+            io.TextIOWrapper(
+                urllib.request.urlopen(url, timeout=1),
+                encoding='utf-8',
+            )
+        )
         add_context(data)
         return data
     except urllib.error.URLError:
