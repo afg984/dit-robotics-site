@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+body {padding-top: 0}
+#top-carousel,
+#top-carousel > div > .item {
+  min-height: 100vh;
+  height: 100vh;
+}
+#top-carousel > div > .item {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+nav.navbar-inverse {
+  background-color: rgba(0, 0, 0, .7);
+}
+{% endblock %}
+
+{% block title %}DIT Robotics{% endblock %}
+
+{% block content %}
+<h2 class="page-header">DIT Robotics</h2>
+<p>DIT Robotics 成立於 2013 年 11 月，為清大第一個自造者 (maker) 共同創作空間，是由喜愛機器人、想鑽研技術的年輕人組成。</p>
+<p>DIT = Do, Improve, Try，我們將秉持動手實作、不斷改進、勇於嘗試的精神迎接挑戰，以期最終能以機器人改變世界。</p>
+<p><a target="_blank" href="https://www.facebook.com/DIT.robotics">Facebook Fan Page</a></p>
+<h3 class="page-header">Site</h2>
+<p>Source code at <a target="_blank" href="https://github.com/afg984/dit-robotics-site">GitHub</a> | <a target="_blank" href="https://github.com/afg984/dit-robotics-site/issues">Report Bug</a></p>
+<p>Maintainer{{ maintainers|pluralize }}: {% for maintainer in maintainers %}{% if not forloop.first %}, {% endif %}{{ maintainer.profile.html_link }}{% empty %}There are currently none.{% endfor %}</p>
+{% endblock %}
+
+{% block before %}
+<header id="top-carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" role="listbox">
+    <div class="item active" style="background-image: url({% static "carousel-0.JPG" %})">
+      <div class="carousel-caption">
+        <h3>DIT Robotics</h3>
+        <p>We do, improve, and try!</p>
+      </div>
+    </div>
+    <div class="item" style="background-image: url('{% static "carousel-1.JPG" %}')">
+      <div class="carousel-caption">
+        <h3>3D Printer Project</h3>
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <a class="left carousel-control" href="#top-carousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#top-carousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</header>
+{% endblock %}

@@ -33,7 +33,9 @@
     </div>
   </div>
 </nav>
+{% block before %}{% endblock %}
 <div class="container">
 {% block content %}{% endblock %}
 </div>
+{% block after %}{% endblock %}
 {% endblock %}
