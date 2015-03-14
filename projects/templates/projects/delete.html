@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block mtitle %}Confirm Deletion{% endblock %}
+
+{% block content %}
+<h2 class="page-header">Confirm Deletion</h2>
+<form method="post">
+  <p>Are you sure you want to delete <code>{{ project }}</code>?</p>
+  {% buttons %}
+  <input type="submit" class="btn btn-danger" value="Yes">
+  <a href="{{ project.get_absolute_url }}" class="btn btn-primary">No</a>
+  {% endbuttons %}
+</form>
+{% endblock %}

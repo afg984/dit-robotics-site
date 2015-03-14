@@ -25,5 +25,15 @@
     <th>密碼</th>
     <td class="text-warning">This field is not ready yet...</td>
   </tr>{% endif %}
+  <tr>
+    <th>Projects</th>
+    <td>
+      <ul>
+        {% for project in profileuser.project_set.all %}
+        <li><a href="{{ project.get_absolute_url }}">{{ project }}</a></li>
+        {% endfor %}
+      </ul>
+    </td>
+  </tr>
 </table>
 {% endblock %}

@@ -1,0 +1,38 @@
+{% load static %}
+@import url(http://fonts.googleapis.com/css?family=Lato);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
+
+/* cjk overwrite */
+{% for font in "lrs" %}
+@font-face {
+    font-family: {% if font == "l" %}"Lato"{% elif font == "r" %}"Roboto Slab"{% else %}"Source Code Pro"{% endif %};
+    font-style: normal;
+    font-weight: normal;
+    src: url("{% static "fonts/noto/NotoSansCJKtc-Regular.otf" %}");
+    unicode-range: U+4E00-9FFF, U+3400-4DFF, U+20000-2A6DF, U+F900-FAFF, U+2F800-2FA1F;
+}
+@font-face {
+    font-family: {% if font == "l" %}"Lato"{% elif font == "r" %}"Roboto Slab"{% else %}"Source Code Pro"{% endif %};
+    font-style: normal;
+    font-weight: bold;
+    src: url("{% static "fonts/noto/NotoSansCJKtc-Bold.otf" %}");
+    unicode-range: U+4E00-9FFF, U+3400-4DFF, U+20000-2A6DF, U+F900-FAFF, U+2F800-2FA1F;
+}
+{% endfor %}
+
+body,
+.tooltip,
+.popover,
+.carousel-control .icon-prev,
+.carousel-control .icon-next {
+    font-family: "Lato", sans-serif;
+}
+
+code, kbd, pre, samp, .monospaced {
+    font-family: "Source Code Pro", monospace;
+}
+
+h1, h2, h3, h4, h5, h6, nav {
+    font-family: "Roboto Slab", sans-serif;
+}

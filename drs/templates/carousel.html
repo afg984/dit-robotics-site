@@ -1,0 +1,35 @@
+{% load static %}
+
+<header id="top-carousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#top-carousel" data-slide-to="0" class="active"></li>
+    {% for project in cover_projects %}
+    <li data-target="#top-carousel" data-slide-to="{{ forloop.counter }}"></li>
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    <div class="item active" style="background-image: url({% static "carousel-0.JPG" %})">
+      <div class="carousel-caption">
+        <h3>DIT Robotics</h3>
+        <p>We do, improve, and try!</p>
+      </div>
+    </div>
+    {% for project in cover_projects %}
+    <div class="item" style="background-image: url({{ project.cover_photo_url }})">
+      <div class="carousel-caption">
+        <h3>{{ project.title }}</h3>
+        {% if project.outline %}<p>{{ project.outline }}</p>{% endif %}
+        <p><a class="btn btn-default" href="{{ project.get_absolute_url }}">Learn more...</a></p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <a class="left carousel-control" href="#top-carousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#top-carousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</header>

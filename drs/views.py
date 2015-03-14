@@ -1,7 +1,13 @@
-from django.views.generic import TemplateView, ListView
-from django.contrib.auth.models import User
+from django.views.generic import TemplateView
 
-class AboutView(ListView):
-    template_name = 'about.html'
-    queryset = User.objects.filter(is_superuser=True)
-    context_object_name = 'maintainers'
+from projects.models import Project
+
+
+class AboutView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        return {
+            'projects': Project.objects.all(),
+            'cover_projects': Project.objects.filter(on_homepage=True)
+        }

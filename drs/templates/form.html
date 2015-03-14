@@ -1,0 +1,9 @@
+{% load bootstrap3 %}
+
+<form method="{{ formmethod|default:"post" }}" action="{{ formaction|default:"." }}" class="form-{{ layout|default:"horizontal" }}"{% if form_file %} enctype="multipart/form-data"{% endif %}>
+  {% csrf_token %}
+  {% bootstrap_form form layout=layout|default:"horizontal" %}
+  {% buttons layout=layout|default:"horizontal" %}
+  <input type="submit" class="btn btn-primary">
+  {% endbuttons %}
+</form>

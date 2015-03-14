@@ -1,6 +1,7 @@
 {% extends "structure.html" %}
 {% load static %}
 {% load navpath %}
+{% load navtools %}
 
 {% block body %}
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -16,24 +17,29 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
-        {% navli 'message_board' %}
-        {% navli 'nthucourses:index' display='NTHU Courses' %}
-        {% navli 'drive:index' display='Drive' %}
-        {% navli 'dpcstatus:index' display='3D Printer' %}
+        {% navli '/#projects' display='Out Projects' %}
+        {% navlir 'message_board' %}
+        {% dropdown "Utilities" %}
+        {% navlir 'nthucourses:index' display='NTHU Courses' %}
+        {% navlir 'drive:index' display='Drive' %}
+        {% navlir 'dpcstatus:index' display='3D Printer' %}
+        {% enddropdown %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
-        {% navli 'profile' user.username display=user.username %}
+        {% navlir 'profile' user.username display=user.username %}
         <li><a href="{% url 'logout' %}?next={{ request.path|iriencode }}">登出</a></li>
         {% else %}
-        {% navli 'registration' display='註冊' %}
+        {% navlir 'registration' display='註冊' %}
         <li{% caiv 'login' %}><a href="{% url 'login' %}?next={{ request.path|iriencode }}">登入</a></li>
         {% endif %}
       </ul>
     </div>
   </div>
 </nav>
+{% block before %}{% endblock %}
 <div class="container">
 {% block content %}{% endblock %}
 </div>
+{% block after %}{% endblock %}
 {% endblock %}

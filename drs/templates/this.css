@@ -1,0 +1,8 @@
+body {padding-top: 50px; padding-bottom: 20px;}
+nav {font-size:16px; border: 0 !important;}
+.navbar-brand img {height: 25px;}
+
+.inline {display: inline;}
+.nodec {border: 0; margin: 0; padding:0;}
+.pre-ws {white-space: pre-wrap;}
+.no-gradient {background-image:none; background-repeat: no-repeat; filter:none;}
