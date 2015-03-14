@@ -17,7 +17,7 @@ class ProjectEditCommon:
 
 
 class ProjectCreate(ProjectEditCommon, CreateView):
-    template_name = 'projects/edit.html'
+    template_name = 'projects/create.html'
 
 
 class ProjectUpdate(ProjectEditCommon, UpdateView):
