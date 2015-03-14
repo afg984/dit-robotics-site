@@ -6,12 +6,18 @@ from django.shortcuts import get_object_or_404 as go4
 
 from drive.http import AttachmentResponse
 from projects.models import Project
+from projects.forms import ProjectForm, OperatorProjectForm
 
 
 class ProjectEditCommon:
     model = Project
-    fields = '__all__'
     context_object_name = 'project'
+
+    def get_form_class(self):
+        if self.request.user.profile.access_level >= 3:
+            return OperatorProjectForm
+        else:
+            return ProjectForm
 
     def post(self, request, *args, **kwargs):
         if (not request.user.is_authenticated()) or request.user.profile.access_level < 2:
