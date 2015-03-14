@@ -33,7 +33,7 @@ class Profile(models.Model):
             ('view_last_login', "Can view other's login time"),
         )
 
-    LEVEL_NAMES = ('NOEMAIL', 'USER', 'MEMBER', 'MOD', 'ADMIN')
+    LEVEL_NAMES = ('UNVERIFIED', 'USER', 'MEMBER', 'OPERATOR', 'ADMIN')
     LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
     TOKEN_LENGTH = 64
     user = models.OneToOneField(User, primary_key=True)
