@@ -50,7 +50,7 @@ class Profile(models.Model):
     def access_level(self):
         if self.user.is_superuser:
             return 4
-        elif False: # group moderator not implemented yet
+        elif self.user.is_staff:
             return 3
         elif self.email_verified:
             if self.is_member:
