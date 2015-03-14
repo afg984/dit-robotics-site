@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'bootstrap_plugin',
     'nthucourses',
     'dpcstatus',
+    'projects',
 )
 
 MIDDLEWARE_CLASSES = (
