@@ -3,7 +3,7 @@
 <header id="top-carousel" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#top-carousel" data-slide-to="0" class="active"></li>
-    {% for project in projects %}
+    {% for project in cover_projects %}
     <li data-target="#top-carousel" data-slide-to="{{ forloop.counter1 }}"></li>
     {% endfor %}
   </ol>
@@ -14,7 +14,7 @@
         <p>We do, improve, and try!</p>
       </div>
     </div>
-    {% for project in projects %}
+    {% for project in cover_projects %}
     <div class="item" style="background-image: url({{ project.cover_photo_url }})">
       <div class="carousel-caption">
         <h3>{{ project.title }}</h3>
