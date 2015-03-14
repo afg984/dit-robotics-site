@@ -24,6 +24,8 @@
     <ul class="list-inline">
       {% for member in project.members.all %}
       <li>{{ member.profile.html_link }}</li>
+      {% empty %}
+      <li>None.</li>
       {% endfor %}
     </ul>
   </div>
