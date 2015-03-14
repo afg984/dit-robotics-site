@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('accounts.urls')),
     url(r'^nthucourses/', include('nthucourses.urls', namespace='nthucourses')),
     url(r'^dpcstatus/', include('dpcstatus.urls', namespace='dpcstatus')),
+    url(r'^projects/', include('projects.urls', namespace='projects')),
 )
 
 if settings.DEBUG:
