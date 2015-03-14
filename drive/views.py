@@ -74,7 +74,7 @@ def listing(request, pathspec):
             if isinstance(directory, DriveDirectory):
                 drive_file.parent = directory
             drive_file.save()
-            return redirect('drive')
+            return redirect('drive:index')
         else:
             if request.META.get('HTTP_DROPZONE_IDENTIFIER', None) == 'driveDropzone':
                 return HttpResponse(

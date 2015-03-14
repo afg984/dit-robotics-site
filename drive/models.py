@@ -51,7 +51,7 @@ class DriveDirectory(models.Model):
         return '/'.join(d.name for d in self.abspath) + '/'
 
     def get_absolute_url(self):
-        return reverse('drive-listing',
+        return reverse('drive:dir',
             args=[self.slashpath]
         )
 
@@ -93,7 +93,7 @@ class DriveFile(models.Model):
         return self.user == user or self.shared
 
     def get_absolute_url(self):
-        return reverse('drive-get', args=[self.pk, self.filename])
+        return reverse('drive:file', args=[self.pk, self.filename])
 
 
 class DriveRootDirectory:
@@ -120,7 +120,7 @@ class DriveRootDirectory:
         )
 
     def get_absolute_url(self):
-        return reverse('drive-listing', args=[self.user.username + '/'])
+        return reverse('drive:dir', args=[self.user.username + '/'])
 
     def is_available_to(self, user):
         return self.user == user

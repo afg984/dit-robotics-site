@@ -13,7 +13,7 @@ Dropzone.options.driveDropzone = {
   createImageThumbnails: false,
   headers: {"Dropzone-Identifier": "driveDropzone"},
   complete: function(file) {
-    $("#listingTable").load("{% url 'drive-listingtable' pathspec %}");
+    $("#listingTable").load("{% url 'drive:dirtable' pathspec %}");
   },
 }
 </script>
@@ -52,7 +52,7 @@ Dropzone.options.driveDropzone = {
   </div>
 </div>
 <div class="modal" id="modalMkdir" tabindex="-1" role="dialog" aria-labelledby="modalMkdirLabel" aria-hidden="true">
-  <form method="post" action="{% url "drive-mkdir" pathspec %}">
+  <form method="post" action="{% url "drive:mkdir" pathspec %}">
     {% csrf_token %}
     <div class="modal-dialog">
       <div class="modal-content">
