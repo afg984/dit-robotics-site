@@ -12,9 +12,11 @@
   </span>
 </h2>
 <div class="row">
+  {% if project.cover_photo %}
   <div class="col-md-7">
     <img src="{{ project.cover_photo_url }}" alt="{{ project }} cover photo" class="img-responsive">
   </div>
+  {% endif %}
   <div class="col-md-4">
     <p><span style="font-size:130%">Members:</span></p>
     <ul class="list-inline">
