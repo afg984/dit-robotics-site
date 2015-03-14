@@ -28,7 +28,7 @@ def errors_to_string(errors):
 def drive(request):
     if request.user.profile.access_level < 2:
         return render(request, 'drive/member_required.html')
-    return redirect(DriveRootDirectory(user=request.user).reverse())
+    return redirect(DriveRootDirectory(user=request.user))
 
 def locate_dpath(user, path):
     first, *path = path.strip('/').split('/')
@@ -58,7 +58,7 @@ def mkdir(request, pathspec):
             new_directory.parent = directory
         new_directory.user = directory.user
         new_directory.save()
-    return redirect(directory.reverse())
+    return redirect(directory)
 
 def listing(request, pathspec):
     context = {}
@@ -123,7 +123,7 @@ def delete(request, id):
     if drive_file.user != request.user:
         return render(request, 'drive/denied.html')
     drive_file.delete()
-    return redirect(redirect_dir.reverse())
+    return redirect(redirect_dir)
 
 @require_POST
 def rmdir(request, pk):
@@ -132,4 +132,4 @@ def rmdir(request, pk):
     if drive_directory.user != request.user:
         return render(request, 'drive/denied.html')
     drive_directory.delete()
-    return redirect(redirect_dir.reverse())
+    return redirect(redirect_dir)

@@ -43,7 +43,7 @@ class DriveDirectory(models.Model):
         return format_html(
             '<a href="{url}">{name}</a>',
             name=self.name,
-            url=self.reverse(),
+            url=self.get_absolute_url(),
         )
         return 100
 
@@ -51,7 +51,7 @@ class DriveDirectory(models.Model):
     def slashpath(self):
         return '/'.join(d.name for d in self.abspath) + '/'
 
-    def reverse(self):
+    def get_absolute_url(self):
         return reverse('drive-listing',
             args=[self.slashpath]
         )
@@ -115,11 +115,11 @@ class DriveRootDirectory:
     def as_link(self):
         return format_html(
             '<a href="{url}">{name}</a>',
-            url=self.reverse(),
+            url=self.get_absolute_url(),
             name=self.name
         )
 
-    def reverse(self):
+    def get_absolute_url(self):
         return reverse('drive-listing', args=[self.user.username + '/'])
 
     def is_available_to(self, user):
