@@ -16,10 +16,10 @@
     <p>{{ project.intro|default:"None." }}
   </div>
   <div class="col-md-4">
-    <h3>Collaborators</h3>
+    <h3>Members</h3>
     <ul class="list-inline">
-      {% for collaborator in project.collaborators.all %}
-      <li>{{ collaborator.profile.html_link }}</li>
+      {% for member in project.members.all %}
+      <li>{{ member.profile.html_link }}</li>
       {% endfor %}
     </ul>
   </div>
