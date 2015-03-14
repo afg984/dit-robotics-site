@@ -12,11 +12,11 @@
   </span>
 </h2>
 <div class="row">
-  <div class="col-md-4">
-    <p>{{ project.cover_photo }}</p>
+  <div class="col-md-7">
+    <img src="{{ project.cover_photo_url }}" alt="{{ project }} cover photo" class="img-responsive">
   </div>
   <div class="col-md-4">
-    <h3>Members</h3>
+    <p><span style="font-size:130%">Members:</span></p>
     <ul class="list-inline">
       {% for member in project.members.all %}
       <li>{{ member.profile.html_link }}</li>
