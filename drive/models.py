@@ -79,7 +79,7 @@ class DriveFile(models.Model):
     def as_link(self):
         return format_html(
             '<a href="{url}">{filename}</a>',
-            url=reverse('drive-get', args=[self.id, self.filename]),
+            url=self.get_absolute_url(),
             filename=self.filename,
         )
 
@@ -92,7 +92,8 @@ class DriveFile(models.Model):
     def is_available_to(self, user):
         return self.user == user or self.shared
 
-
+    def get_absolute_url(self):
+        return reverse('drive-get', args=[self.pk, self.filename])
 
 
 class DriveRootDirectory:
