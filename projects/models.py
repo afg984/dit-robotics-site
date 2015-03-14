@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class Project(models.Model):
@@ -12,3 +13,8 @@ class Project(models.Model):
         upload_to='projects/',
         blank=True,
     )
+
+    def get_absolute_url(self):
+        return reverse('projects:update',
+            kwargs={'pk': self.pk}
+        )

@@ -3,11 +3,5 @@
 
 {% block content %}
 <h2 class="page-header">Create Project</h2>
-<form method="post" class="form-horizontal">
-  {% csrf_token %}
-  {% bootstrap_form form layout="horizontal" %}
-  {% buttons layout="horizontal" %}
-  <input type="submit" class="btn btn-primary">
-  {% endbuttons %}
-</form>
+{% include "form.html" %}
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from projects.models import Project
 
@@ -10,8 +10,15 @@ class ProjectIndex(ListView):
     template_name = 'projects/index.html'
 
 
-class ProjectCreate(CreateView):
+class ProjectEditCommon:
     model = Project
     fields = '__all__'
     context_object_name = 'project'
+
+
+class ProjectCreate(ProjectEditCommon, CreateView):
     template_name = 'projects/edit.html'
+
+
+class ProjectUpdate(ProjectEditCommon, UpdateView):
+    template_name = 'projects/update.html'
