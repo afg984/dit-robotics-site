@@ -23,3 +23,8 @@ class Project(models.Model):
         return reverse('projects:update',
             kwargs={'pk': self.pk}
         )
+
+    def cover_photo_url(self):
+        return reverse('projects:cover-photo',
+            kwargs={'pk': self.pk}
+        )
