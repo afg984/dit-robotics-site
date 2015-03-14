@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    'bootstrap3',
     'generic',
     'drs',
     'accounts',
@@ -117,3 +118,9 @@ FILE_UPLOAD_TEMP_DIR = os.path.join(MEDIA_ROOT, 'tmp')
 
 # a tuple that lists people who get code error notifications.
 ADMINS = (('afg984', 'afg984@gmail.com'),)
+
+# bootstrap3 settings
+
+BOOTSTRAP3 = {
+    'horizontal_field_class': 'col-md-8',
+}
