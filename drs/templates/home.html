@@ -59,9 +59,11 @@ nav.navbar-inverse {
 
 <h2 id="projects" class="page-header">
   Our Projects
+  {% if user.profile.access_level > 1 %}
   <span class="pull-right">
     <a class="btn btn-default" href="{% url 'projects:create' %}">Create Project</a>
   </span>
+  {% endif %}
 </h2>
 <div class="row">
   {% for project in projects %}

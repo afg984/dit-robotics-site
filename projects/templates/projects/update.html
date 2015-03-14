@@ -6,10 +6,12 @@
 {% block content %}
 <h2 class="page-header">
   {{ project.title }}
+  {% if user.profile.access_level > 1 %}
   {% if project.outline %}<small>{{ project.outline }}</small>{% endif %}
   <span class="pull-right">
     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#projectModal">編輯</button>
   </span>
+  {% endif %}
 </h2>
 <div class="row">
   {% if project.cover_photo %}
