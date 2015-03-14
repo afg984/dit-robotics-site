@@ -1,6 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.http import Http404
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404 as go4
 
 from drive.http import AttachmentResponse
@@ -11,6 +12,12 @@ class ProjectEditCommon:
     model = Project
     fields = '__all__'
     context_object_name = 'project'
+
+    def post(self, request, *args, **kwargs):
+        if (not request.user.is_authenticated()) or request.user.profile.access_level < 2:
+            raise PermissionDenied
+        else:
+            return super().post(request, *args, **kwargs)
 
 
 class ProjectCreate(ProjectEditCommon, CreateView):
