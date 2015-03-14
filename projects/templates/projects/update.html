@@ -35,5 +35,7 @@
     {{ project.content|markdown }}
   </div>
 </div>
+{% if user.profile.access_level > 1 %}
 {% include "modal-form.html" with title="Edit Project" id="projectModal" modal_size="lg" form_file=True %}
+{% endif %}
 {% endblock %}
