@@ -7,7 +7,7 @@ from generic.models import MarkdownTextField
 
 class Project(models.Model):
     title = models.CharField('標題', max_length=48)
-    intro = models.CharField('簡介', max_length=48, blank=True)
+    outline = models.CharField('簡介', max_length=96, blank=True)
     content = MarkdownTextField('內容')
     on_homepage = models.BooleanField('在首頁顯示', default=False)
     members = models.ManyToManyField(User, verbose_name='成員')
