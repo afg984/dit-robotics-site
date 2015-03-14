@@ -1,10 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Fira+Mono);
-@import url(http://fonts.googleapis.com/css?family=Lato);
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
-body, input, select {font-family: "Lato", sans-serif;}
-h1, h2, h3, nav {font-family: "Roboto Slab", sans-serif;}
-code, pre, .monospaced {font-family: "Fira Mono", monospace;}
-
 body {padding-top: 50px; padding-bottom: 20px;}
 nav {font-size:16px; border: 0 !important;}
 .navbar-brand img {height: 25px;}
