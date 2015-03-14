@@ -1,6 +1,12 @@
 {% load static %}
 
 <header id="top-carousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#top-carousel" data-slide-to="0" class="active"></li>
+    {% for project in projects %}
+    <li data-target="#top-carousel" data-slide-to="{{ forloop.counter1 }}"></li>
+    {% endfor %}
+  </ol>
   <div class="carousel-inner" role="listbox">
     <div class="item active" style="background-image: url({% static "carousel-0.JPG" %})">
       <div class="carousel-caption">
@@ -8,12 +14,14 @@
         <p>We do, improve, and try!</p>
       </div>
     </div>
-    <div class="item" style="background-image: url('{% static "carousel-1.JPG" %}')">
+    {% for project in projects %}
+    <div class="item" style="background-image: url({{ project.cover_photo_url }})">
       <div class="carousel-caption">
-        <h3>3D Printer Project</h3>
-        <p></p>
+        <h3>{{ project.title }}</h3>
+        {% if project.intro %}<p>{{ project.intro }}</p>{% endif %}
       </div>
     </div>
+    {% endfor %}
   </div>
   <a class="left carousel-control" href="#top-carousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

@@ -14,6 +14,9 @@ class Project(models.Model):
         blank=True,
     )
 
+    def __str__(self):
+        return self.title
+
     def get_absolute_url(self):
         return reverse('projects:update',
             kwargs={'pk': self.pk}

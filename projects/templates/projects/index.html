@@ -7,9 +7,11 @@
     <a href={% url 'projects:create' %} class="btn btn-default">建立專案</a>
   </span>
 </h2>
-{% for project in projects %}
-<p>{{ project }}</p>
-{% empty %}
-<p>There are currently no projects.</p>
-{% endfor %}
+<ul>
+  {% for project in projects %}
+  <li><a href="{{ project.get_absolute_url }}">{{ project }}</a></li>
+  {% empty %}
+  <li>There are currently no projects.</li>
+  {% endfor %}
+</ul>
 {% endblock %}

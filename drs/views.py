@@ -1,7 +1,9 @@
 from django.views.generic import TemplateView, ListView
-from django.contrib.auth.models import User
+
+from projects.models import Project
+
 
 class AboutView(ListView):
     template_name = 'home.html'
-    queryset = User.objects.filter(is_superuser=True)
-    context_object_name = 'maintainers'
+    queryset = Project.objects.filter(on_homepage=True)
+    context_object_name = 'projects'
