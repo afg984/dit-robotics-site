@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponseForbidden
 from django.views.decorators.http import require_POST
 
 import itertools
 
-from drs import settings
-
+from .http import AttachmentResponse
 from .forms import UploadFileForm, MkdirForm
 from .models import DriveFile, DriveDirectory, DriveRootDirectory
 # Create your views here.
@@ -103,18 +102,11 @@ def listingtable(request, pathspec):
     context['pathspec'] = pathspec
     return render(request, 'drive/listing.html', context)
 
-
 def get(request, id, filename):
     drive_file = get_object_or_404(DriveFile, id=id, filename=filename)
     if not drive_file.is_available_to(request.user):
         return render(request, 'drive/denied.html')
-    response = HttpResponse()
-    response['Content-Disposition'] = 'attachment'
-    if settings.DEBUG:
-        response.content = drive_file.file.read()
-    else:
-        response['X-Accel-Redirect'] = drive_file.file.url
-    return response
+    return AttachmentResponse(file=drive_file.file)
 
 @require_POST
 def delete(request, id):
