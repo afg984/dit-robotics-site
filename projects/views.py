@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404 as go4
@@ -26,6 +26,18 @@ class ProjectCreate(ProjectEditCommon, CreateView):
 
 class ProjectUpdate(ProjectEditCommon, UpdateView):
     template_name = 'projects/update.html'
+
+
+class ProjectDelete(DeleteView):
+    model = Project
+    context_object_name = 'project'
+    template_name = 'projects/delete.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if (not request.user.is_authenticated()) or request.user.profile.access_level < 3:
+            raise PermissionDenied
+        else:
+            return super().dispatch(request, *args, **kwargs)
 
 
 def cover_photo(request, pk):
