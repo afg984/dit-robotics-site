@@ -9,19 +9,13 @@ class ProjectForm(forms.ModelForm):
         fields = (
             'title',
             'outline',
-            'members',
+            'participants',
             'content',
             'cover_photo',
         )
-        widgets = {
-            'members': forms.CheckboxSelectMultiple(),
-        }
 
 
 class OperatorProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-        widgets = {
-            'members': forms.CheckboxSelectMultiple(),
-        }

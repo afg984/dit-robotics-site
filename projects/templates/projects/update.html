@@ -21,10 +21,10 @@
   </div>
   {% endif %}
   <div class="col-md-4">
-    <p><span style="font-size:130%">Members:</span></p>
+    <p><span style="font-size:130%">Participants:</span></p>
     <ul class="list-inline">
-      {% for member in project.members.all %}
-      <li>{{ member.profile.html_link }}</li>
+      {% for participant in project.participants.all %}
+      <li>{{ participant.profile.html_link }}</li>
       {% empty %}
       <li>None.</li>
       {% endfor %}

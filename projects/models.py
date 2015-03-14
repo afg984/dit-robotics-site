@@ -8,8 +8,8 @@ from generic.models import MarkdownTextField
 class Project(models.Model):
     title = models.CharField('標題', max_length=48)
     outline = models.CharField('簡介', max_length=96, blank=True)
-    members = models.ManyToManyField(User,
-        verbose_name='成員', blank=True
+    participants = models.ManyToManyField(User,
+        verbose_name='參與者', blank=True
     )
     content = MarkdownTextField('內容')
     cover_photo = models.ImageField('封面照片',
