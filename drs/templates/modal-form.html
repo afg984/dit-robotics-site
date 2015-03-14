@@ -1,7 +1,7 @@
 {% load bootstrap3 %}
 <div class="modal" id="{{ id_suffix }}{{ id|default:"DEFECT_MODAL_ID_UNSET" }}">
   <div class="modal-dialog{% if modal_size %} modal-{{ modal_size }}{% endif %}">
-    <form action="{{ formaction|default:"." }}" method="{{ formmethod|default:"post" }}">
+    <form action="{{ formaction|default:"." }}" method="{{ formmethod|default:"post" }}"{% if form_file %} enctype="multipart/form-data"{% endif %}>
       {% csrf_token %}
       <div class="modal-content">
         <div class="modal-header">  
