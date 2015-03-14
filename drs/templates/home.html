@@ -27,6 +27,26 @@ nav.navbar-inverse {
   background-color: transparent;
   color: white;
 }
+
+.project-block > a > div {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ccc;
+  background-size: cover;
+  background-position: center;
+  height: 140px;
+  width: 140px;
+}
+
+.project-block > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-block > h2,
+.project-block > p {
+  text-align: center;
+}
 {% endblock %}
 
 {% block title %}DIT Robotics{% endblock %}
@@ -36,6 +56,29 @@ nav.navbar-inverse {
 <p>DIT Robotics 成立於 2013 年 11 月，為清大第一個自造者 (maker) 共同創作空間，是由喜愛機器人、想鑽研技術的年輕人組成。</p>
 <p>DIT = Do, Improve, Try，我們將秉持動手實作、不斷改進、勇於嘗試的精神迎接挑戰，以期最終能以機器人改變世界。</p>
 <p><a target="_blank" href="https://www.facebook.com/DIT.robotics">Facebook Fan Page</a></p>
+
+<h2 id="projects" class="page-header">
+  Our Projects
+  <span class="pull-right">
+    <a class="btn btn-default" href="{% url 'projects:create' %}">Create Project</a>
+  </span>
+</h2>
+<div class="row">
+  {% for project in projects %}
+  <div class="project-block col-md-4">
+    {% if project.cover_photo %}
+    <div class="image-block">
+      <a href="{{ project.get_absolute_url }}"><img class="img-thumbnail" src="{{ project.cover_photo_url }}"></img></a>
+    </div>
+    {% endif %}
+    <h2>{{ project.title }}</h2>
+    {% if project.outline %}<p>{{ project.outline }}</p>{% endif %}
+    {% if not project.cover_photo %}
+    <p><a href="{{ project.get_absolute_url }}" class="btn btn-default">Learn more...</a></p>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
 
 {% block before %}
