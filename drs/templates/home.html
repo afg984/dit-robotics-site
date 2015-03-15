@@ -71,7 +71,7 @@ nav.navbar-inverse {
     {% if project.cover_photo %}<div class="img-circle" style="background-image: url({{ project.cover_photo_url }})"></div>{% endif %}
     <h2>{{ project.title }}</h2>
     {% if project.outline %}<p>{{ project.outline }}</p>{% endif %}
-    <p><a href="{{ project.get_absolute_url }}" class="btn btn-default">Learn more...</a></p>
+    <p><a href="{{ project.get_absolute_url }}" class="btn btn-default">Learn more &raquo;</a></p>
   </div>
   {% endfor %}
 </div>
