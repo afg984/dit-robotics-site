@@ -121,12 +121,12 @@ loadjson: load json course data from path
         self.delete_all(Course)
         bulk_targets = list()
         time_targets = list()
-        for course in self.progress_iter(
-            self.jsondata['courses'].values(),
+        for no, course in self.progress_iter(
+            self.jsondata['courses'].items(),
             'Loading courses...'
         ):
             courow = Course(
-                number=course['no'],
+                number=no,
                 capabilities=course['capabilities'],
                 credit=course['credit'],
                 size_limit=course.get('size', None),
@@ -142,9 +142,9 @@ loadjson: load json course data from path
                 has_prerequisite=course['has_prerequisite'],
             )
             bulk_targets.append(courow)
-            time_targets.append((course['no'], [
-                Time.objects.get(value=time) for time in course['time']
-            ]))
+            time_targets.append((no,
+                [Time.objects.get(value=time) for time in course['time']]
+            ))
         self.stdout.write('Writing courses...')
         Course.objects.bulk_create(bulk_targets)
         for number, time in self.progress_iter(

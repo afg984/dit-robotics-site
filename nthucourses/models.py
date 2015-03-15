@@ -37,7 +37,7 @@ class Time(models.Model):
 class Course(models.Model):
     pdf_dir = 'static/syllabus-pdf/'
     time = models.ManyToManyField(Time)
-    number = models.CharField(max_length=20, db_index=True)
+    number = models.CharField(max_length=20, db_index=True, unique=True)
     capabilities = models.TextField()
     credit = models.PositiveSmallIntegerField()
     size_limit = models.PositiveSmallIntegerField(null=True)
