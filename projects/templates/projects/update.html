@@ -7,7 +7,6 @@
 <h2 class="page-header">
   {{ project.title }}
   {% if user.profile.access_level > 1 %}
-  {% if project.outline %}<small>{{ project.outline }}</small>{% endif %}
   <span class="pull-right">
     {% if request.user.profile.access_level >= 3 %}<a href="{% url "projects:delete" pk=project.pk %}" class="btn btn-default">Delete</a>{% endif %}
     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#projectModal">Edit</button>
@@ -20,8 +19,13 @@
     <img src="{{ project.cover_photo_url }}" alt="{{ project }} cover photo" class="img-responsive">
   </div>
   {% endif %}
-  <div class="col-md-4">
-    <p><span style="font-size:130%">Participants:</span></p>
+  {% if project.outline %}
+  <div class="col-md-5">
+    <p style="font-size:130%;">{{ project.outline }}</p>
+  </div>
+  {% endif %}
+  <div class="col-md-5">
+    <p>Participants:</p>
     <ul class="list-inline">
       {% for participant in project.participants.all %}
       <li>{{ participant.profile.html_link }}</li>
