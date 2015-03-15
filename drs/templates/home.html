@@ -28,7 +28,7 @@ nav.navbar-inverse {
   color: white;
 }
 
-.image-block > a > div {
+.project-block > .img-circle {
   margin-left: auto;
   margin-right: auto;
   background-color: #ccc;
@@ -68,16 +68,10 @@ nav.navbar-inverse {
 <div class="row">
   {% for project in projects %}
   <div class="project-block col-md-4">
-    {% if project.cover_photo %}
-    <div class="image-block">
-      <a href="{{ project.get_absolute_url }}"><div class="img-circle" style="background-image: url({{ project.cover_photo_url }})"></div></a>
-    </div>
-    {% endif %}
+    {% if project.cover_photo %}<div class="img-circle" style="background-image: url({{ project.cover_photo_url }})"></div>{% endif %}
     <h2>{{ project.title }}</h2>
     {% if project.outline %}<p>{{ project.outline }}</p>{% endif %}
-    {% if not project.cover_photo %}
     <p><a href="{{ project.get_absolute_url }}" class="btn btn-default">Learn more...</a></p>
-    {% endif %}
   </div>
   {% endfor %}
 </div>
