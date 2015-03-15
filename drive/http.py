@@ -10,4 +10,4 @@ class AttachmentResponse(HttpResponse):
         if settings.DEBUG:
             self.content = file.file.read()
         else:
-            response['X-Accel-Redirect'] = file.url
+            self['X-Accel-Redirect'] = file.url
