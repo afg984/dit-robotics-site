@@ -14,7 +14,10 @@ class ProjectEditCommon:
     context_object_name = 'project'
 
     def get_form_class(self):
-        if self.request.user.profile.access_level >= 3:
+        if (
+            self.request.user.is_authenticated()
+            and self.request.user.profile.access_level >= 3
+        ):
             return OperatorProjectForm
         else:
             return ProjectForm
