@@ -8,6 +8,7 @@ python >= 3.4
 uwsgi
 uwsgi-plugin-python
 nginx
+postgresql
 ```
 
 ###Repository Setup
