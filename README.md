@@ -4,11 +4,10 @@ This is just a note for reinstallation
 
 ###Packages Required
 ```
-python-django
+python >= 3.4
 uwsgi
 uwsgi-plugin-python
 nginx
-python-beautifulsoup4
 ```
 
 ###Repository Setup
