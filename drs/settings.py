@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'generic',
     'drs',
+    'common',
     'accounts',
     'drive',
     'message_board',
