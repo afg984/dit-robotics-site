@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import tempfile
 
-from fabric.api import run, cd, local, env
+from fabric.api import run, cd, local, env, sudo
 from fabric.contrib.console import confirm
 from fabric.colors import red
 from fabric.network import needs_host
@@ -39,16 +39,16 @@ def syncdb(not_confirmed=True):
         _confirm('your local database')
     with cd('~/drs/'):
         jsons = run(
-            'python3 manage.py dumpdata',
+            'venv/bin/python3 manage.py dumpdata',
             stdout=CounterNullIO('\rdumping data...(%d Bytes)')
         )
     print()
     with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as file:
         file.write(jsons)
         jsontmppath = file.name
-    local('python3 manage.py flush --noinput')
+    local('venv/bin/python3 manage.py flush --noinput')
     local("psql --dbname=drs --command='TRUNCATE django_content_type CASCADE'")
-    local('python3 manage.py loaddata %s' % jsontmppath)
+    local('venv/bin/python3 manage.py loaddata %s' % jsontmppath)
     os.unlink(jsontmppath)
 
 
@@ -66,3 +66,12 @@ def syncall():
     _confirm('your local database and media directory')
     syncdb(not_confirmed=False)
     syncmedia(not_confirmed=False)
+
+
+def deploy():
+    with cd('~/drs/'):
+        run('git pull origin master')
+        run('venv/bin/pip install -r requirements.txt --upgrade')
+        run('venv/bin/python manage.py makemigrations --noinput')
+        run('venv/bin/python manage.py migrate --noinput')
+    sudo('systemctl restart emperor.uwsgi')
