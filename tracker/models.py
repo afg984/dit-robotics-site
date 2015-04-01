@@ -6,6 +6,9 @@ class Workgroup(models.Model):
     name = models.CharField(max_length=128)
     members = models.ManyToManyField(User, through='Membership')
 
+    def __str__(self):
+        return self.name
+
 
 class Membership(models.Model):
     user = models.ForeignKey(User)
