@@ -12,6 +12,13 @@ def get_store_path(instance, filename):
     return os.path.join('drive', instance.user.username, filename)
 
 
+def get_directory(user, pk):
+    if user.is_authenticated() and pk is None:
+        return DriveRootDirectory(user=user)
+    else:
+        return DriveDirectory(pk=pk)
+
+
 class DriveDirectory(models.Model):
     parent = models.ForeignKey(
         'self',
