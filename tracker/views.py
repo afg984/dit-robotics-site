@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views.generic.list import ListView
 
-# Create your views here.
+from tracker.models import Workgroup
+
+
+class TrackerIndex(ListView):
+    model = Workgroup
+    template_name = 'tracker/index.html'
+    context_object_name = 'workgroups'
