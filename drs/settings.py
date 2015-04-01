@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'nthucourses',
     'dpcstatus',
     'projects',
+    'tracker',
 )
 
 MIDDLEWARE_CLASSES = (
