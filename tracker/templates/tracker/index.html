@@ -12,7 +12,7 @@
         <a class="btn btn-default" href="{% url 'tracker:create_workgroup' %}">Create</a></span>
     </h3>
     {% for workgroup in workgroups %}
-    <p>{{ workgroup }}</p>
+    <p><a href="{{ workgroup.get_absolute_url }}">{{ workgroup }}</a></p>
     {% empty %}
     <p>You don't belong to any workgroups</p>
     {% endfor %}
