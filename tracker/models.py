@@ -27,3 +27,6 @@ class Task(models.Model):
     started = models.DateField('開始日期', null=True)
     ended = models.DateField('結束日期', null=True)
     due = models.DateField('截止日期', null=True)
+
+    def __str__(self):
+        return self.name
