@@ -22,7 +22,8 @@ class Membership(models.Model):
 
 class Task(models.Model):
     name = models.CharField('名稱', max_length=128)
-    created = models.DateTimeField('建立於', auto_now_add=True)
-    started = models.DateTimeField('開始於', null=True)
-    ended = models.DateTimeField('結束於', null=True)
-    due = models.DateTimeField('截止於', null=True)
+    workgroup = models.ForeignKey(Workgroup)
+    created = models.DateTimeField('建立時間', auto_now_add=True)
+    started = models.DateField('開始日期', null=True)
+    ended = models.DateField('結束日期', null=True)
+    due = models.DateField('截止日期', null=True)
