@@ -18,6 +18,12 @@ class SuperuserRequiredMixin(LoginRequiredMixin):
 
 
 class PermissionRequiredMixin(LoginRequiredMixin):
+    '''
+    Mixin for testing permissions.
+
+    should either define permission_required or
+    test_permission(request, *args, **kwargs) to test permission
+    '''
     def dispatch(self, request, *args, **kwargs):
         if self.test_permission(self, request, *args, **kwargs):
             return super().dispatch(request, *args, **kwargs)
