@@ -21,6 +21,11 @@
 </div>
 <h2 class="page-header">{{ course.title_zh }}<small> {{ course.title_en }}</small></h2>
   <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-warning">
+        NTHU Courses 已經搬家到<a target="_blank" href="http://nthucourses.herokuapp.com">這裡</a>囉，本站之課程資訊將不繼續更新。
+      </div>
+    </div>
     <div class="col-md-4">
       <p>{{ course.number }}<p>
       <p>{{ course.instructor }} - {{ course.time_string|default:"未列時間" }} @ {{ course.room|default:"未列地點" }}<p>
