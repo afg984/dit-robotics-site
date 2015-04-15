@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    'social.apps.django_app.default',
     'bootstrap3',
     'generic',
     'drs',
@@ -66,7 +67,11 @@ MIDDLEWARE_CLASSES = (
 
 # allow templates to access the request object
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
-TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
+)
 
 ROOT_URLCONF = 'drs.urls'
 
@@ -125,3 +130,14 @@ ADMINS = (('afg984', 'afg984@gmail.com'),)
 BOOTSTRAP3 = {
     'horizontal_field_class': 'col-md-8',
 }
+
+# Social Auth
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1557775327816367'
+from drs.secret_settings import SOCIAL_AUTH_FACEBOOK_SECRET
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+)
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']

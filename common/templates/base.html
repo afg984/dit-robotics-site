@@ -31,7 +31,7 @@
         <li><a href="{% url 'logout' %}?next={{ request.path|iriencode }}">登出</a></li>
         {% else %}
         {% navlir 'registration' display='註冊' %}
-        <li{% caiv 'login' %}><a href="{% url 'login' %}?next={{ request.path|iriencode }}">登入</a></li>
+        {% navlir 'social:begin' backend='facebook' display='登入' %}
         {% endif %}
       </ul>
     </div>
