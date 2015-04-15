@@ -1,11 +1,6 @@
-{% extends "base.html" %}
+{% extends "printer_schedule/base.html" %}
 
-{% block mtitle %}Printer Schedule{% endblock %}
-
-{% block content %}
-<h2 class="page-header">
-  Printer Schedule - {% block schedule_type %}Pending{% endblock %}
-</h2>
+{% block pagecontent %}
 <table class="table">
   <thead>
     <tr>
@@ -13,8 +8,8 @@
       <th>急件</th>
       <th>gcode</th>
       <th>預計列印時間</th>
-      <th>上傳者</th>
-      <th>開始者</th>
+      <th>登錄者</th>
+      <th>啟動者</th>
       <th>開始時間</th>
     </tr>
   </thead>
