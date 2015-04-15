@@ -37,9 +37,6 @@ class Profile(models.Model):
     LEVEL_CSS = ('muted', 'normal', 'success', 'warning', 'danger')
     TOKEN_LENGTH = 64
     user = models.OneToOneField(User, primary_key=True)
-    email_verified = models.BooleanField(default=False)
-    email_token = models.CharField(max_length=TOKEN_LENGTH, default="")
-    email_token_expire = models.DateTimeField(null=True)
     objects = ProfileManager()
 
     @property
@@ -52,13 +49,10 @@ class Profile(models.Model):
             return 4
         elif self.user.is_staff:
             return 3
-        elif self.email_verified:
-            if self.is_member:
-                return 2
-            else:
-                return 1
+        elif self.is_member:
+            return 2
         else:
-            return 0
+            return 1
 
     @property
     def level_name(self):
@@ -75,37 +69,6 @@ class Profile(models.Model):
             href=self.get_absolute_url(),
             username = self.user.get_username(),
         )
-
-    def set_email(self, email):
-        self.user.email = email
-        self.email_verified = False
-        self.user.save()
-        self.save()
-
-    def set_email_verified(self):
-        self.email_verified = True
-        self.email_token = ''
-        self.email_token_expire = None
-        self.save()
-
-    def get_email_token(self):
-        if not self.email_token_alive:
-            token = gen_token(self.TOKEN_LENGTH)
-            if not Profile.objects.filter(email_token=token).exists():
-                token = gen_token(self.TOKEN_LENGTH)
-            self.email_token = token
-            self.save()
-        return self.email_token
-
-    @property
-    def email_token_alive(self):
-        if self.email_token_expire is None:
-            return False
-        return len(self.email_token) == self.TOKEN_LENGTH and self.email_token_expire > timezone.now()
-
-    def refresh_email_token(self, delay=timezone.timedelta(minutes=30)):
-        self.email_token_expire = timezone.now() + delay
-        self.save()
 
     def get_absolute_url(self):
         return reverse('profile', args=[self.user.username])
