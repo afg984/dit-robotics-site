@@ -9,11 +9,12 @@
     <th>使用者名稱</th>
     <td>{{ profileuser.username }}</td>
   {% if isself or perms.accounts.view_email %}
-  <tr>{% with ev=profileuser.profile.email_verified %}
-    <th>Email{% if not ev %}<small class="text-muted"> (not verified)</small>{% endif %}</th>
-    <td{% if not ev %} class="text-muted"{% endif %}>{{ profileuser.email|default:"[NOT SET]" }}{% if not ev and isself %} <form method="post" class="inline" action="{% url 'get_email_token' %}">{% csrf_token %%}<small><input type="submit" class="btn-link nodec" value="VERIFY"></small></form>{% endif %}</td>{% endwith %}
-  </tr>{% endif %}
   <tr>
+    <th>Email</th>
+    <td>{{ profileuser.email|default:"[NOT SET]" }}</td>
+  </tr>
+  <tr>
+  {% endif %}
     <th>Group</th>
     <td class="text-{{ profileuser.profile.level_css }}">{{ profileuser.profile.level_name }}</td>
   </tr>
