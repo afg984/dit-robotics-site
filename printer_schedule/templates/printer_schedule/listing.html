@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block mtitle %}Printer Schedule{% endblock %}
+
+{% block content %}
+<h2 class="page-header">
+  Printer Schedule - {% block schedule_type %}Pending{% endblock %}
+</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>急件</th>
+      <th>gcode</th>
+      <th>預計列印時間</th>
+      <th>上傳者</th>
+      <th>開始者</th>
+      <th>開始時間</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for schedule in schedule_list %}
+    <tr>
+      <td>{{ schedule.purpose }}</td>
+      <td>{{ schedule.important }}</td>
+      <td>{{ schedule.gcode_file }}</td>
+      <td>{{ schedule.est_duration }}</td>
+      <td>{{ schedule.submitter }}</td>
+      <td>{{ schedule.time_started }}</td>
+      <td>{{ schedule.time_ended }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td>沒有排程中的工作</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
