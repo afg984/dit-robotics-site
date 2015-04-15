@@ -51,7 +51,7 @@ def registration_view(request):
 
 @login_required
 def profile_redirect(request):
-    return redirect(request.user.profile)
+    return redirect(Profile.objects.get_or_create(user=request.user)[0])
 
 def profile(request, username):
     context = {}
