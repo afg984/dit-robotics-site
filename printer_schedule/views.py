@@ -11,19 +11,19 @@ from drive.http import AttachmentResponse
 from printer_schedule.models import PrinterSchedule
 
 
-class ScheduleIndex(ListView):
+class ScheduleIndex(LoginRequiredMixin, ListView):
     template_name = 'printer_schedule/listing.html'
     queryset = PrinterSchedule.objects.filter(time_ended__isnull=True)
     context_object_name = 'schedule_list'
 
 
-class ScheduleArchive(ListView):
+class ScheduleArchive(LoginRequiredMixin, ListView):
     template_name = 'printer_schedule/archive.html'
     queryset = PrinterSchedule.objects.filter(time_ended__isnull=False)
     context_object_name = 'schedule_list'
 
 
-class ScheduleCreate(CreateView):
+class ScheduleCreate(LoginRequiredMixin, CreateView):
     template_name = 'printer_schedule/create.html'
     model = PrinterSchedule
     fields = ('purpose', 'important', 'gcode_file', 'est_duration')
@@ -35,7 +35,7 @@ class ScheduleCreate(CreateView):
         return redirect('printer_schedule:index')
 
 
-class ScheduleStart(UpdateView):
+class ScheduleStart(LoginRequiredMixin, UpdateView):
     model = PrinterSchedule
     fields = ()
 
@@ -47,7 +47,7 @@ class ScheduleStart(UpdateView):
         return redirect('printer_schedule:index')
 
 
-class ScheduleEnd(UpdateView):
+class ScheduleEnd(LoginRequiredMixin, UpdateView):
     model = PrinterSchedule
     fields = ()
 
@@ -59,7 +59,7 @@ class ScheduleEnd(UpdateView):
         return redirect('printer_schedule:index')
 
 
-class ScheduleEdit(UpdateView):
+class ScheduleEdit(LoginRequiredMixin, UpdateView):
     model = PrinterSchedule
     fields = ('gcode_file', 'est_duration')
     template_name = 'printer_schedule/edit.html'
