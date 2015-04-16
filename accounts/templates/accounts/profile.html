@@ -13,8 +13,8 @@
     <th>Email</th>
     <td>{{ profileuser.email|default:"[NOT SET]" }}</td>
   </tr>
-  <tr>
   {% endif %}
+  <tr>
     <th>Group</th>
     <td class="text-{{ profileuser.profile.level_css }}">{{ profileuser.profile.level_name }}</td>
   </tr>
