@@ -20,7 +20,13 @@
     <tr>
       <td>{{ schedule.purpose }}</td>
       <td>{{ schedule.important }}</td>
-      <td>{{ schedule.gcode_file }}</td>
+      <td>
+        {% if schedule.gcode_file %}
+        <a href="{% url 'printer_schedule:gcode-file' pk=schedule.pk fn=schedule.gcode_file.name %}">
+          {{ schedule.gcode_file }}
+        </a>
+        {% endif %}
+      </td>
       <td>{{ schedule.est_duration }}</td>
       <td>{{ schedule.time_created }}</td>
       <td>{{ schedule.time_started }}</td>
@@ -28,6 +34,9 @@
       <td>{{ schedule.started_by }}</td>
       <td>
         {% if not schedule.time_started %}
+        {% if user == schedule.submitter %}
+        <a class="btn btn-info" href="{% url 'printer_schedule:edit' pk=schedule.pk %}">編輯</a>
+        {% endif %}
         <form method="POST" action="{% url 'printer_schedule:start' pk=schedule.pk %}">
           {% csrf_token %}
           <button class="btn btn-primary" type="submit">開始</button>
