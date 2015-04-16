@@ -8,9 +8,11 @@
       <th>急件</th>
       <th>gcode</th>
       <th>預計列印時間</th>
+      <th>登錄時間</th>
+      <th>開始時間</th>
       <th>登錄者</th>
       <th>啟動者</th>
-      <th>開始時間</th>
+      <th>動作</th>
     </tr>
   </thead>
   <tbody>
@@ -20,9 +22,23 @@
       <td>{{ schedule.important }}</td>
       <td>{{ schedule.gcode_file }}</td>
       <td>{{ schedule.est_duration }}</td>
-      <td>{{ schedule.submitter }}</td>
+      <td>{{ schedule.time_created }}</td>
       <td>{{ schedule.time_started }}</td>
-      <td>{{ schedule.time_ended }}</td>
+      <td>{{ schedule.submitter }}</td>
+      <td>{{ schedule.started_by }}</td>
+      <td>
+        {% if not schedule.time_started %}
+        <form method="POST" action="{% url 'printer_schedule:start' pk=schedule.pk %}">
+          {% csrf_token %}
+          <button class="btn btn-primary" type="submit">開始</button>
+        </form>
+        {% else %}
+        <form method="POST" action="{% url 'printer_schedule:end' pk=schedule.pk %}">
+          {% csrf_token %}
+          <button class="btn btn-warning" type="submit">結束</button>
+        </form>
+        {% endif %}
+      </td>
     </tr>
     {% empty %}
     <tr>

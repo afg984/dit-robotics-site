@@ -7,7 +7,7 @@ class PrinterSchedule(models.Model):
     time_started = models.DateTimeField(null=True)
     time_ended = models.DateTimeField(null=True)
     time_created = models.DateTimeField(auto_now_add=True)
-    gcode_file = models.FileField('.gcode 檔案', blank=True)
+    gcode_file = models.FileField('.gcode 檔案', upload_to='gcode', blank=True)
     done = models.BooleanField(default=False)
     submitter = models.ForeignKey(
         User,

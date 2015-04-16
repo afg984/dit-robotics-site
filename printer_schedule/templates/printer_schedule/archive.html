@@ -1,0 +1,36 @@
+{% extends "printer_schedule/base.html" %}
+
+{% block pagecontent %}
+<table class="table">
+  <thead>
+    <th>名稱</th>
+    <th>急件</th>
+    <th>gcode</th>
+    <th>開始時間</th>
+    <th>結束時間</th>
+    <th>登錄者</th>
+    <th>啟動者</th>
+    <th>結束者</th>
+  </thead>
+  <tbody>
+    {% for schedule in schedule_list %}
+    <tr>
+      <td>{{ schedule.purpose }}</td>
+      <td>{{ schedule.important }}</td>
+      <td>{{ schedule.gcode_file }}</td>
+      <td>{{ schedule.time_started }}</td>
+      <td>{{ schedule.time_ended }}</td>
+      <td>{{ schedule.submitter }}</td>
+      <td>{{ schedule.started_by }}</td>
+      <td>{{ schedule.ended_by }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="8">
+        沒有已經完成的工作。
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
