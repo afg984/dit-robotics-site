@@ -1,11 +1,11 @@
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
 
 class LoginRequiredMixin:
-    @classmethod
-    def as_view(cls, **initkwargs):
-        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
-        return login_required(view)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return super().dispatch(request, *args, **kwargs)
+        return redirect('social:begin', backend='facebook')
 
 
 class SuperuserRequiredMixin(LoginRequiredMixin):
