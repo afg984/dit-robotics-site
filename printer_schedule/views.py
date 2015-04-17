@@ -61,7 +61,7 @@ class ScheduleEnd(LoginRequiredMixin, UpdateView):
 
 class ScheduleEdit(LoginRequiredMixin, UpdateView):
     model = PrinterSchedule
-    fields = ('gcode_file', 'est_duration')
+    fields = ('purpose', 'important', 'gcode_file', 'est_duration')
     template_name = 'printer_schedule/edit.html'
     success_url = reverse_lazy('printer_schedule:index')
 
