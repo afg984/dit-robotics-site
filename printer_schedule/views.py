@@ -70,8 +70,5 @@ class ScheduleGCodeFile(LoginRequiredMixin, DetailView):
     model = PrinterSchedule
 
     def get(self, request, pk, fn=None):
-        if request.user.profile.access_level > 1:
-            schedule = get_object_or_404(self.model, pk=pk)
-            return AttachmentResponse(file=schedule.gcode_file)
-        else:
-            raise PermissionDenied
+        schedule = get_object_or_404(self.model, pk=pk)
+        return AttachmentResponse(file=schedule.gcode_file)
