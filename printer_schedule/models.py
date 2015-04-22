@@ -1,5 +1,9 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.html import format_html
+from django.core.urlresolvers import reverse
 
 
 class PrinterSchedule(models.Model):
@@ -25,3 +29,19 @@ class PrinterSchedule(models.Model):
 
     class Meta:
         ordering = ('time_created',)
+
+    def gcode_link(self):
+        if not self.gcode_file:
+            return ''
+        gcode_filename = os.path.basename(self.gcode_file.name)
+        return format_html(
+            '<a href="{url}">{name}</a>',
+            url=reverse(
+                'printer_schedule:gcode_file',
+                kwargs={
+                    'pk': self.pk,
+                    'fn': gcode_filename,
+                }
+            ),
+            name=gcode_filename
+        )

@@ -1,5 +1,11 @@
 {% extends "printer_schedule/base.html" %}
 
+{% block style %}
+td > form {
+  display: inline-block;
+}
+{% endblock %}
+
 {% block pagecontent %}
 <table class="table">
   <thead>
@@ -20,13 +26,7 @@
     <tr>
       <td>{{ schedule.purpose }}</td>
       <td>{{ schedule.important }}</td>
-      <td>
-        {% if schedule.gcode_file %}
-        <a href="{% url 'printer_schedule:gcode-file' pk=schedule.pk fn=schedule.gcode_file.name %}">
-          {{ schedule.gcode_file }}
-        </a>
-        {% endif %}
-      </td>
+      <td>{{ schedule.gcode_link }}</td>
       <td>{{ schedule.est_duration }}</td>
       <td>{{ schedule.time_created }}</td>
       <td>{{ schedule.time_started }}</td>
