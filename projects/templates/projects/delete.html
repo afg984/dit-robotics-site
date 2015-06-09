@@ -6,6 +6,7 @@
 {% block content %}
 <h2 class="page-header">Confirm Deletion</h2>
 <form method="post">
+  {% csrf_token %}
   <p>Are you sure you want to delete <code>{{ project }}</code>?</p>
   {% buttons %}
   <input type="submit" class="btn btn-danger" value="Yes">
