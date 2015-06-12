@@ -41,6 +41,7 @@ class ProjectDelete(DeleteView):
     model = Project
     context_object_name = 'project'
     template_name = 'projects/delete.html'
+    success_url = '/'
 
     def dispatch(self, request, *args, **kwargs):
         if (not request.user.is_authenticated()) or request.user.profile.access_level < 3:
