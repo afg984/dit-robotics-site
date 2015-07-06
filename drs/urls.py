@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from . import settings
 from . import views
+from common.views import ContestView
 
 urlpatterns = patterns('',
     url(r'^$', views.AboutView.as_view(), name='home'),
@@ -16,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^dpcstatus/', include('dpcstatus.urls', namespace='dpcstatus')),
     url(r'^projects/', include('projects.urls', namespace='projects')),
     url(r'^printer_schedule/', include('printer_schedule.urls', namespace='printer_schedule')),
+    url(r'^contest/$', ContestView.as_view(), name='contest'),
     url('', include('social.apps.django_app.urls', namespace='social')),
 )
 
