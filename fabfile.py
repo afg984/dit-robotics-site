@@ -11,7 +11,7 @@ from fabric.utils import abort
 
 
 jsontmppath = '/tmp/drs-dumped.json'
-remote_media = '/home/afg/drs/media/drive/'
+remote_media = '/home/dit/drs/media/drive/'
 
 
 class CounterNullIO(object):
