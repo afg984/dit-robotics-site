@@ -15,11 +15,6 @@ postgresql
 
 The user "http" must have access to the project directory.
 
-This is currently achieved by adding "http" to "afg" group.
-```
-cd
-git clone git@github.com:afg984/dit-robotics-site.git drs
-```
 
 ###Drive Setup
 ```
@@ -31,7 +26,7 @@ chmod 775 media
 ```
 sudo systemctl enable emperor.uwsgi
 sudo mkdir /etc/uwsgi/vassals
-sudo ln -s /home/afg/drs/drs_uwsgi.ini /etc/uwsgi/vassals/
+sudo ln -s /home/dit/drs/drs_uwsgi.ini /etc/uwsgi/vassals/
 ```
 
 ###Nginx Setup
@@ -44,5 +39,5 @@ remove "location /" block
 ```
 sudo systemctl enable nginx
 sudo mkdir /etc/nginx/sites-enabled
-sudo ln -s /home/afg/drs/drs_nginx.conf /etc/nginx/sites-enabled/
+sudo ln -s /home/dit/drs/drs_nginx.conf /etc/nginx/sites-enabled/
 ```
